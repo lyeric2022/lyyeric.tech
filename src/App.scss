@@ -85,6 +85,20 @@
         max-width: 100%;
         height: auto;
         border-radius: 8px;
+        border-style: solid;
+        border-color: #bababa;
+
+        cursor: pointer;
+        transition: border-color 0.25s;
+
+        &:hover {
+          border-color: #646cff;
+        }
+      
+        &:focus,
+        &:focus-visible {
+          outline: 4px auto -webkit-focus-ring-color;
+        }
       }
 
       h3 {
@@ -96,7 +110,7 @@
       p {
         margin-top: 10px;
         letter-spacing: 0.5px;
-        text-align: left;
+        text-align: center;
       }
     }
   }
