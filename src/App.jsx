@@ -60,9 +60,9 @@ function App() {
             <img src={symbolicRegressorImage} alt="Project 3" className="project-image" />
             <h3>Symbolic Regressor for Pringles</h3>
             <p>
-              During my ASSURE-US research program, I explored genetic programming and developed a usable fitness model for Symbolic Regressor.
-              Given 50 data points that maps a hyperbolic paraboloid, the model was able to reveal the formula of such shape.
-              BTS, the Symbolic Regressor is utilizing selections, crossovers, and mutations, to derive the fittest genetic programs, over multiple generations.
+              During my ASSURE-US research program, I worked genetic programming and developed a usable generator model within symbolic regression.
+              Given only 50 data points representing a hyperbolic paraboloid, the model can successfully reveal many shapes' mathematical formulas.
+              Behind the scenes, the symbolic regressor uses natural selections, crossovers, and mutations, to derive the fittest genetic programs across multiple generations.
             </p>
           </div>
           <div className="card project-card">
@@ -71,11 +71,11 @@ function App() {
             </a>
             <h3>Payday Purgatory</h3>
             <p>
+              Players are authenticated through Firebase authenticator, and data is stored/modified on Firebase's database.
               Each round, players contribute a portion of their total bank balance.
               The player with the lowest contributions that round, loses a heart.
               If all hearts are depleted, the player is eliminated.
               The objective is be the last contributor standing.
-              Players are authenticated through Firebase authenticator, and data is stored/modified on Firebase's database.
             </p>
           </div>
           <div className="card project-card">
