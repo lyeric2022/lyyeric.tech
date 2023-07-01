@@ -1,10 +1,12 @@
 import React from 'react';
 import './App.scss';
 
-import hoaVietMarketImage from "./assets/hoa_viet_market.png"
 import symbolicRegressorImage from "./assets/symbolic_regressor.png";
 import paydayPurgatoryImage from "./assets/payday_purgatory.png";
 import projectilePoopersImage from "./assets/projectile_poopers.png";
+import anhChiEmVinesImage from "./assets/vsa-ace.png"
+import hoaVietMarketImage from "./assets/hoa_viet_market.png"
+import bolbsEvolutionImage from "./assets/bolbs-evolutionary-simulator.png"
 import pongFromP5Image from "./assets/p5_pong.png"
 import ameliorationGameImage from "./assets/amelioration.png"
 
@@ -99,6 +101,18 @@ function App() {
             </p>
           </div>
           <div className="card project-card">
+            <a href="https://vsa-ace-vines.vercel.app/" target="_blank" rel="noopener noreferrer">
+              <img src={anhChiEmVinesImage} alt="Project 2" className="project-image" />
+            </a>
+            <h3>VSA Anh Chị Em Vines</h3>
+            <p>
+              VSA at CSUF has a special tradition of veteran members "adopting" new members in their "lines".
+              This process is fun, unique, and spans a decade.
+              However, it is difficult recognize who belongs in which ancestral line, so I developed a 2D visualizer that uses D3.js to graph members' ancestral lines.
+              On the page, users are also able to filter through specific lines, which would promptly show only members within such lines. 
+            </p>
+          </div>
+          <div className="card project-card">
             <a href="https://www.hoa-viet-market.lyyeric.tech/" target="_blank" rel="noopener noreferrer">
               <img src={hoaVietMarketImage} alt="Project 3" className="project-image" />
             </a>
@@ -106,6 +120,22 @@ function App() {
             <p>
               I develop a website for a small, Vietnamese business in Los Angeles, and passed as a finalist for Snapchat Academies' engineering assessment.
               The website features contact pages, operating hours, customer accommodations, a photos photo-gallery, and Google maps integrations.
+            </p>
+          </div>
+          <div className="card project-card">
+            <a href="https://editor.p5js.org/lyyy.eric/full/FOjoMB4WQ" target="_blank" rel="noopener noreferrer">
+              <img src={bolbsEvolutionImage} alt="Project 3" className="project-image" />
+            </a>
+            <h3>Evolutionary AI Bolbs</h3>
+            <p>
+
+            Bolbs are randomly spawned with attributes like speed, color, hunger-timer, will-to-multiply, and age-timers. 
+            They sustain themselves by eating plants or other bolbs. 
+            Cannibalization events offer a chance for multiplication, based on the bolb's will-to-multiply. 
+            Offsprings inherit mutated genetic attributes.
+            As generations progress, bolbs optimize their balance between speed, hunger-timer, and will-to-multiply. 
+            Natural predators are introductable, in order to tests the species' resilience.
+
             </p>
           </div>
           <div className="card project-card">
