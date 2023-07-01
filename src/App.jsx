@@ -67,7 +67,7 @@ function App() {
       </div>
 
       <div className="section-container">
-        <h1 id="projects-subtitle">Software Projects</h1>
+        <h1 id="projects-subtitle">Projects</h1>
         <div className="projects-container">
           <div className="card project-card">
             <a href="#" onClick={handleOpenSymbolicRegressor}>
