@@ -31,6 +31,11 @@ function App() {
     window.open(mailtoLink);
   };
 
+  const handleOpenSymbolicRegressor = () => {
+    const fileUrl = './symbolic_regressor_pringles.html';
+    window.open(fileUrl, '_blank');
+  };
+
   return (
     <>
       <div className="introduction">
@@ -57,7 +62,9 @@ function App() {
         <h1 id="projects-subtitle">Projects</h1>
         <div className="projects-container">
           <div className="card project-card">
-            <img src={symbolicRegressorImage} alt="Project 3" className="project-image" />
+            <a href="#" onClick={handleOpenSymbolicRegressor}>
+              <img src={symbolicRegressorImage} alt="Project 3" className="project-image" />
+            </a>
             <h3>Symbolic Regressor for Pringles</h3>
             <p>
               During my ASSURE-US research program, I worked genetic programming and developed a usable generator model within symbolic regression.
