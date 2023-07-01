@@ -123,7 +123,7 @@ function App() {
             </p>
           </div>
           <div className="card project-card">
-            <a href="https://editor.p5js.org/lyyy.eric/full/FOjoMB4WQ" target="_blank" rel="noopener noreferrer">
+            <a href="https://bolb-simulator-v1.vercel.app/" target="_blank" rel="noopener noreferrer">
               <img src={bolbsEvolutionImage} alt="Project 3" className="project-image" />
             </a>
             <h3>Evolutionary AI Bolbs</h3>
