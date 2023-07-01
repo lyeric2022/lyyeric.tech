@@ -8,6 +8,7 @@ import anhChiEmVinesImage from "./assets/vsa-ace.png"
 import hoaVietMarketImage from "./assets/hoa_viet_market.png"
 import bolbsEvolutionImage from "./assets/bolbs-evolutionary-simulator.png"
 import martingaleSimulatorImage from "./assets/martingale.png"
+import funtimeTriviaImage from "./assets/funtime_trivia.png"
 import pongFromP5Image from "./assets/p5_pong.png"
 import ameliorationGameImage from "./assets/amelioration.png"
 
@@ -43,28 +44,30 @@ function App() {
 
   return (
     <>
-      <div className="introduction">
-        <h4>Hi, my name is</h4>
-        <h1>Eric Ly.</h1>
-        <h2>I'm a Software Engineer. </h2>
-        <div className="introduction-paragraph">
-          <p>Currently, I'm studying Computer Science & Economics, at California State University, Fullerton. </p>
-          <p>This is my personal website, where I highlight my projects and interests. </p>
-          <p>Thanks for reading!  👻 </p>
+      <div className="home-screen">
+        <div className="introduction">
+          <h4>Hi, my name is</h4>
+          <h1>Eric Ly.</h1>
+          <h2>I'm a Software Engineer. </h2>
+          <div className="introduction-paragraph">
+            <p>Currently, I'm studying Computer Science & Economics, at California State University, Fullerton. </p>
+            <p>This is my personal website, where I highlight my projects and interests. </p>
+            <p>Thanks for reading!  👻 </p>
+          </div>
+
         </div>
 
-      </div>
 
-
-      <div className="card linkers">
-        <button onClick={handleOpenFile}>Resume</button>
-        <button onClick={handleOpenLinkedIn}>LinkedIn</button>
-        <button onClick={handleOpenGitHub}>GitHub</button>
-        <button onClick={handleSendEmail}>Email</button>
+        <div className="card linkers">
+          <button onClick={handleOpenFile}>Resume</button>
+          <button onClick={handleOpenLinkedIn}>LinkedIn</button>
+          <button onClick={handleOpenGitHub}>GitHub</button>
+          <button onClick={handleSendEmail}>Email</button>
+        </div>
       </div>
 
       <div className="section-container">
-        <h1 id="projects-subtitle">Projects</h1>
+        <h1 id="projects-subtitle">Software Projects</h1>
         <div className="projects-container">
           <div className="card project-card">
             <a href="#" onClick={handleOpenSymbolicRegressor}>
@@ -110,7 +113,7 @@ function App() {
               VSA at CSUF has a special tradition of veteran members "adopting" new members in their "lines".
               This process is fun, unique, and spans a decade.
               However, it is difficult recognize who belongs in which ancestral line, so I developed a 2D visualizer that uses D3.js to graph members' ancestral lines.
-              On the page, users are also able to filter through specific lines, which would promptly show only members within such lines. 
+              On the page, users are also able to filter through specific lines, which would promptly show only members within such lines.
             </p>
           </div>
           <div className="card project-card">
@@ -119,8 +122,8 @@ function App() {
             </a>
             <h3>Hoa Viet Market Business Website</h3>
             <p>
-              I develop a website for a small, Vietnamese business in Los Angeles, and passed as a finalist for Snapchat Academies' engineering assessment.
-              The website features contact pages, operating hours, customer accommodations, a photos photo-gallery, and Google maps integrations.
+              I developed a website for a small Vietnamese business in Los Angeles, focusing on contact pages, operating hours, customer accommodations, a photo gallery, and Google Maps integration.
+              The site's design captures the business's essence and provides visitors with a relevant information about the Hoa Viet market.
             </p>
           </div>
           <div className="card project-card">
@@ -129,12 +132,12 @@ function App() {
             </a>
             <h3>Evolutionary AI Bolbs</h3>
             <p>
-            Bolbs are randomly spawned with attributes like speed, color, hunger-timer, will-to-multiply, and age-timers. 
-            They sustain themselves by eating plants or other bolbs. 
-            Cannibalization events offer a chance for multiplication, based on the bolb's will-to-multiply. 
-            Offsprings inherit mutated genetic attributes.
-            As generations progress, bolbs optimize their balance between speed, hunger-timer, and will-to-multiply. 
-            Natural predators are introductable, in order to tests the species' resilience.
+              Bolbs are randomly spawned with attributes like speed, color, hunger-timer, will-to-multiply, and age-timers.
+              They sustain themselves by eating plants or other bolbs.
+              Cannibalization events offer a chance for multiplication, based on the bolb's will-to-multiply.
+              Offsprings inherit similar genetic attributes.
+              As generations progress, bolbs optimize their balance between speed, hunger-timer, and will-to-multiply.
+              Natural predators are introductable to tests the species' resilience.
             </p>
           </div>
           <div className="card project-card">
@@ -143,22 +146,34 @@ function App() {
             </a>
             <h3>Martingale Betting Simulator</h3>
             <p>
-            In traditional gambling, players typically lose money, but sometimes win big.
-            The margingale betting strategy, reverses these odds, and enables players to typically earn money, but sometimes lose big.
-            The strategy relies on players have sufficient funds to cover their lose streaks, and thereupon double the bet amount of their last bet.
-            In my simulator, users are able to simulate their chances, based upon their original money, betting amounts, and many rounds they are playing for.
+              In traditional gambling, players usually lose money but can occasionally win big.
+              The martingale betting strategy reverses these odds, allowing players to often make money but risking occasional big losses.
+              It relies on having enough funds to cover losing streaks and doubling the bet after each loss.
+              In my simulator, users can test their chances by inputting their original money, betting amounts, and the number of rounds they want to play.
             </p>
           </div>
-          
+          <div className="card project-card">
+            <a href="https://project-day-4.lyyeric.repl.co/" target="_blank" rel="noopener noreferrer">
+              <img src={funtimeTriviaImage} alt="Project 3" className="project-image" />
+            </a>
+            <h3>Funtime Trivia</h3>
+            <p>
+              During my Google CSSI program, I worked with two other engineers to develop a gamified, learning platform.
+              We implemented several game modes, that ranged from music, history, culture, food, etc.
+              We integrated multiple pages, and utilized APIs from Giphy and Api-Ninja.
+              Our tech stack was HTML/CSS, Bulma, and vanilla Javascript.
+            </p>
+          </div>
+
           <div className="card project-card">
             <a href="https://editor.p5js.org/lyyy.eric/full/FOjoMB4WQ" target="_blank" rel="noopener noreferrer">
               <img src={pongFromP5Image} alt="Project 3" className="project-image" />
             </a>
             <h3>Multi-mode Pong</h3>
             <p>
-              Play with friends, where each player can navigate their paddles via the keyboard keys. 
+              Play with friends, where each player can navigate their paddles via the keyboard keys.
               Play solo, and battle against two possible AI bots that mimicks real players.
-              Or, watch as a spectator, as AI bots battle it out in Pong. 
+              Or, watch as a spectator, as AI bots battle it out in Pong.
               Nuanced features includes ball-color transformations, after bounces, and a tracker to measure how fast the ball is moving.
             </p>
           </div>
