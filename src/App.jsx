@@ -12,6 +12,8 @@ import funtimeTriviaImage from "./assets/funtime_trivia.png"
 import pongFromP5Image from "./assets/p5_pong.png"
 import ameliorationGameImage from "./assets/amelioration.png"
 
+import Projects from './Projects';
+
 function App() {
   const handleOpenFile = () => {
     const fileUrl = './07.01.23_resume.pdf';
@@ -35,11 +37,6 @@ function App() {
 
     const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     window.open(mailtoLink);
-  };
-
-  const handleOpenSymbolicRegressor = () => {
-    const fileUrl = './symbolic_regressor_pringles.html';
-    window.open(fileUrl, '_blank');
   };
 
   return (
@@ -66,6 +63,8 @@ function App() {
         </div>
       </div>
 
+      <Projects/>
+{/* 
       <div className="section-container">
         <h1 id="projects-subtitle">Projects</h1>
         <div className="projects-container">
@@ -189,7 +188,7 @@ function App() {
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
 
     </>
   );
