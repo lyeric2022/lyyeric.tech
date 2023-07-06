@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap');
 
+@media screen and (max-width: 500px) {
+  html {
+    zoom: 0.65; /* Adjust the zoom level as per your requirement */
+  }
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
