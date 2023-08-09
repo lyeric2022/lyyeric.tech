@@ -5,7 +5,7 @@ import Projects from './Projects';
 
 function App() {
   const handleOpenFile = () => {
-    const fileUrl = './07.01.23_resume.pdf';
+    const fileUrl = './Eric_Ly_Resume_080423.pdf';
     window.open(fileUrl, '_blank');
   };
 
