@@ -1,5 +1,6 @@
 import React from 'react';
 
+import hackmitProjectImage from "./assets/hackmit_project.png"
 import symbolicRegressorImage from "./assets/symbolic_regressor.png";
 import paydayPurgatoryImage from "./assets/payday_purgatory.png";
 import projectilePoopersImage from "./assets/projectile_poopers.png";
@@ -21,6 +22,18 @@ const Projects = () => {
         <div className="section-container">
             <h1 id="projects-subtitle">Projects</h1>
             <div className="projects-container">
+                <div className="card project-card">
+                    <a href="https://hackmit2023-pi.vercel.app/" target="_blank" rel="noopener noreferrer">
+                        <img src={hackmitProjectImage} alt="Project 3" className="project-image" />
+                    </a>
+                    <h3>HackMIT Fire Detection System Project</h3>
+                    <p>
+                        Created a server system to connect to MQTT, allowing for WebSocket communication with an HTTP client.
+                        Using HTML geolocation, I displayed sensor data for temperature, humidity, and danger levels near the user.
+                        Additionally, I integrated Google Maps API to map the user's location and provide safe route suggestions away from danger zones.
+                        Together, our team achieved 2nd Place in a HackMIT challenge project!
+                    </p>
+                </div>
                 <div className="card project-card">
                     <a href="#" onClick={handleOpenSymbolicRegressor}>
                         <img src={symbolicRegressorImage} alt="Project 3" className="project-image" />
