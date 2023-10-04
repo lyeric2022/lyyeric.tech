@@ -28,10 +28,11 @@ const Projects = () => {
                     </a>
                     <h3>HackMIT Fire Detection System Project</h3>
                     <p>
-                        Created a server system to connect to MQTT, allowing for WebSocket communication with an HTTP client.
-                        Using HTML geolocation, I displayed sensor data for temperature, humidity, and danger levels near the user.
-                        Additionally, I integrated Google Maps API to map the user's location and provide safe route suggestions away from danger zones.
-                        Together, our team achieved 2nd Place in a HackMIT challenge project!
+                        During HackMIT, my group sought to accurately detect real-time wildfires and evacuate people safely.
+                        For my part, I created a server system to connect to MQTT, allowing for WebSocket communication with an HTTP client.
+                        I used HTML geolocation, I displayed sensor data for temperature, humidity, and danger levels near the user.
+                        Also, I integrated Google Maps API to map the user's location and provide safe route suggestions away from danger zones.
+                        Together, our team achieved 2nd Place for IBM's sponsor challenge!
                     </p>
                 </div>
                 <div className="card project-card">
