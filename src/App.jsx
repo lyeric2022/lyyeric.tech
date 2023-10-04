@@ -2,6 +2,7 @@ import React from 'react';
 import './App.scss';
 
 import Projects from './Projects';
+import VideoMedia from './VideoMedia';
 
 function App() {
   const handleOpenFile = () => {
@@ -58,6 +59,7 @@ function App() {
       </div>
 
       <Projects />
+      <VideoMedia />
     </>
   );
 }
