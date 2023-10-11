@@ -4,9 +4,12 @@ import './App.scss';
 import Projects from './Projects';
 import VideoMedia from './VideoMedia';
 
+// import { UserCounter } from './firebase'; // Import the UserCounter component
+// import UniqueVisitors from './UniqueVisitors';
+
 function App() {
   const handleOpenFile = () => {
-    const fileUrl = './Eric_Ly_Resume_080423.pdf';
+    const fileUrl = './Eric_Ly_Resume_10102325.pdf';
     window.open(fileUrl, '_blank');
   };
 
@@ -31,6 +34,7 @@ function App() {
 
   return (
     <>
+      {/* <UniqueVisitors />     */}
       <div className="home-screen">
         <div className="introduction">
           <h4>Hi, my name is</h4>
