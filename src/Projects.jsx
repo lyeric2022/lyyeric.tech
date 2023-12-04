@@ -8,6 +8,7 @@ import anhChiEmVinesImage from "./assets/vsa-ace.png"
 import hoaVietMarketImage from "./assets/hoa_viet_market.png"
 import bolbsEvolutionImage from "./assets/bolbs-evolutionary-simulator.png"
 import martingaleSimulatorImage from "./assets/martingale.png"
+import languageQuizImage from "./assets/language_quiz.png";
 import funtimeTriviaImage from "./assets/funtime_trivia.png"
 import pongFromP5Image from "./assets/p5_pong.png"
 import ameliorationGameImage from "./assets/amelioration.png"
@@ -127,10 +128,21 @@ const Projects = () => {
                         During my Google CSSI program, I worked with two other engineers to develop a gamified, learning platform.
                         We implemented several game modes, that ranged from music, history, culture, food, etc.
                         We integrated multiple pages, and utilized APIs from Giphy and Api-Ninja.
-                        Our tech stack was HTML/CSS, Bulma, and vanilla Javascript.
+                        Our tech stack was also primarily HTML/CSS, Bulma, and vanilla Javascript.
                     </p>
                 </div>
-
+                <div className="card project-card">
+                    <a href="https://cssi-2022-day-7-1.lyyeric.repl.co/" target="_blank" rel="noopener noreferrer">
+                        <img src={languageQuizImage} alt="Project 3" className="project-image" />
+                    </a>
+                    <h3>Language Quiz</h3>
+                    <p>
+                        During my Google CSSI program, I built upon a language quiz guesser.
+                        I implemented several features, such as a counter that tracked how many guesses the user had.
+                        I also added more languages to guess for, and I added more colors!
+                        My tech stack was primarily HTML/CSS, Bulma, and vanilla Javascript.
+                    </p>
+                </div>
                 <div className="card project-card">
                     <a href="https://editor.p5js.org/lyyy.eric/full/FOjoMB4WQ" target="_blank" rel="noopener noreferrer">
                         <img src={pongFromP5Image} alt="Project 3" className="project-image" />
