@@ -1,5 +1,6 @@
 import React from 'react';
 
+import hackLAProjectImage from "./assets/consilia.png"
 import hackmitProjectImage from "./assets/hackmit_project.png"
 import symbolicRegressorImage from "./assets/symbolic_regressor.png";
 import paydayPurgatoryImage from "./assets/payday_purgatory.png";
@@ -23,6 +24,21 @@ const Projects = () => {
         <div className="section-container">
             <h1 id="projects-subtitle">Projects</h1>
             <div className="projects-container">
+                <div className="card project-card">
+                    <a href="https://www.consilia.tech/" target="_blank" rel="noopener noreferrer">
+                        <img src={hackLAProjectImage} alt="Project 3" className="project-image" />
+                    </a>
+                    <h3>HackLA Activities Recommendation System</h3>
+                    <p>
+                        During LA Hacks 2024, we created Consilia to address the challenges of planning and
+                        coordinating outdoor activities among friends from different universities. Our team
+                        integrated front-end technologies such as React and
+                        with back-end services including Gemini Pro, MongoDB, and Express to ensure
+                        a seamless user experience. Our AI, developed using machine learning algorithms,
+                        dynamically analyzes user preferences and locations to offer personalized event
+                        recommendations.
+                    </p>
+                </div>
                 <div className="card project-card">
                     <a href="https://hackmit2023-pi.vercel.app/" target="_blank" rel="noopener noreferrer">
                         <img src={hackmitProjectImage} alt="Project 3" className="project-image" />
