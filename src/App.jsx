@@ -9,7 +9,7 @@ import VideoMedia from './VideoMedia';
 
 function App() {
   const handleOpenFile = () => {
-    const fileUrl = './Eric Ly Resume 08022426.pdf';
+    const fileUrl = './Eric Ly Resume 102024.pdf';
     window.open(fileUrl, '_blank');
   };
 
