@@ -1,13 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.scss';
+import './Components/DownArrow.scss';
 
 import Projects from './Projects';
 import VideoMedia from './VideoMedia';
+import DownArrow from './Components/DownArrow';
 
 // import { UserCounter } from './firebase'; // Import the UserCounter component
 // import UniqueVisitors from './UniqueVisitors';
 
 function App() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const handleOpenFile = () => {
     const fileUrl = './Eric Ly Resume 102024.pdf';
     window.open(fileUrl, '_blank');
@@ -34,13 +47,14 @@ function App() {
 
   return (
     <>
+
       {/* <UniqueVisitors />     */}
       <div className="home-screen">
         <div className="introduction">
           <h4>Hi, my name is</h4>
           <div className='content'>
-                      <h1>Eric Ly.</h1>
-                      <h1>Eric Ly.</h1>
+            <h1>Eric Ly.</h1>
+            <h1>Eric Ly.</h1>
 
 
           </div>
@@ -60,10 +74,15 @@ function App() {
           <button onClick={handleOpenGitHub}>GitHub</button>
           <button onClick={handleSendEmail}>Email</button>
         </div>
+
+        {/* <DownArrow /> */}
+        {console.log(isMobile)}
+        {!isMobile && <DownArrow />}
       </div>
 
       <Projects />
       <VideoMedia />
+
     </>
   );
 }
