@@ -1,5 +1,13 @@
 export const projects = [
     {
+        id: -1,
+        title: "StudyDash - Academic Productivity Tool",
+        image: "study_dash.png",
+        url: null,
+        description: "At BeachHacks 8.0, our team created StudyDash, winning Best UI/UX Project. This academic productivity tool unifies Canvas deadlines, Google Calendar, and AI-powered insights in one dashboard. Using Next.js, TypeScript, and Supabase, we built features including smart scheduling, a Pomodoro timer, and analytics. The system leverages Dain AI to analyze grades and assignments, automatically identifying optimal study periods and offering personalized recommendations to help students prioritize effectively.",
+        tags: ["Next.js", "TypeScript", "Supabase", "AI", "React", "UI/UX", "BeachHacks", "Hackathon"]
+    },
+    {
         id: 0,
         title: "Canticum - AI Music Recommender",
         image: "canticum.png",

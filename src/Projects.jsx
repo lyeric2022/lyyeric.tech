@@ -19,6 +19,7 @@ import funtimeTriviaImage from "./assets/funtime_trivia.png";
 import pongFromP5Image from "./assets/p5_pong.png";
 import ameliorationGameImage from "./assets/amelioration.png";
 import canticumImage from "./assets/canticum.png";
+import studyDashImage from "./assets/study_dash.png";
 
 // Create image mapping object
 const imageMap = {
@@ -35,7 +36,8 @@ const imageMap = {
     "funtime_trivia.png": funtimeTriviaImage,
     "p5_pong.png": pongFromP5Image,
     "amelioration.png": ameliorationGameImage,
-    "canticum.png": canticumImage
+    "canticum.png": canticumImage,
+    "study_dash.png": studyDashImage
 
 };
 
