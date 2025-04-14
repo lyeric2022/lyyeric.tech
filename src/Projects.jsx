@@ -18,27 +18,30 @@ import languageQuizImage from "./assets/language_quiz.png";
 import funtimeTriviaImage from "./assets/funtime_trivia.png";
 import pongFromP5Image from "./assets/p5_pong.png";
 import ameliorationGameImage from "./assets/amelioration.png";
+import canticumImage from "./assets/canticum.png";
 
 // Create image mapping object
 const imageMap = {
-  "consilia.png": hackLAProjectImage,
-  "hackmit_project.png": hackmitProjectImage,
-  "symbolic_regressor.png": symbolicRegressorImage,
-  "payday_purgatory.png": paydayPurgatoryImage,
-  "projectile_poopers.png": projectilePoopersImage,
-  "vsa-ace.png": anhChiEmVinesImage,
-  "hoa_viet_market.png": hoaVietMarketImage,
-  "bolbs-evolutionary-simulator.png": bolbsEvolutionImage,
-  "martingale.png": martingaleSimulatorImage,
-  "language_quiz.png": languageQuizImage,
-  "funtime_trivia.png": funtimeTriviaImage,
-  "p5_pong.png": pongFromP5Image,
-  "amelioration.png": ameliorationGameImage
+    "consilia.png": hackLAProjectImage,
+    "hackmit_project.png": hackmitProjectImage,
+    "symbolic_regressor.png": symbolicRegressorImage,
+    "payday_purgatory.png": paydayPurgatoryImage,
+    "projectile_poopers.png": projectilePoopersImage,
+    "vsa-ace.png": anhChiEmVinesImage,
+    "hoa_viet_market.png": hoaVietMarketImage,
+    "bolbs-evolutionary-simulator.png": bolbsEvolutionImage,
+    "martingale.png": martingaleSimulatorImage,
+    "language_quiz.png": languageQuizImage,
+    "funtime_trivia.png": funtimeTriviaImage,
+    "p5_pong.png": pongFromP5Image,
+    "amelioration.png": ameliorationGameImage,
+    "canticum.png": canticumImage
+
 };
 
 const Projects = () => {
     const [searchTerm, setSearchTerm] = useState('');
-    
+
     const handleOpenSymbolicRegressor = () => {
         const fileUrl = './symbolic_regressor_pringles.html';
         window.open(fileUrl, '_blank');
@@ -50,18 +53,18 @@ const Projects = () => {
     };
 
     // Filter projects based on search term
-    const filteredProjects = searchTerm.trim() === '' 
-        ? projects 
-        : projects.filter(project => 
-            project.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    const filteredProjects = searchTerm.trim() === ''
+        ? projects
+        : projects.filter(project =>
+            project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
             project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
             (project.tags && project.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())))
-          );
+        );
 
     return (
         <div id="projects-section" className="section-container">
             <h1 id="projects-subtitle">Projects</h1>
-            
+
             <div className="search-container">
                 <input
                     type="text"
@@ -71,8 +74,8 @@ const Projects = () => {
                     className="search-input"
                 />
                 {searchTerm && (
-                    <button 
-                        className="clear-search" 
+                    <button
+                        className="clear-search"
                         onClick={() => setSearchTerm('')}
                         aria-label="Clear search"
                     >
@@ -80,12 +83,12 @@ const Projects = () => {
                     </button>
                 )}
             </div>
-            
+
             <div className="projects-container">
                 {filteredProjects.length > 0 ? (
                     filteredProjects.map(project => (
-                        <ProjectCard 
-                            key={project.id} 
+                        <ProjectCard
+                            key={project.id}
                             project={project}
                             image={imageMap[project.image]}
                             onCustomClick={customHandlers[project.title]}

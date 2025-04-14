@@ -1,5 +1,13 @@
 export const projects = [
     {
+        id: 0,
+        title: "Canticum - AI Music Recommender",
+        image: "canticum.png",
+        url: null,
+        description: "For Intro to AI, my team built Canticum to help users discover music similar to songs they already enjoy. The system analyzes audio features from Spotify's dataset (80,000+ tracks) using MinMax Scaling and Cosine Similarity. Our hybrid recommendation algorithm weighs audio features (60%), genre (30%), and popularity (10%). With a React frontend and Flask backend, users can search songs and get personalized recommendations with detailed audio characteristics.",
+        tags: ["AI", "Music", "Machine Learning", "React", "Flask", "Python", "Recommendation System"]
+    },
+    {
         id: 1,
         title: "HackLA Activities Recommendation System",
         image: "consilia.png",
