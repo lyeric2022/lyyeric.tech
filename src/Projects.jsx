@@ -20,6 +20,7 @@ import pongFromP5Image from "./assets/p5_pong.png";
 import ameliorationGameImage from "./assets/amelioration.png";
 import canticumImage from "./assets/canticum.png";
 import studyDashImage from "./assets/study_dash.png";
+import rootsAIImage from "./assets/diamondhacks2025.png";
 
 // Create image mapping object
 const imageMap = {
@@ -37,8 +38,8 @@ const imageMap = {
     "p5_pong.png": pongFromP5Image,
     "amelioration.png": ameliorationGameImage,
     "canticum.png": canticumImage,
-    "study_dash.png": studyDashImage
-
+    "study_dash.png": studyDashImage,
+    "diamondhacks2025.png": rootsAIImage,
 };
 
 const Projects = () => {
