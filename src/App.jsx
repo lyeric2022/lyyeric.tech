@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './App.scss';
-import './Components/DownArrow.scss';
+import './components/DownArrow.scss';
 
 import Projects from './Projects';
 import VideoMedia from './VideoMedia';
-import DownArrow from './Components/DownArrow';
+import DownArrow from './components/DownArrow';
 
 // import { UserCounter } from './firebase'; // Import the UserCounter component
 // import UniqueVisitors from './UniqueVisitors';
