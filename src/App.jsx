@@ -22,7 +22,7 @@ function App() {
   }, []);
 
   const handleOpenFile = () => {
-    const fileUrl = './Eric Ly Resume 102024.pdf';
+    const fileUrl = './Eric Ly Resume 040226.pdf';
     window.open(fileUrl, '_blank');
   };
 
