@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ProjectCard from './components/ProjectCard';
 import { projects } from './data/projectsData';
 
@@ -44,52 +44,110 @@ const imageMap = {
 
 const Projects = () => {
     const [searchTerm, setSearchTerm] = useState('');
-
+    const [projectList, setProjectList] = useState([...projects]);
+    const [isShuffled, setIsShuffled] = useState(false);
+    
+    // Custom handlers for specific projects
     const handleOpenSymbolicRegressor = () => {
         const fileUrl = './symbolic_regressor_pringles.html';
         window.open(fileUrl, '_blank');
     };
-
-    // Custom handlers for specific projects
+    
     const customHandlers = {
         'Symbolic Regressor for Pringles': handleOpenSymbolicRegressor
     };
 
-    // Filter projects based on search term
-    const filteredProjects = searchTerm.trim() === ''
-        ? projects
-        : projects.filter(project =>
-            project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            (project.tags && project.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())))
-        );
+    // Fisher-Yates (Knuth) shuffle algorithm - much more robust randomization
+    const shuffleArray = (array) => {
+        const newArray = [...array];
+        for (let i = newArray.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+        }
+        return newArray;
+    };
+
+    // Properly randomize projects
+    const randomizeProjects = () => {
+        const shuffled = shuffleArray([...projects]);
+        setProjectList(shuffled);
+        setIsShuffled(true);
+    };
+
+    // Reset to original order
+    const resetOrder = () => {
+        setProjectList([...projects]);
+        setIsShuffled(false);
+    };
+
+    // Filter projects based on search
+    useEffect(() => {
+        const baseList = isShuffled ? shuffleArray([...projects]) : [...projects];
+        
+        if (searchTerm.trim() === '') {
+            setProjectList(baseList);
+        } else {
+            const filtered = baseList.filter(project =>
+                project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                (project.tags && project.tags.some(tag => 
+                    tag.toLowerCase().includes(searchTerm.toLowerCase())
+                ))
+            );
+            setProjectList(filtered);
+        }
+    }, [searchTerm, isShuffled]);
 
     return (
         <div id="projects-section" className="section-container">
             <h1 id="projects-subtitle">Projects</h1>
-
-            <div className="search-container">
-                <input
-                    type="text"
-                    placeholder="Search projects by name, description, or tags..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="search-input"
-                />
-                {searchTerm && (
-                    <button
-                        className="clear-search"
-                        onClick={() => setSearchTerm('')}
-                        aria-label="Clear search"
+            
+            <div className="projects-toolbar">
+                <div className="search-wrapper">
+                    <input
+                        type="text"
+                        placeholder="Search projects..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="search-input"
+                    />
+                    {searchTerm && (
+                        <button
+                            className="clear-search"
+                            onClick={() => setSearchTerm('')}
+                            aria-label="Clear search"
+                        >
+                            ×
+                        </button>
+                    )}
+                </div>
+                
+                <div className="toolbar-actions">
+                    <button 
+                        className={`toolbar-btn shuffle-btn ${isShuffled ? 'active' : ''}`}
+                        onClick={randomizeProjects}
+                        aria-label="Randomize projects"
                     >
-                        ×
+                        <span className="btn-icon">⟳</span>
+                        <span className="btn-text">Shuffle</span>
                     </button>
-                )}
+                    
+                    {isShuffled && (
+                        <button 
+                            className="toolbar-btn reset-btn"
+                            onClick={resetOrder}
+                            aria-label="Reset to original order"
+                        >
+                            <span className="btn-icon">↺</span>
+                            <span className="btn-text">Reset</span>
+                        </button>
+                    )}
+                </div>
             </div>
-
+            
             <div className="projects-container">
-                {filteredProjects.length > 0 ? (
-                    filteredProjects.map(project => (
+                {projectList.length > 0 ? (
+                    projectList.map(project => (
                         <ProjectCard
                             key={project.id}
                             project={project}
