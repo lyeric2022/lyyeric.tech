@@ -847,7 +847,9 @@
   position: relative;
   flex: 1;
   max-width: 500px;
-  min-width: 200px;
+  min-width: 100px;
+  text-align: left;
+
   
   @media (max-width: 768px) {
     max-width: 100%;
@@ -856,7 +858,7 @@
 }
 
 .search-input {
-  width: 100%;
+  width: 73%;
   padding: 10px 40px 10px 15px;
   border: 1px solid var(--color-border);
   border-radius: 20px;

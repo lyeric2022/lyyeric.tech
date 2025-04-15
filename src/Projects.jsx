@@ -22,6 +22,7 @@ import canticumImage from "./assets/canticum.png";
 import studyDashImage from "./assets/study_dash.png";
 import rootsAIImage from "./assets/diamondhacks2025.png";
 import policyDuckImage from "./assets/policy_duck.png";
+import kindredAIImage from "./assets/kindred_ai.png";
 
 // Create image mapping object
 const imageMap = {
@@ -41,7 +42,8 @@ const imageMap = {
     "canticum.png": canticumImage,
     "study_dash.png": studyDashImage,
     "diamondhacks2025.png": rootsAIImage,
-    "policy_duck.png": policyDuckImage
+    "policy_duck.png": policyDuckImage,
+    "kindred_ai.png": kindredAIImage
 
 };
 
