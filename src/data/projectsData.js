@@ -1,6 +1,6 @@
 export const projects = [
     {
-        id: 14,
+        id: -2,
         title: "Multilingual AI Resource Navigator",
         image: "diamondhacks2025.png",
         url: "https://www.hackroots.tech/",
@@ -20,15 +20,23 @@ export const projects = [
         title: "Policy Duck 🦆",
         image: "policy_duck.png",
         url: "https://policy-duck.vercel.app/",
-        description: "For my Dev Ops & Deployments class, we made Policy Duck! It is a platform for students to learn more about the ASI candidates. With a goal to bridge the disconnect between ASI and the student body, our platform provides deep insights and clear candidate profiles that empower you to shape your campus future. Client built with SvelteKit and Firebase, deployed on Vercel. Server built with FastAPI and deployed on AWS for PostgreSQL and Lambda.",
+        description: "For my Software Deployments course, I made Policy Duck! It is a platform for students to learn more about the ASI candidates. With a goal to bridge the disconnect between ASI and the student body, the platform provides deep insights and clear candidate profiles that empower you to shape your campus future. Client built with SvelteKit and Firebase, deployed on Vercel. Server built with FastAPI and deployed on AWS for PostgreSQL and Lambda.",
         tags: ["SvelteKit", "Firebase", "FastAPI", "PostgreSQL", "AWS Lambda", "Vercel"]
+    },
+    {
+        id: -3,
+        title: "Kindred AI - Family Legacy Chatbot",
+        image: "kindred_ai.png", // You'll need to add this image to your assets
+        url: "https://youtu.be/EtTyk6dbvKk",
+        description: "For the Cerebras Fellowship, I developed Kindred AI, a personalized family legacy chatbot that preserves family stories in a secure vector database. Parents and grandparents can engage in meaningful conversations with the AI, creating a timeless connection across generations. Built with a Svelte frontend and FastAPI backend, the system uses Pinecone for memory retention and Llama 3 for empathetic conversations. F5-TTS provides natural voice synthesis while Cerebras accelerates inference for real-time responses and seamless interactions.",
+        tags: ["Svelte", "FastAPI", "AWS", "Pinecone", "Llama 3", "F5-TTS", "Cerebras", "AI", "Vector Database"]
     },
     {
         id: 0,
         title: "Canticum - AI Music Recommender",
         image: "canticum.png",
         url: "https://canticum.vercel.app/",
-        description: "For my AI class, my team built Canticum to help users discover music similar to songs they already enjoy. The system analyzes audio features from Spotify's dataset (80,000+ tracks) using MinMax Scaling and Cosine Similarity. Our hybrid recommendation algorithm weighs audio features (60%), genre (30%), and popularity (10%). With a React frontend and Flask backend, users can search songs and get personalized recommendations with detailed audio characteristics.",
+        description: "For my AI course, my team built Canticum to help users discover music similar to songs they already enjoy. The system analyzes audio features from Spotify's dataset (80,000+ tracks) using MinMax Scaling and Cosine Similarity. Our hybrid recommendation algorithm weighs audio features (60%), genre (30%), and popularity (10%). With a React frontend and Flask backend, users can search songs and get personalized recommendations with detailed audio characteristics.",
         tags: ["React", "Flask", "Python", "Scikit-learn", "Pandas", "Spotify API"]
     },
     {
@@ -51,7 +59,7 @@ export const projects = [
         id: 3,
         title: "Symbolic Regressor for Pringles",
         image: "symbolic_regressor.png",
-        url: null, 
+        url: null,
         customHandler: "handleOpenSymbolicRegressor",
         description: "During my ASSURE-US research program, I worked genetic programming and developed a usable generator model within symbolic regression. Given only 50 data points representing a hyperbolic paraboloid, the model can successfully reveal many shapes' mathematical formulas. The symbolic regressor uses natural selections, crossovers, and mutations, to derive the fittest genetic programs across multiple generations.",
         tags: ["Python", "NumPy", "Matplotlib", "Scikit-learn", "Genetic Programming"]
