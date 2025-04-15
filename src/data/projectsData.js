@@ -16,11 +16,19 @@ export const projects = [
         tags: ["Next.js", "TypeScript", "React", "Supabase", "Puppeteer", "Canvas API", "Google Calendar API"]
     },
     {
+        id: 15,
+        title: "Policy Duck 🦆",
+        image: "policy_duck.png",
+        url: "https://policy-duck.vercel.app/",
+        description: "For my Dev Ops & Deployments class, we made Policy Duck! It is a platform for students to learn more about the ASI candidates. With a goal to bridge the disconnect between ASI and the student body, our platform provides deep insights and clear candidate profiles that empower you to shape your campus future. Client built with SvelteKit and Firebase, deployed on Vercel. Server built with FastAPI and deployed on AWS for PostgreSQL and Lambda.",
+        tags: ["SvelteKit", "Firebase", "FastAPI", "PostgreSQL", "AWS Lambda", "Vercel"]
+    },
+    {
         id: 0,
         title: "Canticum - AI Music Recommender",
         image: "canticum.png",
         url: "https://canticum.vercel.app/",
-        description: "For Intro to AI, my team built Canticum to help users discover music similar to songs they already enjoy. The system analyzes audio features from Spotify's dataset (80,000+ tracks) using MinMax Scaling and Cosine Similarity. Our hybrid recommendation algorithm weighs audio features (60%), genre (30%), and popularity (10%). With a React frontend and Flask backend, users can search songs and get personalized recommendations with detailed audio characteristics.",
+        description: "For my AI class, my team built Canticum to help users discover music similar to songs they already enjoy. The system analyzes audio features from Spotify's dataset (80,000+ tracks) using MinMax Scaling and Cosine Similarity. Our hybrid recommendation algorithm weighs audio features (60%), genre (30%), and popularity (10%). With a React frontend and Flask backend, users can search songs and get personalized recommendations with detailed audio characteristics.",
         tags: ["React", "Flask", "Python", "Scikit-learn", "Pandas", "Spotify API"]
     },
     {
