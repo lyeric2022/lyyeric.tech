@@ -1,6 +1,6 @@
 export const projects = [
     {
-        id: -2,
+        id: 17,
         title: "Multilingual AI Resource Navigator",
         image: "diamondhacks2025.png",
         url: "https://www.hackroots.tech/",
@@ -8,7 +8,7 @@ export const projects = [
         tags: ["React", "TypeScript", "MongoDB", "Express", "FastAPI", "Whisper", "Gemini API", "Auth0", "Docker"]
     },
     {
-        id: -1,
+        id: 16,
         title: "StudyDash - Academic Productivity Tool",
         image: "study_dash.png",
         url: "https://beachhacks2025.vercel.app/",
@@ -24,9 +24,9 @@ export const projects = [
         tags: ["SvelteKit", "Firebase", "FastAPI", "PostgreSQL", "AWS Lambda", "Vercel"]
     },
     {
-        id: -3,
+        id: 14,
         title: "Kindred AI - Family Legacy Chatbot",
-        image: "kindred_ai.png", // You'll need to add this image to your assets
+        image: "kindred_ai.png",
         url: "https://youtu.be/EtTyk6dbvKk",
         description: "For the Cerebras Fellowship, I developed Kindred AI, a personalized family legacy chatbot that preserves family stories in a secure vector database. Parents and grandparents can engage in meaningful conversations with the AI, creating a timeless connection across generations. Built with a Svelte frontend and FastAPI backend, the system uses Pinecone for memory retention and Llama 3 for empathetic conversations. F5-TTS provides natural voice synthesis while Cerebras accelerates inference for real-time responses and seamless interactions.",
         tags: ["Svelte", "FastAPI", "AWS", "Pinecone", "Llama 3", "F5-TTS", "Cerebras", "AI", "Vector Database"]
