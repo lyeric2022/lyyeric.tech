@@ -5,6 +5,7 @@ import './components/DownArrow.scss';
 import Projects from './Projects';
 import VideoMedia from './VideoMedia';
 import DownArrow from './components/DownArrow';
+import { logAnalyticsEvent } from './firebase'; // Import the analytics helper
 
 // import { UserCounter } from './firebase'; // Import the UserCounter component
 // import UniqueVisitors from './UniqueVisitors';
@@ -18,21 +19,38 @@ function App() {
     };
 
     window.addEventListener('resize', handleResize);
+    
+    // Log page view when component mounts
+    logAnalyticsEvent('page_view', {
+      page_title: 'Home Page',
+      page_location: window.location.href,
+      page_path: window.location.pathname
+    });
+    
     return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    console.log("Firebase Analytics initialized");
+    // You can test events in development
+    logAnalyticsEvent('test_event', { test_param: 'test_value' });
   }, []);
 
   const handleOpenFile = () => {
     const fileUrl = './Eric Ly Resume 040226.pdf';
+    logAnalyticsEvent('resume_click');
     window.open(fileUrl, '_blank');
   };
 
   const handleOpenLinkedIn = () => {
     const linkedInUrl = 'https://www.linkedin.com/in/lyyeric/';
+    logAnalyticsEvent('linkedin_click');
     window.open(linkedInUrl, '_blank');
   };
 
   const handleOpenGitHub = () => {
     const gitHubUrl = 'https://github.com/lyeric2022';
+    logAnalyticsEvent('github_click');
     window.open(gitHubUrl, '_blank');
   };
 
@@ -40,7 +58,8 @@ function App() {
     const email = 'ly.eric2022@csu.fullerton.com';
     const subject = 'Hello from your website!';
     const body = 'Hi Eric, I found your website and wanted to get in touch with you.';
-
+    
+    logAnalyticsEvent('email_click');
     const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     window.open(mailtoLink);
   };
