@@ -216,8 +216,9 @@
   .video-media-card {
     border-radius: var(--border-radius-sm);
     box-shadow: var(--shadow-sm);
-    padding: var(--spacing-md);
-    
+    // padding: var(--spacing-md);
+    padding: 0;
+
     @media (max-width: 750px) {
       flex-basis: 100%;
     }
