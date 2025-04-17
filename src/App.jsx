@@ -7,6 +7,8 @@ import VideoMedia from './VideoMedia';
 import DownArrow from './components/DownArrow';
 import { logAnalyticsEvent } from './firebase'; // Import the analytics helper
 import UniqueVisitors from './components/UniqueVisitors';
+import PrivacyInfo from './components/PrivacyInfo';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -63,37 +65,47 @@ function App() {
   };
 
   return (
-    <>
-      <div className="home-screen">
-        <UniqueVisitors />
-        <div className="introduction">
-          <h4>Hi, my name is</h4>
-          <div className='content'>
-            <h1>Eric Ly.</h1>
-            <h1>Eric Ly.</h1>
-          </div>
-          <h2>I'm a Software Engineer. </h2>
-          <div className="introduction-paragraph">
-            <p>Currently, I'm studying Computer Science & Economics, at California State University, Fullerton. </p>
-            <p>This is my personal website, where I highlight my projects and interests. </p>
-            <p>Thanks for reading!  👻 </p>
-          </div>
-        </div>
+    <Router>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <div className="home-screen">
+                <UniqueVisitors />
+                <div className="introduction">
+                  <h4>Hi, my name is</h4>
+                  <div className='content'>
+                    <h1>Eric Ly.</h1>
+                    <h1>Eric Ly.</h1>
+                  </div>
+                  <h2>I'm a Software Engineer. </h2>
+                  <div className="introduction-paragraph">
+                    <p>Currently, I'm studying Computer Science & Economics, at California State University, Fullerton. </p>
+                    <p>This is my personal website, where I highlight my projects and interests. </p>
+                    <p>Thanks for reading!  👻 </p>
+                  </div>
+                </div>
 
-        <div className="card linkers">
-          <button onClick={handleOpenFile}>Resume</button>
-          <button onClick={handleOpenLinkedIn}>LinkedIn</button>
-          <button onClick={handleOpenGitHub}>GitHub</button>
-          <button onClick={handleSendEmail}>Email</button>
-        </div>
+                <div className="card linkers">
+                  <button onClick={handleOpenFile}>Resume</button>
+                  <button onClick={handleOpenLinkedIn}>LinkedIn</button>
+                  <button onClick={handleOpenGitHub}>GitHub</button>
+                  <button onClick={handleSendEmail}>Email</button>
+                </div>
 
-        {console.log(isMobile)}
-        {!isMobile && <DownArrow />}
-      </div>
+                {console.log(isMobile)}
+                {!isMobile && <DownArrow />}
+              </div>
 
-      <Projects />
-      <VideoMedia />
-    </>
+              <Projects />
+              <VideoMedia />
+            </>
+          }
+        />
+        <Route path="/privacy" element={<PrivacyInfo />} />
+      </Routes>
+    </Router>
   );
 }
 
