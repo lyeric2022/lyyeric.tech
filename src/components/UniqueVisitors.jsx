@@ -3,6 +3,26 @@ import { db } from '../firebase';
 import { doc, getDoc, updateDoc, increment } from 'firebase/firestore';
 import './UniqueVisitors.scss';
 
+// Add this to your analytics/tracking script
+function trackVisitor() {
+  const visitorKey = 'site_visitor_counted';
+  
+  // Check if visitor was already counted
+  const wasCounted = localStorage.getItem(visitorKey);
+  
+  if (!wasCounted) {
+    // Count as new visitor (first time only)
+    localStorage.setItem(visitorKey, 'true');
+    
+    // Your existing code to count a new visitor
+    recordNewVisitor();
+  }
+}
+
+function recordNewVisitor() {
+  // Your existing analytics call to record a new visitor
+}
+
 const UniqueVisitors = () => {
   const [visitorCount, setVisitorCount] = useState(0);
   const [status, setStatus] = useState('loading');
@@ -60,6 +80,11 @@ const UniqueVisitors = () => {
     };
 
     fetchVisitorCount();
+  }, []);
+
+  useEffect(() => {
+    // Call this when page loads
+    trackVisitor();
   }, []);
 
   return (
