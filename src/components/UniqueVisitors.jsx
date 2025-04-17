@@ -3,25 +3,7 @@ import { db } from '../firebase';
 import { doc, getDoc, updateDoc, increment } from 'firebase/firestore';
 import './UniqueVisitors.scss';
 
-// Add this to your analytics/tracking script
-function trackVisitor() {
-  const visitorKey = 'site_visitor_counted';
-  
-  // Check if visitor was already counted
-  const wasCounted = localStorage.getItem(visitorKey);
-  
-  if (!wasCounted) {
-    // Count as new visitor (first time only)
-    localStorage.setItem(visitorKey, 'true');
-    
-    // Your existing code to count a new visitor
-    recordNewVisitor();
-  }
-}
-
-function recordNewVisitor() {
-  // Your existing analytics call to record a new visitor
-}
+const VISITOR_KEY = 'site_visitor_counted';
 
 const UniqueVisitors = () => {
   const [visitorCount, setVisitorCount] = useState(0);
@@ -32,34 +14,27 @@ const UniqueVisitors = () => {
     const fetchVisitorCount = async () => {
       try {
         const visitorRef = doc(db, 'stats', 'visitors');
-        
-        // Get the current count
         const docSnap = await getDoc(visitorRef);
-        
+
         if (docSnap.exists()) {
-          // Show the initial count
           setVisitorCount(docSnap.data().count);
-          
-          // Check if this is a new session
-          const lastVisit = sessionStorage.getItem('lastVisitDate');
-          const now = new Date().toDateString();
-          
-          if (!lastVisit || lastVisit !== now) {
-            // New visitor! Increment count
+
+          // Only count if not already counted in localStorage
+          const alreadyCounted = localStorage.getItem(VISITOR_KEY);
+
+          if (!alreadyCounted) {
             try {
               await updateDoc(visitorRef, {
                 count: increment(1)
               });
-              
-              // Store the visit date
-              sessionStorage.setItem('lastVisitDate', now);
-              
+
+              localStorage.setItem(VISITOR_KEY, 'true');
+
               // Get the updated count and trigger animation
               const updatedDoc = await getDoc(visitorRef);
               setVisitorCount(updatedDoc.data().count);
               setIsNewVisit(true);
-              
-              // Reset special animation after it plays
+
               setTimeout(() => {
                 setIsNewVisit(false);
               }, 3000);
@@ -67,7 +42,7 @@ const UniqueVisitors = () => {
               console.error("Error updating count:", updateError);
             }
           }
-          
+
           setStatus('success');
         } else {
           console.error("No visitor document found!");
@@ -80,11 +55,6 @@ const UniqueVisitors = () => {
     };
 
     fetchVisitorCount();
-  }, []);
-
-  useEffect(() => {
-    // Call this when page loads
-    trackVisitor();
   }, []);
 
   return (
