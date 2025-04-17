@@ -1,0 +1,74 @@
+.visitor-counter {
+
+    text-align: right;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+    overflow: visible;
+
+    &.loading {
+        opacity: 0.7;
+    }
+
+    &.error {
+        background-color: rgba(255, 0, 0, 0.05);
+    }
+
+    .visitor-label {
+        margin-right: 6px;
+    }
+
+    .visitor-count {
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .fire-emoji {
+        position: absolute;
+        right: -15px;
+        top: -10px;
+        font-size: 22px;
+        animation: fireAnimation 3s ease-out forwards;
+    }
+
+    @keyframes fireAnimation {
+        0% {
+            opacity: 0;
+            transform: scale(0.5) rotate(-20deg);
+        }
+
+        10% {
+            opacity: 1;
+            transform: scale(1.2) rotate(15deg);
+        }
+
+        20% {
+            transform: scale(1) rotate(-10deg);
+        }
+
+        30% {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        40% {
+            transform: scale(1) rotate(0);
+        }
+
+        50% {
+            transform: translateY(0);
+        }
+
+        70% {
+            opacity: 1;
+            transform: translateY(-5px);
+        }
+
+        100% {
+            opacity: 0;
+            transform: translateY(-20px) scale(0.7);
+        }
+    }
+}
