@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { db } from '../firebase';
 import { doc, getDoc, updateDoc, increment } from 'firebase/firestore';
 import './UniqueVisitors.scss';
@@ -61,10 +62,18 @@ const UniqueVisitors = () => {
     <div className={`visitor-counter ${status}`}>
       <div className="counter-content">
         <div className={`fire-emoji ${isNewVisit ? 'new-visit' : ''}`}>🔥</div>
-        <div className="visitor-count-container">
-          <span className="visitor-label">Visitors:</span>
-          <span className={`visitor-count ${isNewVisit ? 'new-visit' : ''}`}>{visitorCount}</span>
-        </div>
+        <Link to="/privacy" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <div
+            className="visitor-count-container"
+            style={{ cursor: 'pointer' }}
+            title="Click to learn how your data is collected"
+          >
+            <span className="visitor-label">Visitors:</span>
+            <span className={`visitor-count ${isNewVisit ? 'new-visit' : ''}`}>
+              {visitorCount}
+            </span>
+          </div>
+        </Link>
       </div>
     </div>
   );
