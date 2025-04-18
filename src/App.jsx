@@ -8,7 +8,8 @@ import DownArrow from './components/DownArrow';
 import { logAnalyticsEvent } from './firebase'; // Import the analytics helper
 import UniqueVisitors from './components/UniqueVisitors';
 import PrivacyInfo from './components/PrivacyInfo';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import GhostGame from './components/GhostGame';
 
 function App() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -83,7 +84,12 @@ function App() {
                   <div className="introduction-paragraph">
                     <p>Currently, I'm studying Computer Science & Economics, at California State University, Fullerton. </p>
                     <p>This is my personal website, where I highlight my projects and interests. </p>
-                    <p>Thanks for reading!  👻 </p>
+                    <p>
+                      Thanks for reading!{' '}
+                      <Link to="/ghost" style={{ textDecoration: 'none' }} title="Woah. What does this do?">
+                        👻
+                      </Link>
+                    </p>
                   </div>
                 </div>
 
@@ -104,6 +110,7 @@ function App() {
           }
         />
         <Route path="/privacy" element={<PrivacyInfo />} />
+        <Route path="/ghost" element={<GhostGame />} />
       </Routes>
     </Router>
   );
