@@ -20,19 +20,19 @@ function App() {
     };
 
     window.addEventListener('resize', handleResize);
-    
+
     // Log page view when component mounts
     logAnalyticsEvent('page_view', {
       page_title: 'Home Page',
       page_location: window.location.href,
       page_path: window.location.pathname
     });
-    
+
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   useEffect(() => {
-    console.log("Firebase Analytics initialized");
+    // console.log("Firebase Analytics initialized");
     // You can test events in development
     logAnalyticsEvent('test_event', { test_param: 'test_value' });
   }, []);
@@ -59,7 +59,7 @@ function App() {
     const email = 'ly.eric2022@csu.fullerton.com';
     const subject = 'Hello from your website!';
     const body = 'Hi Eric, I found your website and wanted to get in touch with you.';
-    
+
     logAnalyticsEvent('email_click');
     const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     window.open(mailtoLink);
@@ -74,6 +74,7 @@ function App() {
             <>
               <div className="home-screen">
                 <UniqueVisitors />
+                {console.log("Boo!")}
                 <div className="introduction">
                   <h4>Hi, my name is</h4>
                   <div className='content'>
@@ -100,7 +101,7 @@ function App() {
                   <button onClick={handleSendEmail}>Email</button>
                 </div>
 
-                {console.log(isMobile)}
+                {/* {console.log(isMobile)} */}
                 {!isMobile && <DownArrow />}
               </div>
 

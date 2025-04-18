@@ -77,6 +77,11 @@ const GhostGame = () => {
     const previousTimeRef = useRef();
     const safeModeTimerRef = useRef();
 
+    // Add console log
+    useEffect(() => {
+        console.log("Boo!"); // Spooky easter egg in the console
+    }, []);
+
     // Helper function to get emoji for door
     const getDoorEmoji = (doorText) => {
         switch (doorText) {
