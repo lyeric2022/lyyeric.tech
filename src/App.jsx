@@ -10,9 +10,11 @@ import UniqueVisitors from './components/UniqueVisitors';
 import PrivacyInfo from './components/PrivacyInfo';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import GhostGame from './components/GhostGame';
+import CompactView from './components/CompactView';
 
 function App() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [viewMode, setViewMode] = useState('v2'); // 'v1' or 'v2'
 
   useEffect(() => {
     const handleResize = () => {
@@ -72,41 +74,63 @@ function App() {
           path="/"
           element={
             <>
-              <div className="home-screen">
-                <UniqueVisitors />
-                {console.log("Boo!")}
-                <div className="introduction">
-                  <h4>Hi, my name is</h4>
-                  <div className='content'>
-                    <h1>Eric Ly.</h1>
-                    <h1>Eric Ly.</h1>
-                  </div>
-                  <h2>I'm a Software Engineer. </h2>
-                  <div className="introduction-paragraph">
-                    <p>Currently, I'm studying Computer Science & Economics, at California State University, Fullerton. </p>
-                    <p>This is my personal website, where I highlight my projects and interests. </p>
-                    <p>
-                      Thanks for reading!{' '}
-                      <Link to="/ghost" style={{ textDecoration: 'none' }} title="Woah. What does this do?">
-                        👻
-                      </Link>
-                    </p>
-                  </div>
-                </div>
+              <div className="view-toggle-container">
+                <button 
+                  className={`view-toggle-btn ${viewMode === 'v2' ? 'active' : ''}`}
+                  onClick={() => setViewMode('v2')}
+                >
+                  v2
+                </button>
 
-                <div className="card linkers">
-                  <button onClick={handleOpenFile}>Resume</button>
-                  <button onClick={handleOpenLinkedIn}>LinkedIn</button>
-                  <button onClick={handleOpenGitHub}>GitHub</button>
-                  <button onClick={handleSendEmail}>Email</button>
-                </div>
-
-                {/* {console.log(isMobile)} */}
-                {!isMobile && <DownArrow />}
+                <button 
+                  className={`view-toggle-btn ${viewMode === 'v1' ? 'active' : ''}`}
+                  onClick={() => setViewMode('v1')}
+                >
+                  v1
+                </button>
               </div>
 
-              <Projects />
-              <VideoMedia />
+              {viewMode === 'v1' ? (
+                <>
+                  <div className="home-screen">
+                    <UniqueVisitors />
+                    {console.log("Boo!")}
+                    <div className="introduction">
+                      <h4>Hi, my name is</h4>
+                      <div className='content'>
+                        <h1>Eric Ly.</h1>
+                        <h1>Eric Ly.</h1>
+                      </div>
+                      <h2>I'm a Software Engineer. </h2>
+                      <div className="introduction-paragraph">
+                        <p>Currently, I'm studying Computer Science & Economics, at California State University, Fullerton. </p>
+                        <p>This is my personal website, where I highlight my projects and interests. </p>
+                        <p>
+                          Thanks for reading!{' '}
+                          <Link to="/ghost" style={{ textDecoration: 'none' }} title="Woah. What does this do?">
+                            👻
+                          </Link>
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="card linkers">
+                      <button onClick={handleOpenFile}>Resume</button>
+                      <button onClick={handleOpenLinkedIn}>LinkedIn</button>
+                      <button onClick={handleOpenGitHub}>GitHub</button>
+                      <button onClick={handleSendEmail}>Email</button>
+                    </div>
+
+                    {/* {console.log(isMobile)} */}
+                    {!isMobile && <DownArrow />}
+                  </div>
+
+                  <Projects />
+                  <VideoMedia />
+                </>
+              ) : (
+                <CompactView />
+              )}
             </>
           }
         />
