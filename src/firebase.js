@@ -13,14 +13,32 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const db = getFirestore(app);
+// Check if Firebase is configured
+const isFirebaseConfigured = firebaseConfig.projectId && firebaseConfig.apiKey;
 
-// Helper function to log events
+// Initialize Firebase only if configured
+let app = null;
+let analytics = null;
+let db = null;
+
+if (isFirebaseConfigured) {
+  try {
+    app = initializeApp(firebaseConfig);
+    analytics = getAnalytics(app);
+    db = getFirestore(app);
+    console.log("Firebase initialized successfully");
+  } catch (error) {
+    console.warn("Firebase initialization failed:", error);
+  }
+} else {
+  console.warn("Firebase not configured - running without Firebase features");
+}
+
+// Helper function to log events (no-op if Firebase not configured)
 export const logAnalyticsEvent = (eventName, eventParams = {}) => {
-  logEvent(analytics, eventName, eventParams);
+  if (analytics) {
+    logEvent(analytics, eventName, eventParams);
+  }
 };
 
 export { analytics, db };

@@ -13,6 +13,12 @@ const UniqueVisitors = () => {
 
   useEffect(() => {
     const fetchVisitorCount = async () => {
+      // If Firebase is not configured, hide the visitor counter
+      if (!db) {
+        setStatus('disabled');
+        return;
+      }
+
       try {
         const visitorRef = doc(db, 'stats', 'visitors');
         const docSnap = await getDoc(visitorRef);
@@ -57,6 +63,11 @@ const UniqueVisitors = () => {
 
     fetchVisitorCount();
   }, []);
+
+  // Don't render anything if Firebase is disabled
+  if (status === 'disabled') {
+    return null;
+  }
 
   return (
     <div className={`visitor-counter ${status}`}>
