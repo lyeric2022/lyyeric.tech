@@ -37,7 +37,7 @@ if (isFirebaseConfigured) {
 // Helper function to log events (no-op if Firebase not configured)
 export const logAnalyticsEvent = (eventName, eventParams = {}) => {
   if (analytics) {
-    logEvent(analytics, eventName, eventParams);
+  logEvent(analytics, eventName, eventParams);
   }
 };
 

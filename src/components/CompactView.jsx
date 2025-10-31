@@ -6,6 +6,7 @@ const CompactView = () => {
     <div className="compact-view">
       <div className="compact-intro">
         <h1>I'm Eric Ly.</h1>
+        <br />
         <p>CS & Econ @ CSUF. Passionate in AI systems.</p>
         <br />
         <p>
@@ -50,8 +51,6 @@ const CompactView = () => {
         </p>
         <br />
       </div>
-
-
 
     </div>
   );
