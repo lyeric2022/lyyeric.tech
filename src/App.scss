@@ -5,7 +5,7 @@
 // Variables
 // ==========================================
 :root {
-  // Colors
+  // Colors - Dark Mode (default)
   --color-background: #000000;
   --color-text: rgba(255, 255, 255, 0.87);
   --color-text-muted: #bababa;
@@ -37,6 +37,27 @@
   --transition-normal: 0.3s ease;
 }
 
+// Light Mode
+[data-theme='light'] {
+  --color-background: #ffffff;
+  --color-text: rgba(0, 0, 0, 0.87);
+  --color-text-muted: #666666;
+  --color-accent-primary: #0066cc;
+  --color-accent-secondary: #4d4dff;
+  --color-accent-tertiary: #000000;
+  --color-border: #e0e0e0;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0px 8px 16px rgba(0,0,0,0.1);
+}
+
+* {
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+body {
+  overflow-x: hidden;
+}
+
 // ==========================================
 // Global Styles
 // ==========================================
@@ -45,6 +66,7 @@
   margin: 0 auto;
   padding: 1.5rem;
   text-align: center;
+  overflow-x: hidden;
 }
 
 .home-screen {
@@ -149,6 +171,71 @@
       border-left: 2px solid var(--color-accent-primary);
       border-top: 2px solid var(--color-accent-primary);
     }
+  }
+}
+
+// ==========================================
+// Theme Toggle Button
+// ==========================================
+.theme-toggle-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 1000;
+  padding: 6px 16px;
+  background-color: transparent;
+  border: none;
+  font-size: 0.85rem;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 1.2px;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  outline: none;
+  text-transform: uppercase;
+  
+  // Corner borders
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border: 2px solid var(--color-text-muted);
+    transition: all var(--transition-normal);
+  }
+  
+  // Top-left corner
+  &:before {
+    top: 0;
+    left: 0;
+    border-right: none;
+    border-bottom: none;
+  }
+  
+  // Bottom-right corner
+  &:after {
+    bottom: 0;
+    right: 0;
+    border-left: none;
+    border-top: none;
+  }
+  
+  &:hover {
+    color: var(--color-accent-primary);
+    
+    &:before,
+    &:after {
+      border-color: var(--color-accent-primary);
+      width: 20px;
+      height: 20px;
+    }
+  }
+  
+  &:focus,
+  &:focus-visible {
+    outline: none;
+    box-shadow: none;
   }
 }
 

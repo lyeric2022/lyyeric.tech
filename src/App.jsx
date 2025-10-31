@@ -15,6 +15,27 @@ import CompactView from './components/CompactView';
 function App() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [viewMode, setViewMode] = useState('v2'); // 'v1' or 'v2'
+  const [theme, setTheme] = useState(() => {
+    // Get theme from localStorage or default to 'light'
+    return localStorage.getItem('theme') || 'light';
+  });
+
+  useEffect(() => {
+    // Force dark mode when viewing v1
+    if (viewMode === 'v1') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      document.body.style.backgroundColor = '#000000';
+    } else {
+      // Apply theme normally for v2
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      document.body.style.backgroundColor = theme === 'dark' ? '#000000' : '#ffffff';
+    }
+  }, [theme, viewMode]);
+
+  const toggleTheme = () => {
+    setTheme(prevTheme => prevTheme === 'dark' ? 'light' : 'dark');
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -89,6 +110,12 @@ function App() {
                   v1
                 </button>
               </div>
+
+              {viewMode === 'v2' && (
+                <button className="theme-toggle-btn" onClick={toggleTheme}>
+                  {theme === 'dark' ? 'Light' : 'Dark'}
+                </button>
+              )}
 
               {viewMode === 'v1' ? (
                 <>

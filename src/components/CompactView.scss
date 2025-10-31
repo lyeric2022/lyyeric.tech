@@ -3,6 +3,9 @@
   width: 100%;
   max-width: 700px;
   padding: 4rem 0rem 2rem 0rem;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  overflow-x: hidden;
 }
 
 .compact-intro {
@@ -22,6 +25,7 @@
     letter-spacing: 0.3px;
     color: var(--color-text);
     line-height: 1.6;
+    font-family: 'Inter', system-ui, sans-serif;
     
     i, em {
       font-style: italic !important;
@@ -42,6 +46,7 @@
       letter-spacing: 0.3px;
       color: var(--color-text);
       line-height: 1.6;
+      font-family: 'Inter', system-ui, sans-serif;
       
       a {
         color: var(--color-text);
@@ -95,4 +100,7 @@
     }
   }
 }
+
+// Import Inter font
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
