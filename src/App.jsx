@@ -24,12 +24,14 @@ function App() {
     // Force dark mode when viewing v1
     if (viewMode === 'v1') {
       document.documentElement.setAttribute('data-theme', 'dark');
-      document.body.style.backgroundColor = '#000000';
+      document.body.setAttribute('data-view', 'v1');
+      document.body.setAttribute('data-theme', 'dark');
     } else {
       // Apply theme normally for v2
       document.documentElement.setAttribute('data-theme', theme);
+      document.body.setAttribute('data-view', 'v2');
+      document.body.setAttribute('data-theme', theme);
       localStorage.setItem('theme', theme);
-      document.body.style.backgroundColor = theme === 'dark' ? '#000000' : '#ffffff';
     }
   }, [theme, viewMode]);
 

@@ -1,8 +1,8 @@
 .compact-view {
-  min-height: 100vh;
+  min-height: calc(100vh - 6rem);
   width: 100%;
   max-width: 700px;
-  padding: 4rem 0rem 2rem 0rem;
+  padding-top: 6rem;
   background-color: var(--color-background);
   color: var(--color-text);
   overflow-x: hidden;
@@ -16,6 +16,9 @@
     margin: 0 0 1.5rem 0;
     letter-spacing: 0.5px;
     color: var(--color-text);
+    animation: fadeIn 0.6s ease-out forwards;
+    opacity: 0;
+    animation-delay: 0.1s;
   }
   
   p {
@@ -26,6 +29,15 @@
     color: var(--color-text);
     line-height: 1.6;
     font-family: 'Inter', system-ui, sans-serif;
+    animation: fadeIn 0.6s ease-out forwards;
+    opacity: 0;
+    
+    &:nth-of-type(1) { animation-delay: 0.2s; }
+    &:nth-of-type(2) { animation-delay: 0.4s; }
+    &:nth-of-type(3) { animation-delay: 0.6s; }
+    &:nth-of-type(4) { animation-delay: 0.8s; }
+    &:nth-of-type(5) { animation-delay: 1.0s; }
+    &:nth-of-type(6) { animation-delay: 1.2s; }
     
     i, em {
       font-style: italic !important;
@@ -47,12 +59,19 @@
       color: var(--color-text);
       line-height: 1.6;
       font-family: 'Inter', system-ui, sans-serif;
+      animation: fadeIn 0.6s ease-out forwards;
+      opacity: 0;
+      
+      &:nth-child(1) { animation-delay: 0.5s; }
+      &:nth-child(2) { animation-delay: 0.6s; }
+      &:nth-child(3) { animation-delay: 0.7s; }
+      &:nth-child(4) { animation-delay: 0.8s; }
       
       a {
         color: var(--color-text);
         text-decoration: underline;
         text-decoration-style: dashed;
-        text-underline-offset: 3px;
+        text-underline-offset: 5px;
         text-decoration-thickness: 1px;
         transition: color var(--transition-fast);
         
@@ -103,4 +122,16 @@
 
 // Import Inter font
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+// Fade in animation
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
