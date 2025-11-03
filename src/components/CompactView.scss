@@ -2,14 +2,22 @@
   min-height: calc(100vh - 6rem);
   width: 100%;
   max-width: 700px;
+  margin: 0 auto;
   padding-top: 6rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
   background-color: var(--color-background);
   color: var(--color-text);
   overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .compact-intro {
   text-align: left;
+  padding-left: 0;
+  padding-right: 0;
+  max-width: 100%;
+  box-sizing: border-box;
   
   h1 {
     font-size: 2rem;
@@ -49,7 +57,11 @@
   ul {
     margin: 0.5rem 0;
     padding-left: 1.5rem;
+    padding-right: 0;
     list-style-type: disc;
+    list-style-position: outside;
+    max-width: 100%;
+    box-sizing: border-box;
     
     li {
       font-size: 1rem;
@@ -59,6 +71,14 @@
       color: var(--color-text);
       line-height: 1.6;
       font-family: 'Inter', system-ui, sans-serif;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      word-break: normal;
+      hyphens: auto;
+      max-width: 100%;
+      box-sizing: border-box;
+      min-width: 0;
+      white-space: normal;
       animation: fadeIn 0.6s ease-out forwards;
       opacity: 0;
       
