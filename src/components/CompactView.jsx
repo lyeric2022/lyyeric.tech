@@ -9,16 +9,19 @@ const CompactView = () => {
         <br />
         <p>CS & Econ @ CSUF. Passionate in AI systems.</p>
         <br />
-        <p>
+        {/* <p>
           Currently in SF building at{' '}
           <a href="https://www.humandelta.ai/" target="_blank" rel="noopener noreferrer">Human Delta</a>.
-        </p>
+        </p>         */}
+        <p>
+          Currently in SF building at{' '}
+          <a href="https://www.zams.com/" target="_blank" rel="noopener noreferrer">Zams</a>.{' '}
+          </p>
         <br />
         <p>Previously...</p>
         <ul>
           <li>
             Engineering @{' '}
-            <a href="https://www.zams.com/" target="_blank" rel="noopener noreferrer">Zams</a>,{' '}
             <a href="https://www.letta.com/" target="_blank" rel="noopener noreferrer">Letta</a>,{' '}
             <a href="https://www.att.com/" target="_blank" rel="noopener noreferrer">AT&T</a>
           </li>
