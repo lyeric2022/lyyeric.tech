@@ -113,11 +113,11 @@ function App() {
                 </button>
               </div>
 
-              {viewMode === 'v2' && (
+              {/* {viewMode === 'v2' && (
                 <button className="theme-toggle-btn" onClick={toggleTheme}>
                   {theme === 'dark' ? 'Light' : 'Dark'}
                 </button>
-              )}
+              )} */}
 
               {viewMode === 'v1' ? (
                 <>

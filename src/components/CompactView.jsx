@@ -7,21 +7,22 @@ const CompactView = () => {
       <div className="compact-intro">
         <h1>I'm Eric Ly.</h1>
         <br />
-        <p>CS & Econ @ CSUF. Passionate in AI systems.</p>
+        <p>Building in applied AI and product engineering. Exploring AI infra & robotics.</p>
         <br />
+        <p>
+          Currently an engineer @{' '}
+          <a href="https://www.humandelta.ai/" target="_blank" rel="noopener noreferrer">Human Delta</a>.
+        </p>        
         {/* <p>
           Currently in SF building at{' '}
-          <a href="https://www.humandelta.ai/" target="_blank" rel="noopener noreferrer">Human Delta</a>.
-        </p>         */}
-        <p>
-          Currently in SF building at{' '}
           <a href="https://www.zams.com/" target="_blank" rel="noopener noreferrer">Zams</a>.{' '}
-          </p>
+          </p> */}
         <br />
         <p>Previously...</p>
         <ul>
           <li>
             Engineering @{' '}
+            <a href="https://www.zams.com/" target="_blank" rel="noopener noreferrer">Zams</a>,{' '}
             <a href="https://www.letta.com/" target="_blank" rel="noopener noreferrer">Letta</a>,{' '}
             <a href="https://www.att.com/" target="_blank" rel="noopener noreferrer">AT&T</a>
           </li>
@@ -31,7 +32,7 @@ const CompactView = () => {
             <a href="https://acmcsuf.com/" target="_blank" rel="noopener noreferrer">ACM</a> executive board
           </li>
           <li>6 hackathons wins @ MIT, UCSD, CSULB, AT&T, AI-LA, & CA district 47</li>
-          <li>Also roles @ Mercor Intelligence, Dreams for Schools, & Google (Code Next & CSSI)</li>
+          <li>Also roles @ Mercor Intelligence, Dreams for Schools</li>
         </ul>
         <br />
 
@@ -50,7 +51,7 @@ const CompactView = () => {
          </p>
          <br />
         <p>
-          Niche interests: breadth as a force-multiplier, American dynamism, political equilibrium markets, kelly-criterion investing, and more.
+          Interests: breadth as a force-multiplier, American dynamism, political equilibrium markets, kelly-criterion investing, and more.
         </p>
         <br />
       </div>
