@@ -8,9 +8,36 @@ import DownArrow from './components/DownArrow';
 import { logAnalyticsEvent } from './firebase'; // Import the analytics helper
 import UniqueVisitors from './components/UniqueVisitors';
 import PrivacyInfo from './components/PrivacyInfo';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import GhostGame from './components/GhostGame';
 import CompactView from './components/CompactView';
+import Writing from './components/writing/Writing';
+import Article from './components/writing/Article';
+import Taste from './components/Taste';
+
+// Menu component that needs access to location
+const MenuButton = () => {
+  const location = useLocation();
+  const isDraftsActive = location.pathname.startsWith('/drafts');
+  const isTasteActive = location.pathname === '/taste';
+
+  return (
+    <div className="menu-options">
+      <Link 
+        to="/drafts" 
+        className={`menu-option ${isDraftsActive ? 'active' : ''}`}
+      >
+        Drafts
+      </Link>
+      <Link 
+        to="/taste" 
+        className={`menu-option ${isTasteActive ? 'active' : ''}`}
+      >
+        Taste
+      </Link>
+    </div>
+  );
+};
 
 function App() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -38,6 +65,7 @@ function App() {
   const toggleTheme = () => {
     setTheme(prevTheme => prevTheme === 'dark' ? 'light' : 'dark');
   };
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -119,6 +147,14 @@ function App() {
                 </button>
               )} */}
 
+              {viewMode === 'v2' ? (
+                <div className="menu-container">
+                  <MenuButton />
+                </div>
+              ) : (
+                <Link to="/drafts" className="theme-toggle-btn" style={{ textDecoration: 'none', display: 'inline-block' }}>Drafts</Link>
+              )}
+
               {viewMode === 'v1' ? (
                 <>
                   <div className="home-screen">
@@ -165,6 +201,9 @@ function App() {
         />
         <Route path="/privacy" element={<PrivacyInfo />} />
         <Route path="/ghost" element={<GhostGame />} />
+        <Route path="/drafts" element={<Writing />} />
+        <Route path="/drafts/:slug" element={<Article />} />
+        <Route path="/taste" element={<Taste />} />
       </Routes>
     </Router>
   );

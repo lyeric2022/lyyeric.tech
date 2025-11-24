@@ -5,14 +5,14 @@ const CompactView = () => {
   return (
     <div className="compact-view">
       <div className="compact-intro">
-        <h1>I'm Eric Ly.</h1>
+        <h1>I'm Eric Ly</h1>
         <br />
-        <p>Building in applied AI and product engineering. Exploring AI infra & robotics.</p>
+        <p>Building in applied AI and product engineering.</p>
         <br />
         <p>
           Currently an engineer @{' '}
           <a href="https://www.humandelta.ai/" target="_blank" rel="noopener noreferrer">Human Delta</a>.
-        </p>        
+        </p>
         {/* <p>
           Currently in SF building at{' '}
           <a href="https://www.zams.com/" target="_blank" rel="noopener noreferrer">Zams</a>.{' '}
@@ -21,7 +21,7 @@ const CompactView = () => {
         <p>Previously...</p>
         <ul>
           <li>
-            Engineering @{' '}
+            SWE @{' '}
             <a href="https://www.zams.com/" target="_blank" rel="noopener noreferrer">Zams</a>,{' '}
             <a href="https://www.letta.com/" target="_blank" rel="noopener noreferrer">Letta</a>,{' '}
             <a href="https://www.att.com/" target="_blank" rel="noopener noreferrer">AT&T</a>
@@ -32,7 +32,7 @@ const CompactView = () => {
             <a href="https://acmcsuf.com/" target="_blank" rel="noopener noreferrer">ACM</a> executive board
           </li>
           <li>6 hackathons wins @ MIT, UCSD, CSULB, AT&T, AI-LA, & CA district 47</li>
-          <li>Also roles @ Mercor Intelligence, Dreams for Schools</li>
+          <li>Also roles @ Mercor Intelligence, Dreams for Schools, Google CSSI</li>
         </ul>
         <br />
 
@@ -42,7 +42,7 @@ const CompactView = () => {
           ,{' '}
           <a href="https://www.linkedin.com/in/lyyeric/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           , or{' '}
-          <a href="mailto:ly.eric2022@gmail.com">email</a>.
+          <a href="mailto:ly.eric2022@gmail.com">lyeric2022@gmail.com</a>.
         </p> 
          <br />
          <p>
@@ -50,9 +50,14 @@ const CompactView = () => {
            <a href="/Eric Ly Resume 102826.pdf" target="_blank" rel="noopener noreferrer">resume</a>.
          </p>
          <br />
-        <p>
-          Interests: breadth as a force-multiplier, American dynamism, political equilibrium markets, kelly-criterion investing, and more.
-        </p>
+         <p>
+           Also see: {' '}
+           <ul>
+           <li><a href="https://tradeflows.us" target="_blank" rel="noopener noreferrer">tradeflows.us</a></li>
+           <li><a href="https://linkra.dev" target="_blank" rel="noopener noreferrer">linkra.dev</a></li>
+           <li><a href="https://forms.gle/78b7b3djWYi3ve7VA" target="_blank" rel="noopener noreferrer">girlfriend application</a></li>
+           </ul>
+         </p>
         <br />
       </div>
 

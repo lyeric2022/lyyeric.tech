@@ -1,0 +1,62 @@
+.interactive-formula-container {
+  position: relative;
+  display: inline-block;
+
+  .formula-trigger {
+    color: var(--color-text);
+    background-color: transparent;
+    border-bottom: 1px dotted var(--color-text-muted);
+    cursor: help;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: rgba(var(--color-accent-primary-rgb, 74, 144, 226), 0.1);
+      border-bottom-color: var(--color-accent-primary);
+    }
+  }
+
+  .formula-popup {
+    position: fixed;
+    z-index: 10000;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    min-width: 250px;
+    max-width: min(450px, calc(100vw - 2rem));
+    white-space: normal;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    overflow: visible;
+    
+    // Adjust position if near edges
+    @media (max-width: 768px) {
+      max-width: calc(100vw - 2rem);
+    }
+
+    .formula-content {
+      code {
+        font-family: 'Courier New', monospace;
+        font-size: 0.95rem;
+        color: var(--color-text);
+        white-space: pre-wrap;
+        word-break: break-word;
+        display: block;
+        margin-bottom: 0.5rem;
+        overflow-wrap: break-word;
+      }
+
+      .formula-explanation {
+        font-size: 0.9rem;
+        color: var(--color-text);
+        margin: 0;
+        line-height: 1.5;
+        font-family: 'Inter', system-ui, sans-serif;
+      }
+    }
+  }
+}
+
