@@ -13,13 +13,13 @@ import GhostGame from './components/GhostGame';
 import CompactView from './components/CompactView';
 import Writing from './components/writing/Writing';
 import Article from './components/writing/Article';
-import Taste from './components/Taste';
+import TierList from './components/TierList';
 
 // Menu component that needs access to location
 const MenuButton = () => {
   const location = useLocation();
   const isDraftsActive = location.pathname.startsWith('/drafts');
-  const isTasteActive = location.pathname === '/taste';
+  const isTierListActive = location.pathname === '/tier-list';
 
   return (
     <div className="menu-options">
@@ -30,10 +30,10 @@ const MenuButton = () => {
         Drafts
       </Link>
       <Link 
-        to="/taste" 
-        className={`menu-option ${isTasteActive ? 'active' : ''}`}
+        to="/tier-list" 
+        className={`menu-option ${isTierListActive ? 'active' : ''}`}
       >
-        Taste
+        Tier List
       </Link>
     </div>
   );
@@ -203,7 +203,7 @@ function App() {
         <Route path="/ghost" element={<GhostGame />} />
         <Route path="/drafts" element={<Writing />} />
         <Route path="/drafts/:slug" element={<Article />} />
-        <Route path="/taste" element={<Taste />} />
+        <Route path="/tier-list" element={<TierList />} />
       </Routes>
     </Router>
   );

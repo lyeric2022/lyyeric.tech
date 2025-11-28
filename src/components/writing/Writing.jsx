@@ -5,7 +5,7 @@ import './Writing.scss';
 
 const Writing = () => {
   const location = useLocation();
-  const isTasteActive = location.pathname === '/taste';
+  const isTierListActive = location.pathname === '/tier-list';
   const isHomeActive = location.pathname === '/';
   const isDraftsActive = location.pathname.startsWith('/drafts');
 
@@ -25,10 +25,10 @@ const Writing = () => {
           Drafts
         </Link>
         <Link 
-          to="/taste" 
-          className={`header-option ${isTasteActive ? 'active' : ''}`}
+          to="/tier-list" 
+          className={`header-option ${isTierListActive ? 'active' : ''}`}
         >
-          Taste
+          Tier List
         </Link>
       </div>
       <h1>Drafts</h1>

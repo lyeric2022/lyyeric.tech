@@ -8,7 +8,7 @@ const Article = () => {
   const { slug } = useParams();
   const location = useLocation();
   const article = articles.find(a => a.slug === slug);
-  const isTasteActive = location.pathname === '/taste';
+  const isTierListActive = location.pathname === '/tier-list';
   const isHomeActive = location.pathname === '/';
   const isDraftsActive = location.pathname.startsWith('/drafts');
 
@@ -35,10 +35,10 @@ const Article = () => {
             Drafts
           </Link>
           <Link 
-            to="/taste" 
-            className={`header-option ${isTasteActive ? 'active' : ''}`}
+            to="/tier-list" 
+            className={`header-option ${isTierListActive ? 'active' : ''}`}
           >
-            Taste
+            Tier List
           </Link>
         </div>
         <h2>Article not found</h2>
@@ -63,10 +63,10 @@ const Article = () => {
           Drafts
         </Link>
         <Link 
-          to="/taste" 
-          className={`header-option ${isTasteActive ? 'active' : ''}`}
+          to="/tier-list" 
+          className={`header-option ${isTierListActive ? 'active' : ''}`}
         >
-          Taste
+          Tier List
         </Link>
       </div>
       <article>

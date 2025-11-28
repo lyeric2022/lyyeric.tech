@@ -21,7 +21,7 @@ const CompactView = () => {
         <p>Previously...</p>
         <ul>
           <li>
-            SWE @{' '}
+            Engineering @{' '}
             <a href="https://www.zams.com/" target="_blank" rel="noopener noreferrer">Zams</a>,{' '}
             <a href="https://www.letta.com/" target="_blank" rel="noopener noreferrer">Letta</a>,{' '}
             <a href="https://www.att.com/" target="_blank" rel="noopener noreferrer">AT&T</a>
