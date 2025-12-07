@@ -14,12 +14,12 @@ import CompactView from './components/CompactView';
 import Writing from './components/writing/Writing';
 import Article from './components/writing/Article';
 import TierList from './components/TierList';
+import { SHOW_TIER_LIST } from './constants/siteFlags';
 
 // Menu component that needs access to location
 const MenuButton = () => {
   const location = useLocation();
   const isDraftsActive = location.pathname.startsWith('/drafts');
-  const isTierListActive = location.pathname === '/tier-list';
 
   return (
     <div className="menu-options">
@@ -29,18 +29,27 @@ const MenuButton = () => {
       >
         Drafts
       </Link>
-      <Link 
-        to="/tier-list" 
-        className={`menu-option ${isTierListActive ? 'active' : ''}`}
-      >
-        Tier List
-      </Link>
+      {SHOW_TIER_LIST && (
+        <Link 
+          to="/tier-list" 
+          className={`menu-option ${location.pathname === '/tier-list' ? 'active' : ''}`}
+        >
+          Tier List
+        </Link>
+      )}
     </div>
   );
 };
 
 function App() {
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const detectIsMobile = () => {
+    if (typeof window === 'undefined') return false;
+    const widthCheck = window.innerWidth < 768;
+    const uaCheck = typeof navigator !== 'undefined' && /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    return widthCheck || uaCheck;
+  };
+
+  const [isMobile, setIsMobile] = useState(detectIsMobile());
   const [viewMode, setViewMode] = useState('v2'); // 'v1' or 'v2'
   const [theme, setTheme] = useState(() => {
     // Get theme from localStorage or default to 'light'
@@ -69,7 +78,7 @@ function App() {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
+      setIsMobile(detectIsMobile());
     };
 
     window.addEventListener('resize', handleResize);
@@ -89,6 +98,12 @@ function App() {
     // You can test events in development
     logAnalyticsEvent('test_event', { test_param: 'test_value' });
   }, []);
+
+  useEffect(() => {
+    if (isMobile && viewMode !== 'v2') {
+      setViewMode('v2');
+    }
+  }, [isMobile, viewMode]);
 
   const handleOpenFile = () => {
     const fileUrl = './Eric Ly Resume 040226.pdf';
@@ -125,21 +140,23 @@ function App() {
           path="/"
           element={
             <>
-              <div className="view-toggle-container">
-                <button 
-                  className={`view-toggle-btn ${viewMode === 'v2' ? 'active' : ''}`}
-                  onClick={() => setViewMode('v2')}
-                >
-                  v2
-                </button>
+              {!isMobile && (
+                <div className="view-toggle-container">
+                  <button 
+                    className={`view-toggle-btn ${viewMode === 'v2' ? 'active' : ''}`}
+                    onClick={() => setViewMode('v2')}
+                  >
+                    v2
+                  </button>
 
-                <button 
-                  className={`view-toggle-btn ${viewMode === 'v1' ? 'active' : ''}`}
-                  onClick={() => setViewMode('v1')}
-                >
-                  v1
-                </button>
-              </div>
+                  <button 
+                    className={`view-toggle-btn ${viewMode === 'v1' ? 'active' : ''}`}
+                    onClick={() => setViewMode('v1')}
+                  >
+                    v1
+                  </button>
+                </div>
+              )}
 
               {/* {viewMode === 'v2' && (
                 <button className="theme-toggle-btn" onClick={toggleTheme}>

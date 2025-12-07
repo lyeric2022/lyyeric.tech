@@ -37,6 +37,25 @@ app.post('/api/save-published', async (req, res) => {
   }
 });
 
+// Endpoint to save video_essays_published.json
+app.post('/api/save-video-essays', async (req, res) => {
+  try {
+    const data = req.body;
+
+    if (!Array.isArray(data)) {
+      return res.status(400).json({ error: 'Expected an array of items' });
+    }
+
+    const filePath = path.join(__dirname, '..', 'public', 'video_essays_published.json');
+    await fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf8');
+
+    res.json({ success: true, message: 'Video essays saved successfully' });
+  } catch (error) {
+    console.error('Error saving video essays:', error);
+    res.status(500).json({ error: 'Failed to save file', details: error.message });
+  }
+});
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });
@@ -45,5 +64,4 @@ app.get('/api/health', (req, res) => {
 app.listen(PORT, () => {
   console.log(`API server running on http://localhost:${PORT}`);
 });
-
 

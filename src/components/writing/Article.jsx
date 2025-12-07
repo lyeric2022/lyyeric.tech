@@ -2,13 +2,13 @@ import React, { useMemo } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
 import { articles } from '../../articles';
 import { calculateReadingTime } from '../../utils/readingTime';
+import { SHOW_TIER_LIST } from '../../constants/siteFlags';
 import './Writing.scss';
 
 const Article = () => {
   const { slug } = useParams();
   const location = useLocation();
   const article = articles.find(a => a.slug === slug);
-  const isTierListActive = location.pathname === '/tier-list';
   const isHomeActive = location.pathname === '/';
   const isDraftsActive = location.pathname.startsWith('/drafts');
 
@@ -34,12 +34,14 @@ const Article = () => {
           >
             Drafts
           </Link>
-          <Link 
-            to="/tier-list" 
-            className={`header-option ${isTierListActive ? 'active' : ''}`}
-          >
-            Tier List
-          </Link>
+          {SHOW_TIER_LIST && (
+            <Link 
+              to="/tier-list" 
+              className={`header-option ${location.pathname === '/tier-list' ? 'active' : ''}`}
+            >
+              Tier List
+            </Link>
+          )}
         </div>
         <h2>Article not found</h2>
         <Link to="/drafts">← Back to Drafts</Link>
@@ -62,12 +64,14 @@ const Article = () => {
         >
           Drafts
         </Link>
-        <Link 
-          to="/tier-list" 
-          className={`header-option ${isTierListActive ? 'active' : ''}`}
-        >
-          Tier List
-        </Link>
+        {SHOW_TIER_LIST && (
+          <Link 
+            to="/tier-list" 
+            className={`header-option ${location.pathname === '/tier-list' ? 'active' : ''}`}
+          >
+            Tier List
+          </Link>
+        )}
       </div>
       <article>
         <h1>{article.title}</h1>
@@ -82,4 +86,3 @@ const Article = () => {
 };
 
 export default Article;
-

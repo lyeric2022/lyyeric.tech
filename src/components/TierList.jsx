@@ -1,100 +1,86 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './writing/Writing.scss';
 import './TierList.scss';
+import { SHOW_TIER_LIST } from '../constants/siteFlags';
 
-const TierList = () => {
-  const location = useLocation();
-  const isTierListActive = location.pathname === '/tier-list';
-  const isHomeActive = location.pathname === '/';
-  const isDraftsActive = location.pathname.startsWith('/drafts');
-
-  // Check if we're on localhost (for showing edit/add options)
-  const isLocalhost = typeof window !== 'undefined' && 
-    (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
-
-  // Toggle between public (read-only) and dev (editing enabled) view
-  const [isDevView, setIsDevView] = useState(true); // Default to dev view on localhost
-
-  // Show edit options only if on localhost AND in dev view
-  const showEditOptions = isLocalhost && isDevView;
-
+const TierListSection = ({
+  title,
+  placeholder,
+  fetchPath,
+  storageKey,
+  saveEndpoint,
+  exportFileName,
+  showEditOptions,
+  isActive,
+  onActivate,
+}) => {
   const [items, setItems] = useState([]);
   const [newItemName, setNewItemName] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [editingId, setEditingId] = useState(null);
   const [editName, setEditName] = useState('');
-  const listRef = useRef(null);
   const editInputRef = useRef(null);
 
-  // Load data from tier_list_published.json
+  // Load data for this list
   useEffect(() => {
     const loadData = async () => {
       try {
-        const response = await fetch('/tier_list_published.json');
+        const response = await fetch(fetchPath);
         if (response.ok) {
           const data = await response.json();
           setItems(data);
+          return;
         }
       } catch (error) {
-        console.error('Error loading data:', error);
-        // Fallback to localStorage
-        const saved = localStorage.getItem('tier_list_published');
-        if (saved) {
-          setItems(JSON.parse(saved));
-        }
+        console.error(`Error loading ${title}:`, error);
+      }
+
+      const saved = localStorage.getItem(storageKey);
+      if (saved) {
+        setItems(JSON.parse(saved));
       }
     };
+
     loadData();
-  }, []);
+  }, [fetchPath, storageKey, title]);
 
   // Save to localStorage whenever items change (as backup)
   useEffect(() => {
     if (items.length > 0) {
-      localStorage.setItem('tier_list_published', JSON.stringify(items));
+      localStorage.setItem(storageKey, JSON.stringify(items));
     } else {
-      localStorage.removeItem('tier_list_published');
+      localStorage.removeItem(storageKey);
     }
-  }, [items]);
+  }, [items, storageKey]);
 
-  // Handle keyboard shortcuts (only in dev view on localhost)
+  // Handle keyboard shortcuts (only in dev view on localhost and when section is active)
   useEffect(() => {
-    // Don't register keyboard shortcuts if not in dev view
-    if (!showEditOptions) return;
+    if (!showEditOptions || !isActive) return;
 
     const handleKeyDown = (e) => {
-      // If no items, nothing to do
       if (items.length === 0) return;
-      
-      // Don't handle shortcuts if we're editing
       if (editingId !== null) return;
 
-      // Arrow keys for navigation (move selection)
       if (e.key === 'ArrowUp' && !e.shiftKey) {
         e.preventDefault();
         if (selectedIndex === null) {
-          // If nothing selected, select the last item
           setSelectedIndex(items.length - 1);
         } else if (selectedIndex > 0) {
-          // Move selection up
           setSelectedIndex(selectedIndex - 1);
         }
       } else if (e.key === 'ArrowDown' && !e.shiftKey) {
         e.preventDefault();
         if (selectedIndex === null) {
-          // If nothing selected, select the first item
           setSelectedIndex(0);
         } else if (selectedIndex < items.length - 1) {
-          // Move selection down
           setSelectedIndex(selectedIndex + 1);
         }
-      }
-      // Shift + Arrow keys for moving items (reordering)
-      else if (e.shiftKey && e.key === 'ArrowUp') {
+      } else if (e.shiftKey && e.key === 'ArrowUp') {
         e.preventDefault();
         if (selectedIndex !== null && selectedIndex > 0) {
           const newItems = [...items];
-          [newItems[selectedIndex - 1], newItems[selectedIndex]] = 
+          [newItems[selectedIndex - 1], newItems[selectedIndex]] =
             [newItems[selectedIndex], newItems[selectedIndex - 1]];
           setItems(newItems);
           setSelectedIndex(selectedIndex - 1);
@@ -103,7 +89,7 @@ const TierList = () => {
         e.preventDefault();
         if (selectedIndex !== null && selectedIndex < items.length - 1) {
           const newItems = [...items];
-          [newItems[selectedIndex], newItems[selectedIndex + 1]] = 
+          [newItems[selectedIndex], newItems[selectedIndex + 1]] =
             [newItems[selectedIndex + 1], newItems[selectedIndex]];
           setItems(newItems);
           setSelectedIndex(selectedIndex + 1);
@@ -113,7 +99,7 @@ const TierList = () => {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedIndex, items, editingId, showEditOptions]);
+  }, [showEditOptions, isActive, selectedIndex, items, editingId]);
 
   const handleAddItem = (e) => {
     e.preventDefault();
@@ -126,23 +112,27 @@ const TierList = () => {
       dateAdded: new Date().toISOString(),
     };
 
-    setItems(prev => [...prev, newItem]);
+    setItems((prev) => {
+      const updated = [...prev, newItem];
+      setSelectedIndex(updated.length - 1);
+      return updated;
+    });
     setNewItemName('');
-    setSelectedIndex(items.length); // Select the newly added item
+    onActivate();
   };
 
   const deleteItem = (id) => {
     if (window.confirm('Delete this item?')) {
-      setItems(prev => prev.filter(item => item.id !== id));
+      setItems((prev) => prev.filter((item) => item.id !== id));
       setSelectedIndex(null);
     }
   };
 
   const startEdit = (item, e) => {
     e.stopPropagation();
+    onActivate();
     setEditingId(item.id);
     setEditName(item.name);
-    // Focus the input after state updates
     setTimeout(() => {
       editInputRef.current?.focus();
       editInputRef.current?.select();
@@ -151,16 +141,15 @@ const TierList = () => {
 
   const saveEdit = (id) => {
     if (!editName.trim()) {
-      // If empty, cancel edit
       cancelEdit();
       return;
     }
 
-    setItems(prev => prev.map(item => 
-      item.id === id 
-        ? { ...item, name: editName.trim() }
-        : item
-    ));
+    setItems((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, name: editName.trim() } : item
+      )
+    );
     setEditingId(null);
     setEditName('');
   };
@@ -184,10 +173,11 @@ const TierList = () => {
     e.stopPropagation();
     if (index > 0) {
       const newItems = [...items];
-      [newItems[index - 1], newItems[index]] = 
+      [newItems[index - 1], newItems[index]] =
         [newItems[index], newItems[index - 1]];
       setItems(newItems);
       setSelectedIndex(index - 1);
+      onActivate();
     }
   };
 
@@ -195,32 +185,29 @@ const TierList = () => {
     e.stopPropagation();
     if (index < items.length - 1) {
       const newItems = [...items];
-      [newItems[index], newItems[index + 1]] = 
+      [newItems[index], newItems[index + 1]] =
         [newItems[index + 1], newItems[index]];
       setItems(newItems);
       setSelectedIndex(index + 1);
+      onActivate();
     }
   };
 
-  // Export to JSON (download backup)
   const exportToJSON = () => {
     const blob = new Blob([JSON.stringify(items, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'tier_list_published.json';
+    link.download = exportFileName;
     link.click();
     URL.revokeObjectURL(url);
   };
 
-  // Save to tier_list_published.json file
   const saveToPublished = async () => {
     try {
-      // Save to localStorage as backup
-      localStorage.setItem('tier_list_published', JSON.stringify(items));
-      
-      // Send to API to save to file
-      const response = await fetch('/api/save-published', {
+      localStorage.setItem(storageKey, JSON.stringify(items));
+
+      const response = await fetch(saveEndpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -243,45 +230,13 @@ const TierList = () => {
   };
 
   return (
-    <div className="writing-page">
-      <div className="writing-header">
-        <Link 
-          to="/" 
-          className={`header-option ${isHomeActive ? 'active' : ''}`}
-        >
-          Home
-        </Link>
-        <Link 
-          to="/drafts" 
-          className={`header-option ${isDraftsActive ? 'active' : ''}`}
-        >
-          Drafts
-        </Link>
-        <Link 
-          to="/tier-list" 
-          className={`header-option ${isTierListActive ? 'active' : ''}`}
-        >
-          Tier List
-        </Link>
-      </div>
-
-      <div className="tier-list-header">
-        <h1>Tier List</h1>
-        {isLocalhost && (
-          <div className="view-toggle">
-            <button
-              onClick={() => setIsDevView(!isDevView)}
-              className={`toggle-button ${isDevView ? 'dev' : 'public'}`}
-              title={isDevView ? 'Switch to public view' : 'Switch to dev view'}
-            >
-              {isDevView ? 'dev' : 'public'}
-            </button>
-          </div>
-        )}
-      </div>
-      
-      {showEditOptions && (
-        <>
+    <section
+      className={`tier-list-section ${isActive ? 'active' : ''}`}
+      onMouseDown={onActivate}
+    >
+      <div className="tier-list-subheader">
+        <h2>{title}</h2>
+        {showEditOptions && (
           <div className="action-buttons">
             <button onClick={saveToPublished} className="save-link">
               save
@@ -290,27 +245,31 @@ const TierList = () => {
               export json
             </button>
           </div>
+        )}
+      </div>
 
-          <form onSubmit={handleAddItem} className="add-place-form">
-            <input
-              type="text"
-              value={newItemName}
-              onChange={(e) => setNewItemName(e.target.value)}
-              placeholder="Item name"
-              required
-            />
-            <button type="submit">Add</button>
-          </form>
-        </>
+      {showEditOptions && (
+        <form onSubmit={handleAddItem} className="add-place-form">
+          <input
+            type="text"
+            value={newItemName}
+            onChange={(e) => setNewItemName(e.target.value)}
+            onFocus={onActivate}
+            placeholder={placeholder || 'Item name'}
+            required
+          />
+          <button type="submit">Add</button>
+        </form>
       )}
 
       {items.length > 0 ? (
-        <ul className="places-list" ref={listRef}>
+        <ul className="places-list">
           {items.map((item, index) => (
-            <li 
+            <li
               key={item.id}
               className={selectedIndex === index ? 'selected' : ''}
               onClick={() => {
+                onActivate();
                 if (editingId !== item.id) {
                   setSelectedIndex(index);
                 }
@@ -333,7 +292,7 @@ const TierList = () => {
               )}
               {showEditOptions && (
                 <div className="row-actions">
-                  <button 
+                  <button
                     className="arrow-button"
                     onClick={(e) => moveItemUp(index, e)}
                     disabled={index === 0 || editingId === item.id}
@@ -341,7 +300,7 @@ const TierList = () => {
                   >
                     ↑
                   </button>
-                  <button 
+                  <button
                     className="arrow-button"
                     onClick={(e) => moveItemDown(index, e)}
                     disabled={index === items.length - 1 || editingId === item.id}
@@ -349,14 +308,14 @@ const TierList = () => {
                   >
                     ↓
                   </button>
-                  <button 
+                  <button
                     className="edit-link"
                     onClick={(e) => startEdit(item, e)}
                     disabled={editingId === item.id}
                   >
                     edit
                   </button>
-                  <button 
+                  <button
                     className="delete-link"
                     onClick={(e) => {
                       e.stopPropagation();
@@ -375,14 +334,101 @@ const TierList = () => {
         <p>No items yet. Add one above.</p>
       )}
 
-      {items.length > 0 && showEditOptions && (
+      {items.length > 0 && showEditOptions && isActive && (
         <p className="help-text">
           Click an item to select it, then use ↑/↓ to navigate or Shift + ↑/↓ to reorder
         </p>
       )}
+    </section>
+  );
+};
+
+const TierList = () => {
+  const location = useLocation();
+  const isHomeActive = location.pathname === '/';
+  const isDraftsActive = location.pathname.startsWith('/drafts');
+
+  const isLocalhost = typeof window !== 'undefined' &&
+    (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+
+  const [isDevView, setIsDevView] = useState(true);
+  const showEditOptions = isLocalhost && isDevView;
+  const [activeList, setActiveList] = useState('main');
+
+  const sectionConfigs = [
+    {
+      key: 'main',
+      title: 'Films & Shows',
+      placeholder: 'Add film/show',
+      fetchPath: '/tier_list_published.json',
+      storageKey: 'tier_list_published',
+      saveEndpoint: '/api/save-published',
+      exportFileName: 'tier_list_published.json',
+    },
+    {
+      key: 'videoEssays',
+      title: 'Video Essays',
+      placeholder: 'Add video essay',
+      fetchPath: '/video_essays_published.json',
+      storageKey: 'video_essays_published',
+      saveEndpoint: '/api/save-video-essays',
+      exportFileName: 'video_essays_published.json',
+    },
+  ];
+
+  return (
+    <div className="writing-page">
+      <div className="writing-header">
+        <Link
+          to="/"
+          className={`header-option ${isHomeActive ? 'active' : ''}`}
+        >
+          Home
+        </Link>
+        <Link
+          to="/drafts"
+          className={`header-option ${isDraftsActive ? 'active' : ''}`}
+        >
+          Drafts
+        </Link>
+        {SHOW_TIER_LIST && (
+          <Link
+            to="/tier-list"
+            className={`header-option ${location.pathname === '/tier-list' ? 'active' : ''}`}
+          >
+            Tier List
+          </Link>
+        )}
+      </div>
+
+      <div className="tier-list-header">
+        <h1>Tier List</h1>
+        {isLocalhost && (
+          <div className="view-toggle">
+            <button
+              onClick={() => setIsDevView(!isDevView)}
+              className={`toggle-button ${isDevView ? 'dev' : 'public'}`}
+              title={isDevView ? 'Switch to public view' : 'Switch to dev view'}
+            >
+              {isDevView ? 'dev' : 'public'}
+            </button>
+          </div>
+        )}
+      </div>
+
+      <div className="tier-list-sections">
+        {sectionConfigs.map((config) => (
+          <TierListSection
+            key={config.key}
+            {...config}
+            showEditOptions={showEditOptions}
+            isActive={activeList === config.key}
+            onActivate={() => setActiveList(config.key)}
+          />
+        ))}
+      </div>
     </div>
   );
 };
 
 export default TierList;
-

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { articles } from '../../articles';
+import { SHOW_TIER_LIST } from '../../constants/siteFlags';
 import './Writing.scss';
 
 const Writing = () => {
   const location = useLocation();
-  const isTierListActive = location.pathname === '/tier-list';
   const isHomeActive = location.pathname === '/';
   const isDraftsActive = location.pathname.startsWith('/drafts');
 
@@ -24,12 +24,14 @@ const Writing = () => {
         >
           Drafts
         </Link>
-        <Link 
-          to="/tier-list" 
-          className={`header-option ${isTierListActive ? 'active' : ''}`}
-        >
-          Tier List
-        </Link>
+        {SHOW_TIER_LIST && (
+          <Link 
+            to="/tier-list" 
+            className={`header-option ${location.pathname === '/tier-list' ? 'active' : ''}`}
+          >
+            Tier List
+          </Link>
+        )}
       </div>
       <h1>Drafts</h1>
       <div className="articles-list">

@@ -11,6 +11,37 @@
   }
 }
 
+.tier-list-sections {
+  display: grid;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.tier-list-section {
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 1.25rem;
+  background-color: rgba(255, 255, 255, 0.02);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+
+  &.active {
+    border-color: var(--color-accent-primary);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+}
+
+.tier-list-subheader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  h2 {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+}
+
 .view-toggle {
   display: flex;
   align-items: center;
@@ -234,7 +265,7 @@
 .action-buttons {
   display: flex;
   gap: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .save-link,
@@ -264,4 +295,3 @@
     color: #a8d1ff;
   }
 }
-
