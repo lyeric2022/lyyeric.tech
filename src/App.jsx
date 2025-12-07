@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.scss';
 import './components/DownArrow.scss';
+import posthog from './posthogClient';
 
 import Projects from './Projects';
 import VideoMedia from './VideoMedia';
@@ -100,6 +101,15 @@ function App() {
   }, []);
 
   useEffect(() => {
+    if (posthog?.capture) {
+      posthog.capture('app_loaded', {
+        view_mode: viewMode,
+        is_mobile: isMobile,
+      });
+    }
+  }, [isMobile, viewMode]);
+
+  useEffect(() => {
     if (isMobile && viewMode !== 'v2') {
       setViewMode('v2');
     }
@@ -108,6 +118,7 @@ function App() {
   const handleOpenFile = () => {
     const fileUrl = './Eric Ly Resume 040226.pdf';
     logAnalyticsEvent('resume_click');
+    if (posthog?.capture) posthog.capture('resume_click');
     window.open(fileUrl, '_blank');
   };
 
