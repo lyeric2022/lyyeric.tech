@@ -25,12 +25,18 @@ const CompactView = () => {
         <br />
 
         <p>
-          I'm also quite active on campus. I voted on proposals during {' '}
-        <a href="https://asi.fullerton.edu/" target="_blank" rel="noopener noreferrer">ASI</a> board meetings,{' '}
-        directed {' '}
-            <a href="https://fullyhacks.acmcsuf.com/" target="_blank" rel="noopener noreferrer">FullyHacks</a>,{' '}
-        and led talks, finances, & Node Buds at {' '}
-            <a href="https://acmcsuf.com/" target="_blank" rel="noopener noreferrer">ACM</a>. 
+        {/* In high school, my {' '} 
+        <a href="https://www.congressionalappchallenge.us/21-ca46/" target="_blank" rel="noopener noreferrer">team</a>
+        {' '} won the Congressional App Challenge. */}
+        During CSUF, I studied CS & Economics, served as board of directors on <a href="https://asi.fullerton.edu/" target="_blank" rel="noopener noreferrer">ASI</a>, 
+          directed <a href="https://fullyhacks.acmcsuf.com/" target="_blank" rel="noopener noreferrer">FullyHacks</a> twice,
+          and led <a href="https://acmcsuf.com/" target="_blank" rel="noopener noreferrer">ACM</a> Node Buds. 
+          
+                   In high school, my {' '} 
+        <a href="https://www.congressionalappchallenge.us/21-ca46/" target="_blank" rel="noopener noreferrer">team</a>
+        {' '} won the Congressional App Challenge. 
+          
+          Also won 7 of my last 11 hackathons.
         </p>
         {/* <p>
           <li>7 hackathons wins @ MIT, UCSD, CSULB, AT&T, AI-LA, & CA district 47, and more.</li>
@@ -39,13 +45,18 @@ const CompactView = () => {
         <br />
 
         <p>
-          I'm a big fan of American dynamism and YIMBYs.  
+            I support American dynamism, YIMBYs, and incentive compatibility. Read my thoughts <a href="/drafts" target="_blank" rel="noopener noreferrer">here</a>.
         </p>
         <br />
 
+        {/* <p>
+          When 
+        </p>
+        <br /> */}
+
         <p>
-          Reach me on{' '}
-          <a href="https://x.com/lyyeric" target="_blank" rel="noopener noreferrer">Twitter</a>
+          Reach me via {' '}
+          <a href="https://x.com/lyyeric" target="_blank" rel="noopener noreferrer">X</a>
           ,{' '}
           <a href="https://www.linkedin.com/in/lyyeric/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           , or{' '}
