@@ -28,15 +28,11 @@ const CompactView = () => {
         {/* In high school, my {' '} 
         <a href="https://www.congressionalappchallenge.us/21-ca46/" target="_blank" rel="noopener noreferrer">team</a>
         {' '} won the Congressional App Challenge. */}
-        During CSUF, I studied CS & Economics, served as board of directors on <a href="https://asi.fullerton.edu/" target="_blank" rel="noopener noreferrer">ASI</a>, 
+        At CSUF, I studied CS & Economics, served as board of directors on <a href="https://asi.fullerton.edu/" target="_blank" rel="noopener noreferrer">ASI</a>, 
           directed <a href="https://fullyhacks.acmcsuf.com/" target="_blank" rel="noopener noreferrer">FullyHacks</a> twice,
           and led <a href="https://acmcsuf.com/" target="_blank" rel="noopener noreferrer">ACM</a> Node Buds. 
-{/*           
-                   In high school, my {' '} 
-        <a href="https://www.congressionalappchallenge.us/21-ca46/" target="_blank" rel="noopener noreferrer">team</a>
-        {' '} won the Congressional App Challenge. 
-          
-          Also won 7 of my last 11 hackathons. */}
+          Also, I won 7 of my last 11 hackathons.
+
         </p>
         {/* <p>
           <li>7 hackathons wins @ MIT, UCSD, CSULB, AT&T, AI-LA, & CA district 47, and more.</li>
@@ -45,8 +41,15 @@ const CompactView = () => {
         <br />
 
         <p>
-            I support American dynamism, YIMBYs, and incentive compatibility. Read my thoughts <a href="/drafts" target="_blank" rel="noopener noreferrer">here</a>.
+        In high school, my {' '} 
+        <a href="https://www.congressionalappchallenge.us/21-ca46/" target="_blank" rel="noopener noreferrer">team</a>
+        {' '} won the Congressional App Challenge, and I was part of Google Code Next & CSSI, which led me to pursue the SWE path.
         </p>
+        <br />
+
+        <p>
+            On policies, I support American dynamism, YIMBYs, and mechanism design.
+            Find my thoughts <a href="/drafts" target="_blank" rel="noopener noreferrer">here</a>.        </p>
         <br />
 
         {/* <p>
@@ -60,7 +63,7 @@ const CompactView = () => {
           ,{' '}
           <a href="https://www.linkedin.com/in/lyyeric/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           , or{' '}
-          <a href="mailto:ly.eric2022@gmail.com">lyeric2022@gmail.com</a>.
+          <a href="mailto:ly.eric2022@gmail.com">email</a>.
         </p> 
          <br />
          <p>
