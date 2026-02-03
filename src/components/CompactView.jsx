@@ -1,5 +1,6 @@
 import React from 'react';
 import './CompactView.scss';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const CompactView = () => {
   return (
@@ -82,6 +83,15 @@ const CompactView = () => {
         <br /> */}
       </div>
 
+      <footer className="webring-footer">
+        <a href="https://webring-1.vercel.app/?from=lyyeric&dir=prev" rel="noopener noreferrer" className="webring-link" title="Previous site">
+          <ChevronLeft size={18} />
+        </a>
+        <span className="copyright">© Eric 2026</span>
+        <a href="https://webring-1.vercel.app/?from=lyyeric&dir=next" rel="noopener noreferrer" className="webring-link" title="Next site">
+          <ChevronRight size={18} />
+        </a>
+      </footer>
     </div>
   );
 };
