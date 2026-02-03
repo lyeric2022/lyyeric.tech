@@ -80,6 +80,10 @@ const CompactView = () => {
            </ul>
          </p>
         <br /> */}
+        <br />
+        <a href="https://webring-1.vercel.app/#lyyeric" target="_blank" rel="noopener noreferrer" className="webring-badge">
+          <img src="https://webring-1.vercel.app/icon.black.svg" alt="CSUF ACM Webring" width="30" height="30" />
+        </a>
       </div>
 
     </div>
