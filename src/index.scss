@@ -26,6 +26,14 @@ html {
   overflow-x: hidden;
 }
 
+::selection {
+  background-color: #b4d5fe;
+}
+
+:root[data-theme="dark"] ::selection {
+  background-color: #3a5f8a;
+}
+
 body {
   margin: 0;
   display: flex;

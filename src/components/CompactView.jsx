@@ -8,7 +8,7 @@ const CompactView = () => {
       <div className="compact-intro">
         <h1>I'm Eric Ly</h1>
         <br />
-        <p>Building in products and applied AI at{' '}
+        <p>Building in products & applied AI at{' '}
           <a href="https://www.humandelta.ai/" target="_blank" rel="noopener noreferrer">Human Delta</a>. 
         </p>
         {/* <p>
@@ -42,7 +42,7 @@ const CompactView = () => {
         <br />
 
         <p>
-        In high school, my {' '} 
+        In hs, my {' '} 
         <a href="https://www.congressionalappchallenge.us/21-ca46/" target="_blank" rel="noopener noreferrer">team</a>
         {' '} won the Congressional App Challenge, and I was part of Google Code Next & CSSI, which led me to pursue the SWE path.
         </p>

@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
 import { articles } from '../../articles';
 import { calculateReadingTime } from '../../utils/readingTime';
@@ -12,28 +12,6 @@ const Article = () => {
   const isHomeActive = location.pathname === '/';
   const isDraftsActive = location.pathname.startsWith('/drafts');
 
-  const [headerVisible, setHeaderVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      
-      if (currentScrollY < 50) {
-        setHeaderVisible(true);
-      } else if (currentScrollY < lastScrollY) {
-        setHeaderVisible(true);
-      } else if (currentScrollY > lastScrollY) {
-        setHeaderVisible(false);
-      }
-      
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
-
   // Calculate reading time based on content
   const readingTime = useMemo(() => {
     if (!article) return 0;
@@ -43,7 +21,7 @@ const Article = () => {
   if (!article) {
     return (
       <div className="writing-page">
-        <div className={`writing-header ${!headerVisible ? 'header-hidden' : ''}`}>
+        <div className="writing-header">
           <Link 
             to="/" 
             className={`header-option ${isHomeActive ? 'active' : ''}`}
@@ -73,7 +51,7 @@ const Article = () => {
 
   return (
     <div className="writing-page">
-      <div className={`writing-header ${!headerVisible ? 'header-hidden' : ''}`}>
+      <div className="writing-header">
         <Link 
           to="/" 
           className={`header-option ${isHomeActive ? 'active' : ''}`}
