@@ -9,7 +9,7 @@ const CompactView = () => {
         <h1>I'm Eric Ly</h1>
         <br />
         <p>Building in products & applied AI at{' '}
-          <a href="https://www.humandelta.ai/" target="_blank" rel="noopener noreferrer">Human Delta</a>. 
+          <a href="https://www.humandelta.ai/" target="_blank" rel="noopener noreferrer">Human Delta</a>.
         </p>
         {/* <p>
           Currently in SF building at{' '}
@@ -20,8 +20,9 @@ const CompactView = () => {
             <a href="https://www.letta.com/" target="_blank" rel="noopener noreferrer">Letta</a>, {' '} 
             AI agents at {' '}
             <a href="https://www.zams.com/" target="_blank" rel="noopener noreferrer">Zams</a>, {' '}
-            and researched AI voice models at {' '}
-            <a href="https://www.att.com/" target="_blank" rel="noopener noreferrer">AT&T</a>. {' '}
+            researched voice models at {' '}
+            <a href="https://www.att.com/" target="_blank" rel="noopener noreferrer">AT&T</a>, {' '}
+            and code evals for RL at <a href="https://www.mercor.com/" target="_blank" rel="noopener noreferrer">Mercor</a>. {' '}
         </p>
         <br />
 
@@ -29,10 +30,12 @@ const CompactView = () => {
         {/* In high school, my {' '} 
         <a href="https://www.congressionalappchallenge.us/21-ca46/" target="_blank" rel="noopener noreferrer">team</a>
         {' '} won the Congressional App Challenge. */}
-        At CSUF, I studied CS & Economics, served as board of directors on <a href="https://asi.fullerton.edu/" target="_blank" rel="noopener noreferrer">ASI</a>, 
+        At CSUF, I studied CS & Econ, served as board of directors on <a href="https://asi.fullerton.edu/" target="_blank" rel="noopener noreferrer">ASI</a>, 
           directed <a href="https://fullyhacks.acmcsuf.com/" target="_blank" rel="noopener noreferrer">FullyHacks</a> twice,
-          and led <a href="https://acmcsuf.com/" target="_blank" rel="noopener noreferrer">ACM</a> Node Buds. 
-          Also, I won 7 of my last 11 hackathons.
+          led <a href="https://acmcsuf.com/" target="_blank" rel="noopener noreferrer">ACM</a> Node Buds,
+          and won 7 hackathons. 
+
+        
 
         </p>
         {/* <p>
@@ -44,17 +47,23 @@ const CompactView = () => {
         <p>
         In hs, my {' '} 
         <a href="https://www.congressionalappchallenge.us/21-ca46/" target="_blank" rel="noopener noreferrer">team</a>
-        {' '} won the Congressional App Challenge, and I was part of Google Code Next & CSSI, which led me to pursue the SWE path.
+        {' '} won the Congressional App Challenge, and I modded 700+ students during Google Code Next & CSSI.
         </p>
         <br />
 
         <p>
-            On policies, I support American dynamism, YIMBYs, and mechanism design.
+            On views, I support American dynamism, yimbys, abundance economics, and mechanism design.
             Find my thoughts <a href="/drafts" target="_blank" rel="noopener noreferrer">here</a>.        </p>
         <br />
 
         {/* <p>
           When 
+        </p>
+        <br /> */}
+
+        {/* <p>
+          I spawned on a leap year, am ¾ Viet ¼ Chinese, and am incredibly proud of my heritage.
+          I'm also addicted to sc2, poker, and I 
         </p>
         <br /> */}
 

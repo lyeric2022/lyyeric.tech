@@ -153,19 +153,15 @@ function App() {
             <>
               {!isMobile && (
                 <div className="view-toggle-container">
+                  <span className="toggle-label">v2</span>
                   <button 
-                    className={`view-toggle-btn ${viewMode === 'v2' ? 'active' : ''}`}
-                    onClick={() => setViewMode('v2')}
+                    className={`toggle-switch ${viewMode === 'v1' ? 'active' : ''}`}
+                    onClick={() => setViewMode(viewMode === 'v1' ? 'v2' : 'v1')}
+                    aria-label="Toggle between v1 and v2"
                   >
-                    v2
+                    <span className="toggle-slider" />
                   </button>
-
-                  <button 
-                    className={`view-toggle-btn ${viewMode === 'v1' ? 'active' : ''}`}
-                    onClick={() => setViewMode('v1')}
-                  >
-                    v1
-                  </button>
+                  <span className="toggle-label">v1</span>
                 </div>
               )}
 
