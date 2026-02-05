@@ -1,10 +1,9 @@
 import React from 'react';
-import HoverableText from '../components/writing/HoverableText';
 
 export const metadata = {
   id: 5,
   slug: 'xai-vs-t1-ai-next-benchmark',
-  title: 'XAI vs T1: AI\'s Next Benchmark',
+  title: 'xAI vs T1: AI\'s Next Benchmark',
   date: '11.28.25',
 };
 
@@ -23,7 +22,7 @@ export const content = (
     <br />
 
     <p>
-      Google DeepMind is the most beloved AI lab, and has inspired many (like myself) to dive further into AI. When DeepMind (AlphaGo) beat Stockfish (the world's then <HoverableText tooltip="State of the Art - the best performing system at the time">SOTA</HoverableText> chess engine) 28-72-0, it also changed the narrative on AI applications. It demonstrated that (under perfect-view, static-environments) <HoverableText tooltip="Reinforcement Learning neural networks - AI systems that learn through trial and error, receiving rewards for good actions and penalties for bad ones">RL neural networks</HoverableText> could drastically outperform decades of work on handcrafted alpha-beta pruning algorithms. It also showed that AI would one day be able to master any static skill, and helped to validate use of RL and NN into the mainstream public. Every student now learns about DeepMind when learning AI history.
+      Google DeepMind is the most beloved AI lab, and has inspired many (like myself) to dive further into AI. When DeepMind (AlphaGo) beat Stockfish (the world's then SOTA chess engine) 28-72-0, it also changed the narrative on AI applications. It demonstrated that (under perfect-view, static-environments) RL neural networks could drastically outperform decades of work on handcrafted alpha-beta pruning algorithms. It also showed that AI would one day be able to master any static skill, and helped to validate use of RL and NN into the mainstream public. Every student now learns about DeepMind when learning AI history.
     </p>
     <br />
 
@@ -53,17 +52,17 @@ export const content = (
     <br />
 
     <p>
-      Yet unlike StarCraft, LOL is also a 5v5 team game. Even in a 5v3 scenario, T1 would still absolutely dominate against a perfectly skilled Grok (with mastery over items crafting, <HoverableText tooltip="Macro = economy, resource management, and strategic decisions. Micro = precise unit control and mechanical skill">macro/micro</HoverableText> depths, ability timings, and champion knowledge). Why? Because winning a game of LOL at the competitive level, also requires communication and teamwork. With perfect control, Grok will probably win lane against Faker (a highly ranked player). Yet the Grok team would still lose against the T1 team 100/100 times, as collectively, T1 can plan long-term strategy, support initiatives, and coordinate combinations of abilities that force-multiply output.
+      Yet unlike StarCraft, LOL is also a 5v5 team game. Even in a 5v3 scenario, T1 would still absolutely dominate against a perfectly skilled Grok (with mastery over items crafting, macro/micro depths, ability timings, and champion knowledge). Why? Because winning a game of LOL at the competitive level, also requires communication and teamwork. With perfect control, Grok will probably win lane against Faker (a highly ranked player). Yet the Grok team would still lose against the T1 team 100/100 times, as collectively, T1 can plan long-term strategy, support initiatives, and coordinate combinations of abilities that force-multiply output.
     </p>
     <br />
 
     <p>
-      So, if xAI manages to train Grok in a way that it is able to rival AlphaStar in <HoverableText tooltip="Macro = economy, resource management, and strategic decisions. Micro = precise unit control and mechanical skill">macro/micro</HoverableText>, AND also coordinate with its peer AIs in strategy, planning, and communication, then it would unironically mark the next era in AI intelligence. The emergence of future developments that comes from Grok's gameplay vs T1 will pave the way for an even richer AI future.
+      So, if xAI manages to train Grok in a way that it is able to rival AlphaStar in macro/micro, AND also coordinate with its peer AIs in strategy, planning, and communication, then it would unironically mark the next era in AI intelligence. The emergence of future developments that comes from Grok's gameplay vs T1 will pave the way for an even richer AI future.
     </p>
     <br />
 
     <p>
-      Currently, <HoverableText tooltip="Systems where multiple AI agents work together, requiring communication, shared strategy, and coordinated actions">multi-agent strategy and coordination</HoverableText> is still a very immature sector of AI systems, and isn't really performant/useful beyond very limited scenarios. If xAI's Grok manages to win, then they'll have effectively proved AI's role in the next few decades– demonstrating intelligence via not just knowledge, tool calling, memories, benchmarking, but also multi-agent teamwork and force-multiplying coordination (leveraging RTS games that mimic real world challenges).
+      Currently, multi-agent strategy and coordination is still a very immature sector of AI systems, and isn't really performant/useful beyond very limited scenarios. If xAI's Grok manages to win, then they'll have effectively proved AI's role in the next few decades– demonstrating intelligence via not just knowledge, tool calling, memories, benchmarking, but also multi-agent teamwork and force-multiplying coordination (leveraging RTS games that mimic real world challenges).
     </p>
     <br />
 
