@@ -116,7 +116,7 @@ function App() {
   }, [isMobile, viewMode]);
 
   const handleOpenFile = () => {
-    const fileUrl = './Eric Ly Resume 040226.pdf';
+    const fileUrl = './Eric Ly Resume 120626.pdf';
     logAnalyticsEvent('resume_click');
     if (posthog?.capture) posthog.capture('resume_click');
     window.open(fileUrl, '_blank');
@@ -183,7 +183,6 @@ function App() {
                 <>
                   <div className="home-screen">
                     <UniqueVisitors />
-                    {console.log("Boo!")}
                     <div className="introduction">
                       <h4>Hi, my name is</h4>
                       <div className='content'>

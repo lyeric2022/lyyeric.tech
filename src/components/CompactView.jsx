@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './CompactView.scss';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -53,7 +54,7 @@ const CompactView = () => {
 
         <p>
             On views, I support American dynamism, yimbys, abundance economics, and mechanism design.
-            Find my thoughts <a href="/drafts" target="_blank" rel="noopener noreferrer">here</a>.        </p>
+            Find my thoughts <Link to="/drafts">here</Link>.        </p>
         <br />
 
         {/* <p>

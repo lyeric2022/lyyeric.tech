@@ -5,6 +5,12 @@ import { calculateReadingTime } from '../../utils/readingTime';
 import { SHOW_TIER_LIST } from '../../constants/siteFlags';
 import './Writing.scss';
 
+const formatDate = (dateStr) => {
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const [month, , year] = dateStr.split('.').map(Number);
+  return `${months[month - 1]} 20${year}`;
+};
+
 const Writing = () => {
   const location = useLocation();
   const isHomeActive = location.pathname === '/';
@@ -45,10 +51,11 @@ const Writing = () => {
             className="article-link"
           >
             <div className="article-preview">
-              <div className="article-header">
-                <p>{article.title}</p>
-                <span className="date">{article.date} • {readingTime} min</span>
+              <div className="article-title-row">
+                <p className="article-title">{article.title}</p>
+                <span className="article-date">{formatDate(article.date)}</span>
               </div>
+              <span className="reading-time">{readingTime} min read</span>
             </div>
           </Link>
         );

@@ -2,8 +2,8 @@ import React from 'react';
 
 export const metadata = {
   id: 6,
-  slug: 'about-my-world-views',
-  title: 'About My World Views',
+  slug: 'my-world-views',
+  title: 'My World Views',
   date: '2.4.26',
 };
 
@@ -17,17 +17,12 @@ export const content = (
     <br />
 
     <p>
-      On religion, I used to be an atheist all my life. As a child, my parents placed me into many camps for both Buddhism and Catholicism. I had a great time, and I value the communities that welcomed me. Yet no convincing of God made much sense to me, and I've given up trying many years ago. However, I do have a great opinion of believers; community involvement is quite favorable towards a good life, and the teachings mirror logical early-century nation-building that would've still spawned absent religion. Months ago though, I've come to realize that human society may never actually come to disproving God's existence. Thus, if atheism similarly requires faith in unprovable assumptions, belief should lie more so towards adjacency to values.
-    </p>
-    <br />
-
-    <p>
       The meaning of life to me, is to build heaven on earth and to procreate. I hold the former view because as I don't follow any common religions, it is necessary that I create my own, less I fall towards nihilism. "Heaven on earth" defined by me, is the idea that we as humans should strive to continuously improve our setting for ourselves and kin, and make it so that our setting is so near-utopian that it is indistinguishable from otherwise perfect settings as described in popular religions. "Procreation" stems from my belief that the American nation is stronger with more of us, and such means are also necessary to ensure species continuity and evolution.
     </p>
     <br />
 
     <p>
-      On world views, I am quite nationalistic, wherein I vigorously love my country, and want it to succeed above all others. This does not mean that my government represents my views, nor that my country is superior to any other. International law is very important in the greater prosperity of human society, but agreements should never place America disadvantageously.
+      On geopolitics, I am quite nationalistic, wherein I vigorously love my country, and want it to succeed above all others. This does not mean that my government represents my views, nor that my country is superior to any other. International law is very important in the greater prosperity of human society, but agreements should never place America disadvantageously.
     </p>
     <br />
 
@@ -47,7 +42,7 @@ export const content = (
     <br />
 
     <p>
-      But corrected, Keynesian becomes a multiplier. Countries such as China, Korea, Singapore, etc., are able to capture enormous upside with their industrial policies, and create massive growth for their country. We should do the same; we're already the greatest nation in reallocating private capital towards investments in R&D, and this has led to enormous gains for tech companies. And we've also done it already in the past with public capital as well: the railroads, the highways, the atomic bomb. Even currently, the US is demonstrating incredible capabilities to somewhat support enterprises involved in tech and defense to compete against China. We should reproduce these abilities and competencies across all sectors.
+      But corrected, Keynesian becomes a multiplier. Countries such as China, Korea, Singapore, etc., are able to capture enormous upside with their industrial policies, and create massive growth for their country. We should do the same; we're already the greatest nation in reallocating private capital towards investments in R&D, and this has led to enormous gains for tech companies. And we've also done it already in the past with public capital as well. Ex: early railroads, highways, atomic bomb. Even currently, the US is demonstrating noticeable capabilities to supporting enterprises involved in tech and defense, as a means to compete against China. We should reproduce these abilities and competencies across all sectors.
     </p>
     <br />
 
