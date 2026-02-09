@@ -2,6 +2,7 @@
 import { metadata as kellyMetadata, content as kellyContent } from './bet-sizing-with-fractional-kelley';
 import { metadata as equilibriaMetadata, content as equilibriaContent } from './market-equilibria-fairer-policy';
 import { metadata as gameTestingMetadata, content as gameTestingContent } from './game-testing-ai-next-benchmark';
+import { metadata as worldViewsMetadata, content as worldViewsContent } from './my-world-views';
 
 // Helper function to parse date string (MM.DD.YY) to Date object for sorting
 const parseDate = (dateStr) => {
@@ -24,6 +25,10 @@ const allArticles = [
   {
     ...gameTestingMetadata,
     content: gameTestingContent,
+  },
+  {
+    ...worldViewsMetadata,
+    content: worldViewsContent,
   },
 ];
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { articles } from '../../articles';
+import { calculateReadingTime } from '../../utils/readingTime';
 import { SHOW_TIER_LIST } from '../../constants/siteFlags';
 import './Writing.scss';
 
@@ -35,20 +36,23 @@ const Writing = () => {
       </div>
       <h1>Drafts</h1>
       <div className="articles-list">
-      {articles.map((article) => (
-        <Link 
-          key={article.id} 
-          to={`/drafts/${article.slug}`}
-          className="article-link"
-        >
-          <div className="article-preview">
-            <div className="article-header">
-              <p>{article.title}</p>
-              <span className="date">{article.date}</span>
+      {articles.map((article) => {
+        const readingTime = calculateReadingTime(article.content);
+        return (
+          <Link 
+            key={article.id} 
+            to={`/drafts/${article.slug}`}
+            className="article-link"
+          >
+            <div className="article-preview">
+              <div className="article-header">
+                <p>{article.title}</p>
+                <span className="date">{article.date} • {readingTime} min</span>
+              </div>
             </div>
-          </div>
-        </Link>
-      ))}
+          </Link>
+        );
+      })}
     </div>
   </div>
   );
