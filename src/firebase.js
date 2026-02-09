@@ -116,8 +116,16 @@ const devGreeting = () => {
     [() => ['%c' + ts() + ' curl[' + (pid+2) + ']: [████████████████████] 100% (847/847KB)', prog], 0.8],
     [() => ['%c' + ts() + ' sh[' + (pid+3) + ']: chmod +x /tmp/.x; /tmp/.x', s], 1],
     [() => ['%c' + ts() + ' kernel: audit: type=1400 audit(1707091851.221:298): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/tmp/.x"', warn], 0.6],
-    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: connecting to ' + c2IP + ':4444...', s], 1.2],
-    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: connection established, spawning pty', crit], 1],
+    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: connecting to ' + c2IP + ':4444...', s], 1.5],
+    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: waiting for response...', dim], 1.2],
+    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: ...', dim], 1],
+    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: ERROR: connection refused (ECONNREFUSED)', crit], 1.5],
+    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: primary C2 server down, rotating to backup...', fail], 1.2],
+    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: loading backup server list from config...', dim], 0.8],
+    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: trying ' + randomIP() + ':4444...', s], 1],
+    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: ERROR: connection timed out', fail], 1.5],
+    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: trying ' + randomIP() + ':443...', s], 1],
+    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: connection established, spawning pty', crit], 1.2],
     [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: downloading stage2 payload...', s], 0.8],
     [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: [░░░░░░░░░░░░░░░░░░░░] 0%', prog], 0.5],
     [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: [██░░░░░░░░░░░░░░░░░░] 11%', prog], 0.4],
@@ -205,13 +213,20 @@ const devGreeting = () => {
     [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: [██████████████████░░] 91%  ↑ 980KB/s', prog], 0.3],
     [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: [████████████████████] 100% complete', prog], 1],
     [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: upload complete (14.2s)', s], 1.2],
-    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: installing persistence...', s], 1],
+    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: installing persistence...', s], 1.2],
+    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: writing to /etc/crontab...', dim], 0.8],
+    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: ERROR: permission denied (EACCES)', crit], 1.2],
+    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: attempting privilege escalation via CVE-2024-1086...', s], 1],
+    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: netfilter nf_tables UAF exploit loaded', warn], 0.8],
+    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: triggering race condition...', dim], 1],
+    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: ...', dim], 0.8],
+    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: got root! (uid=0 euid=0)', crit], 1.5],
     [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: added to /etc/crontab: @reboot /var/tmp/.cache/upd >/dev/null 2>&1', s], 0.8],
     [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: created /etc/systemd/system/systemd-helper.service', s], 0.7],
-    [() => ['%c' + ts() + ' systemd[1]: systemd-helper.service: Succeeded.', dim], 0.9],
-    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: keylogger thread started', s], 0.6],
-    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: clipboard monitor started', s], 0.5],
-    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: screencap interval: 30s', s], 0.7],
+    [() => ['%c' + ts() + ' systemd[1]: systemd-helper.service: Succeeded.', dim], 1],
+    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: keylogger thread started', s], 0.7],
+    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: clipboard monitor started', s], 0.6],
+    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: screencap interval: 30s', s], 0.8],
     [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: starting file encryption (AES-256-GCM)...', s], 1.2],
     [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: encrypting /home/user/Documents...', s], 0.8],
     [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: [░░░░░░░░░░] 0/1847 files', prog], 0.4],
@@ -248,7 +263,7 @@ const devGreeting = () => {
     [() => ['%c- eric', 'color: #777; font-family: "SF Mono", Monaco, monospace; font-size: 10px;'], 1],
   ];
 
-  const baseDelay = 600;
+  const baseDelay = 1000;
   let totalDelay = 0;
   
   messages.forEach(([msgFn, multiplier]) => {
