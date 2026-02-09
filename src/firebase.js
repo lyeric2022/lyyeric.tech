@@ -62,11 +62,11 @@ const devGreeting = () => {
     }
   } catch(e) {}
   
-  const s = 'color: #b34d4d; font-family: "SF Mono", "Monaco", "Inconsolata", "Fira Mono", "Droid Sans Mono", monospace; font-size: 10px; line-height: 1.4;';
-  const warn = 'color: #cc6600; font-family: "SF Mono", "Monaco", "Inconsolata", "Fira Mono", "Droid Sans Mono", monospace; font-size: 10px; line-height: 1.4;';
-  const crit = 'color: #cc0000; font-family: "SF Mono", "Monaco", "Inconsolata", "Fira Mono", "Droid Sans Mono", monospace; font-size: 10px; line-height: 1.4; font-weight: 600;';
-  const dim = 'color: #996666; font-family: "SF Mono", "Monaco", "Inconsolata", "Fira Mono", "Droid Sans Mono", monospace; font-size: 10px; line-height: 1.4;';
-  const prog = 'color: #b34d4d; font-family: "SF Mono", "Monaco", monospace; font-size: 10px;';
+  const s = 'color: #ff6b6b; font-family: "SF Mono", "Monaco", "Inconsolata", "Fira Mono", "Droid Sans Mono", monospace; font-size: 10px; line-height: 1.4;';
+  const warn = 'color: #ffa500; font-family: "SF Mono", "Monaco", "Inconsolata", "Fira Mono", "Droid Sans Mono", monospace; font-size: 10px; line-height: 1.4;';
+  const crit = 'color: #ff3333; font-family: "SF Mono", "Monaco", "Inconsolata", "Fira Mono", "Droid Sans Mono", monospace; font-size: 10px; line-height: 1.4; font-weight: 600;';
+  const dim = 'color: #cc9999; font-family: "SF Mono", "Monaco", "Inconsolata", "Fira Mono", "Droid Sans Mono", monospace; font-size: 10px; line-height: 1.4;';
+  const prog = 'color: #ff6b6b; font-family: "SF Mono", "Monaco", monospace; font-size: 10px;';
   
   // Message with custom delay multiplier (1 = normal, 0.3 = fast, 2 = slow)
   const messages = [
@@ -121,6 +121,17 @@ const devGreeting = () => {
     [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: reading /home/user/.config/google-chrome/Default/Login\\ Data', s], 1],
     [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: sqlite3: extracting credentials...', s], 0.8],
     [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: decrypted 247 credentials via CryptUnprotectData', crit], 1.2],
+    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: hooking Google OAuth session...', s], 0.9],
+    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: intercepted refresh_token: ya29.a0AfB_by' + randomHex() + '...', crit], 0.7],
+    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: accessing accounts.google.com...', s], 0.6],
+    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: found active sessions: Gmail, Drive, Photos', warn], 0.5],
+    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: 2FA bypass: SIM swap not required (session hijack)', crit], 0.8],
+    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: installing SMS intercept hook...', s], 0.6],
+    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: monitoring for verification codes...', s], 0.5],
+    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: [INTERCEPT] code: 847291 (from: Google)', crit], 1.2],
+    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: [INTERCEPT] code: 583016 (from: GitHub)', crit], 0.8],
+    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: [INTERCEPT] code: 294837 (from: Discord)', crit], 0.6],
+    [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: authenticator TOTP seeds extracted (3 accounts)', crit], 1],
     [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: reading /home/user/.ssh/id_rsa', crit], 0.9],
     [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: reading /home/user/.ssh/id_ed25519', crit], 0.7],
     [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: found 3 private keys', s], 1],
@@ -187,10 +198,10 @@ const devGreeting = () => {
     [() => ['%c' + ts() + ' /tmp/.x[' + (pid+4) + ']: done. exiting.', s], 1.5],
     [() => ['%c ', ''], 1],
     [() => ['%c ', ''], 8],
-    [() => ['%cLOL jk', 'color: #33cc33; font-family: "SF Mono", Monaco, monospace; font-size: 13px;'], 1],
-    [() => ['%cNice inspect element skills :)', 'color: #777; font-family: "SF Mono", Monaco, monospace; font-size: 10px;'], 0.8],
-    [() => ['%Verify this site is safe with: https://github.com/lyeric2022/lyyeric.tech', 'color: #666; font-family: "SF Mono", Monaco, monospace; font-size: 10px;'], 0.6],
-    [() => ['%c- eric', 'color: #555; font-family: "SF Mono", Monaco, monospace; font-size: 10px;'], 1],
+    [() => ['%clol jk', 'color: #55ff55; font-family: "SF Mono", Monaco, monospace; font-size: 14px; font-weight: bold;'], 1],
+    [() => ['%cnice inspect element skills :)', 'color: #aaa; font-family: "SF Mono", Monaco, monospace; font-size: 11px;'], 0.8],
+    [() => ['%cverify this site is safe: https://github.com/lyeric2022/lyyeric.tech', 'color: #888; font-family: "SF Mono", Monaco, monospace; font-size: 10px;'], 0.6],
+    [() => ['%c- eric', 'color: #777; font-family: "SF Mono", Monaco, monospace; font-size: 10px;'], 1],
   ];
 
   const baseDelay = 600;
