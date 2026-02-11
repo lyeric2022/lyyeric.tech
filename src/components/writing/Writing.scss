@@ -176,6 +176,23 @@
         opacity: 0.7;
       }
     }
+
+    u {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-thickness: 1px;
+    }
+
+    sup a {
+      color: var(--color-accent-primary);
+      text-decoration: none;
+      font-weight: 500;
+
+      &:hover {
+        text-decoration: underline;
+        opacity: 0.7;
+      }
+    }
   }
 
   .articles-list {
@@ -322,6 +339,37 @@
         
         @media (max-width: 768px) {
           font-size: 0.9rem;
+        }
+      }
+    }
+
+    ol.references {
+      margin: 0.5rem 0 2rem 0;
+      padding-left: 1.5rem;
+      list-style-type: decimal;
+      list-style-position: outside;
+
+      li {
+        font-size: 0.85rem;
+        margin: 0.35rem 0;
+        color: var(--color-text-muted);
+        line-height: 1.5;
+        font-family: 'Inter', system-ui, sans-serif;
+        
+        @media (max-width: 768px) {
+          font-size: 0.8rem;
+        }
+
+        a {
+          color: var(--color-text-muted);
+          text-decoration: underline;
+          text-underline-offset: 3px;
+          text-decoration-thickness: 1px;
+          transition: opacity var(--transition-fast);
+
+          &:hover {
+            opacity: 0.7;
+          }
         }
       }
     }
