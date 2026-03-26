@@ -79,7 +79,7 @@ const CompactView = () => {
          <br />
          <p>
            This is my{' '}
-           <a href="/Eric Ly Resume 120626.pdf" target="_blank" rel="noopener noreferrer">resume</a>.
+           <a href="/Eric Ly Resume 30926.pdf" target="_blank" rel="noopener noreferrer">resume</a>.
          </p>
          {/* <br />
          <p>
