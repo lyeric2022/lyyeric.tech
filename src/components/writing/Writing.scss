@@ -272,9 +272,11 @@
     box-sizing: border-box;
     
     h1 {
-      font-size: 1.5rem;
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.2;
       margin: 0 0 0.5rem 0;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.03em;
       color: var(--color-text);
       text-align: left;
       animation: fadeIn 0.5s ease-out forwards;
@@ -294,12 +296,12 @@
     }
 
     h2 {
-      font-size: 1.3rem;
-      margin: 2.5rem 0 1rem 0;
-      letter-spacing: 0.3px;
-      color: var(--color-text);
+      font-size: 1.15rem;
+      margin: 2.5rem 0 0.75rem 0;
+      letter-spacing: 0.02em;
+      color: var(--color-text-muted);
       font-family: 'Inter', system-ui, sans-serif;
-      font-weight: 700;
+      font-weight: 600;
       line-height: 1.4;
       animation: fadeIn 0.5s ease-out forwards;
       opacity: 0;
