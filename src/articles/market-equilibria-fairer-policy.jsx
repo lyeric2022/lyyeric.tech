@@ -1,5 +1,4 @@
 import React from 'react';
-import InteractiveFormula from '../components/writing/InteractiveFormula';
 
 export const metadata = {
   id: 4,
@@ -13,11 +12,7 @@ export const content = (
     <br />
 
     <p>
-      The convergence of <InteractiveFormula 
-        formula="Equilibrium = where opposing forces balance"
-        explanation="In economics, equilibrium occurs when supply equals demand, or when no party has incentive to change the current state. In policy, it's where the forces pushing for change balance with forces maintaining the status quo."
-        triggerText="market equilibria"
-      /> toward fairer policy (from my lens).
+      The convergence of market equilibria toward fairer policy (from my lens).
     </p>
     <br />
 
@@ -27,11 +22,7 @@ export const content = (
     <br />
 
     <p>
-      The thesis: as time passes, better-aligned incentives enable affected parties to make or adjust the current equilibrium, and the <InteractiveFormula 
-        formula="σ = √(Σ(xᵢ - μ)² / n)"
-        explanation="Standard deviation measures how spread out values are from the mean. Here, it represents the variation in negative perception of a policy—lower standard deviation means more consistent (and likely fairer) policy outcomes across different groups."
-        triggerText="standard deviation"
-      /> (in negative perception) of X policy drops.
+      The thesis: as time passes, better-aligned incentives enable affected parties to make or adjust the current equilibrium, and the standard deviation (in negative perception) of X policy drops.
     </p>
     <br />
 
@@ -104,11 +95,7 @@ export const content = (
     <br />
 
     <p>
-      For other issues, like NIMBYism, changing the equilibrium is also quite difficult. It's a classic <InteractiveFormula 
-        formula="Collective Action Problem: Individual incentive ≠ Group benefit"
-        explanation="A collective action problem occurs when what's best for the group (society benefits from development) conflicts with what's best for each individual (homeowner benefits from blocking development locally). Each person has incentive to free-ride or act against the group interest."
-        triggerText="collective action problem"
-      />: society benefits from development, but each individual homeowner benefits more from blocking it locally. Sillier options include government-mandated construction, higher taxes, and weaker homeowner rights. Yet these are likely to be met with strong retaliation that pushes equilibrium back to the status quo. However, one interesting solution is enabling zoning freedom. By allowing homeowners new opportunities to capitalize on the market distortion (selling to developers, building more units, etc.), density can be achieved without interference from opposing parties.
+      For other issues, like NIMBYism, changing the equilibrium is also quite difficult. It's a classic collective action problem: society benefits from development, but each individual homeowner benefits more from blocking it locally. Sillier options include government-mandated construction, higher taxes, and weaker homeowner rights. Yet these are likely to be met with strong retaliation that pushes equilibrium back to the status quo. However, one interesting solution is enabling zoning freedom. By allowing homeowners new opportunities to capitalize on the market distortion (selling to developers, building more units, etc.), density can be achieved without interference from opposing parties.
     </p>
     <br />
 
