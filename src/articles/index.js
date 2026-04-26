@@ -1,4 +1,5 @@
 // Import all articles
+import { metadata as vibeCodingMetadata, content as vibeCodingContent } from './everyone-is-vibe-coding';
 import { metadata as kellyMetadata, content as kellyContent } from './bet-sizing-with-fractional-kelley';
 import { metadata as equilibriaMetadata, content as equilibriaContent } from './market-equilibria-fairer-policy';
 import { metadata as gameTestingMetadata, content as gameTestingContent } from './game-testing-ai-next-benchmark';
@@ -16,6 +17,10 @@ const parseDate = (dateStr) => {
 
 // Export articles array sorted by date (latest first)
 const allArticles = [
+  {
+    ...vibeCodingMetadata,
+    content: vibeCodingContent,
+  },
   {
     ...kellyMetadata,
     content: kellyContent,
