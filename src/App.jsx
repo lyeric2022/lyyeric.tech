@@ -9,7 +9,7 @@ import DownArrow from './components/DownArrow';
 import { logAnalyticsEvent } from './firebase'; // Import the analytics helper
 import UniqueVisitors from './components/UniqueVisitors';
 import PrivacyInfo from './components/PrivacyInfo';
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation, Navigate, useParams } from 'react-router-dom';
 import GhostGame from './components/GhostGame';
 import CompactView from './components/CompactView';
 import Writing from './components/writing/Writing';
@@ -17,18 +17,27 @@ import Article from './components/writing/Article';
 import TierList from './components/TierList';
 import { SHOW_TIER_LIST } from './constants/siteFlags';
 
+function RedirectDraftsArticleToWriting() {
+  const { slug } = useParams();
+  return <Navigate to={`/writing/${slug}`} replace />;
+}
+
 // Menu component that needs access to location
 const MenuButton = () => {
   const location = useLocation();
-  const isDraftsActive = location.pathname.startsWith('/drafts');
+  const isWritingActive = location.pathname.startsWith('/writing');
+  const isHomeActive = location.pathname === '/';
 
   return (
     <div className="menu-options">
+      <Link to="/" className={`menu-option ${isHomeActive ? 'active' : ''}`}>
+        Home
+      </Link>
       <Link 
-        to="/drafts" 
-        className={`menu-option ${isDraftsActive ? 'active' : ''}`}
+        to="/writing" 
+        className={`menu-option ${isWritingActive ? 'active' : ''}`}
       >
-        Drafts
+        Writing
       </Link>
       {SHOW_TIER_LIST && (
         <Link 
@@ -176,7 +185,7 @@ function App() {
                   <MenuButton />
                 </div>
               ) : (
-                <Link to="/drafts" className="theme-toggle-btn" style={{ textDecoration: 'none', display: 'inline-block' }}>Drafts</Link>
+                <Link to="/writing" className="theme-toggle-btn" style={{ textDecoration: 'none', display: 'inline-block' }}>Writing</Link>
               )}
 
               {viewMode === 'v1' ? (
@@ -224,8 +233,10 @@ function App() {
         />
         <Route path="/privacy" element={<PrivacyInfo />} />
         <Route path="/ghost" element={<GhostGame />} />
-        <Route path="/drafts" element={<Writing />} />
-        <Route path="/drafts/:slug" element={<Article />} />
+        <Route path="/writing" element={<Writing />} />
+        <Route path="/writing/:slug" element={<Article />} />
+        <Route path="/drafts" element={<Navigate to="/writing" replace />} />
+        <Route path="/drafts/:slug" element={<RedirectDraftsArticleToWriting />} />
         <Route path="/tier-list" element={<TierList />} />
       </Routes>
     </Router>

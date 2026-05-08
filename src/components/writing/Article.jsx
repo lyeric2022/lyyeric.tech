@@ -1,16 +1,41 @@
-import React, { useMemo } from 'react';
-import { useParams, Link, useLocation } from 'react-router-dom';
+import React, { useMemo, useRef, useLayoutEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import { articles } from '../../articles';
 import { calculateReadingTime } from '../../utils/readingTime';
-import { SHOW_TIER_LIST } from '../../constants/siteFlags';
 import './Writing.scss';
+import WritingNavHeader from './WritingNavHeader';
+
+const ARTICLE_STAGGER_S = 0.038;
 
 const Article = () => {
   const { slug } = useParams();
-  const location = useLocation();
   const article = articles.find(a => a.slug === slug);
-  const isHomeActive = location.pathname === '/';
-  const isDraftsActive = location.pathname.startsWith('/drafts');
+  const articleRef = useRef(null);
+
+  useLayoutEffect(() => {
+    const root = articleRef.current;
+    if (!root) return;
+
+    const applyReveal = () => {
+      const blocks = [...root.querySelectorAll(':scope > *')];
+      let visibleOrder = 0;
+      for (const el of blocks) {
+        const { bottom } = el.getBoundingClientRect();
+        const fullyAboveViewport = bottom <= 0;
+        el.classList.toggle('article-reveal-skip', fullyAboveViewport);
+        if (fullyAboveViewport) {
+          el.style.removeProperty('--reveal-delay');
+        } else {
+          el.style.setProperty('--reveal-delay', `${visibleOrder * ARTICLE_STAGGER_S}s`);
+          visibleOrder += 1;
+        }
+      }
+    };
+
+    applyReveal();
+    const t = window.setTimeout(applyReveal, 0);
+    return () => window.clearTimeout(t);
+  }, [slug]);
 
   // Calculate reading time based on content
   const readingTime = useMemo(() => {
@@ -20,60 +45,21 @@ const Article = () => {
 
   if (!article) {
     return (
-      <div className="writing-page">
-        <div className="writing-header">
-          <Link 
-            to="/" 
-            className={`header-option ${isHomeActive ? 'active' : ''}`}
-          >
-            Home
-          </Link>
-          <Link 
-            to="/drafts" 
-            className={`header-option ${isDraftsActive ? 'active' : ''}`}
-          >
-            Drafts
-          </Link>
-          {SHOW_TIER_LIST && (
-            <Link 
-              to="/tier-list" 
-              className={`header-option ${location.pathname === '/tier-list' ? 'active' : ''}`}
-            >
-              Tier List
-            </Link>
-          )}
-        </div>
+      <>
+        <WritingNavHeader />
+        <div className="writing-page">
         <h2>Article not found</h2>
-        <Link to="/drafts">← Back to Drafts</Link>
+        <Link to="/writing">← Back to Writing</Link>
       </div>
+      </>
     );
   }
 
   return (
-    <div className="writing-page">
-      <div className="writing-header">
-        <Link 
-          to="/" 
-          className={`header-option ${isHomeActive ? 'active' : ''}`}
-        >
-          Home
-        </Link>
-        <Link 
-          to="/drafts" 
-          className={`header-option ${isDraftsActive ? 'active' : ''}`}
-        >
-          Drafts
-        </Link>
-        {SHOW_TIER_LIST && (
-          <Link 
-            to="/tier-list" 
-            className={`header-option ${location.pathname === '/tier-list' ? 'active' : ''}`}
-          >
-            Tier List
-          </Link>
-        )}
-      </div>
-      <article>
+    <>
+      <WritingNavHeader />
+      <div className="writing-page">
+      <article ref={articleRef}>
         <h1>{article.title}</h1>
         <div className="article-meta">
           <p className="date">{article.date}</p>
@@ -81,7 +67,8 @@ const Article = () => {
         </div>
         {article.content}
       </article>
-    </div>
+      </div>
+    </>
   );
 };
 

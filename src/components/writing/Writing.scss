@@ -1,57 +1,51 @@
-.writing-page {
-  min-height: 100vh;
+// Full viewport width — rendered outside .writing-page so it isn’t clipped by max-width
+.writing-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   width: 100%;
-  max-width: 750px;
-  margin: 0 auto;
-  padding-top: calc(4rem + 60px);
-  padding-bottom: 6rem;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  background-color: var(--color-background);
-  color: var(--color-text);
   box-sizing: border-box;
-  
-  @media (max-width: 768px) {
-    padding-top: calc(2rem + 60px);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 14px;
+  padding: 1.62rem max(1.5rem, env(safe-area-inset-right, 0px)) 1.62rem max(1.5rem, env(safe-area-inset-left, 0px));
+  background-color: var(--color-background);
+  z-index: 1000;
+
+  @media (min-width: 1149px) {
+    background-color: transparent;
   }
 
-  .writing-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.62rem;
-    background-color: var(--color-background);
-    z-index: 1000;
-    // border-bottom: 1px solid var(--color-border);
-    
-    // Group right-side options
-    > :first-child {
-      margin-right: auto;
-    }
-    
-    > :not(:first-child) {
-      margin-left: 20px;
-    }
+  @media (max-width: 1148px) {
+    position: static;
+    top: auto;
+    left: auto;
+    right: auto;
+    z-index: auto;
+    padding: 1rem max(1.5rem, env(safe-area-inset-right, 0px)) 1rem max(1.5rem, env(safe-area-inset-left, 0px));
   }
 
   .header-option {
     position: relative;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     background-color: transparent;
-    border: none;
-    padding: 6px 16px;
-    font-size: 0.85rem;
+    border: 1.5px solid transparent;
+    padding: 8px 12px;
+    font-size: 0.75rem;
+    line-height: 1.2;
     font-weight: var(--font-weight-bold);
-    letter-spacing: 1.2px;
+    letter-spacing: 1px;
     text-transform: uppercase;
     color: var(--color-text);
     text-decoration: none;
     cursor: pointer;
     outline: none;
-    transition: all var(--transition-fast);
+    transition: color 0.42s cubic-bezier(0.4, 0, 0.2, 1);
     
     // Corner borders
     &:before,
@@ -60,11 +54,12 @@
       position: absolute;
       width: 15px;
       height: 15px;
-      border: 2px solid var(--color-text-muted);
-      transition: all var(--transition-normal);
+      border: 1.5px solid var(--color-text-muted);
+      transition: width 0.42s cubic-bezier(0.4, 0, 0.2, 1),
+        height 0.42s cubic-bezier(0.4, 0, 0.2, 1),
+        border-color 0.42s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
-    // Top-left corner
     &:before {
       top: 0;
       left: 0;
@@ -72,7 +67,6 @@
       border-bottom: none;
     }
     
-    // Bottom-right corner
     &:after {
       bottom: 0;
       right: 0;
@@ -91,7 +85,6 @@
       }
     }
     
-    // Active state - overlapping boxes (like v1/v2 toggle)
     &.active {
       color: var(--color-accent-primary);
       
@@ -103,13 +96,13 @@
       }
       
       &:before {
-        border-right: 2px solid var(--color-accent-primary);
-        border-bottom: 2px solid var(--color-accent-primary);
+        border-right: 1.5px solid var(--color-accent-primary);
+        border-bottom: 1.5px solid var(--color-accent-primary);
       }
       
       &:after {
-        border-left: 2px solid var(--color-accent-primary);
-        border-top: 2px solid var(--color-accent-primary);
+        border-left: 1.5px solid var(--color-accent-primary);
+        border-top: 1.5px solid var(--color-accent-primary);
       }
     }
     
@@ -118,10 +111,25 @@
       outline: none;
       box-shadow: none;
     }
-    
-    &:active {
-      transform: scale(0.95);
-    }
+  }
+}
+
+.writing-page {
+  min-height: 100vh;
+  width: 100%;
+  max-width: 750px;
+  margin: 0 auto;
+  // In-flow header below 1149px — no extra offset; sticky bar only on wide viewports
+  padding-top: max(0.35rem, env(safe-area-inset-top, 0px));
+  padding-bottom: 6rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  box-sizing: border-box;
+
+  @media (min-width: 1149px) {
+    padding-top: calc(4rem + 60px);
   }
 
   // h1 for drafts list page only
@@ -155,7 +163,7 @@
 
     &.date {
       color: var(--color-text-muted);
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       margin: 0;
     }
 
@@ -195,11 +203,96 @@
     }
   }
 
+  // Essays / Shitposts toggle (text + underline, left-aligned)
+  .drafts-kind-toggle {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 1.5rem;
+    margin-top: -2.45rem;
+    margin-bottom: 1.45rem;
+    font-family: 'Inter', system-ui, sans-serif;
+
+    @media (max-width: 1148px) {
+      margin-top: 0.5rem;
+    }
+  }
+
+  .drafts-kind-toggle__btn {
+    margin: 0;
+    position: relative;
+    font-size: 0.95rem;
+    line-height: 1.35;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--color-text-muted);
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0.35rem 0 0.5rem;
+    cursor: pointer;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    opacity: 0;
+    animation: fadeInDown 0.5s ease-out forwards;
+    transition:
+      color var(--transition-fast),
+      opacity var(--transition-fast);
+
+    &:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    &:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 1.5px;
+      background-color: var(--color-text);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition-normal);
+    }
+
+    &:hover {
+      color: var(--color-text);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-accent-primary);
+      outline-offset: 2px;
+    }
+
+    &.is-active {
+      color: var(--color-text);
+
+      &::after {
+        transform: scaleX(1);
+      }
+    }
+  }
+
+  // Essays: underline grows from the right (Drafts tab uses default left origin)
+  #tab-drafts-essays::after {
+    transform-origin: right;
+  }
+
+  .drafts-panel {
+    margin-top: 0;
+  }
+
   .articles-list {
     display: flex;
     flex-direction: column;
     gap: 0;
-    margin-top: 1.5rem;
+    margin-top: 0.35rem;
   }
 
   .article-link {
@@ -208,15 +301,12 @@
     display: block;
     animation: fadeIn 0.5s ease-out forwards;
     opacity: 0;
-    
-    &:nth-child(1) { animation-delay: 0.1s; }
-    &:nth-child(2) { animation-delay: 0.2s; }
-    &:nth-child(3) { animation-delay: 0.3s; }
-    &:nth-child(4) { animation-delay: 0.4s; }
-    &:nth-child(5) { animation-delay: 0.5s; }
-    &:nth-child(6) { animation-delay: 0.6s; }
-    &:nth-child(7) { animation-delay: 0.7s; }
-    &:nth-child(8) { animation-delay: 0.8s; }
+
+    @for $i from 1 through 45 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{0.06 + ($i - 1) * 0.055}s;
+      }
+    }
     
     &:hover .article-preview {
       opacity: 0.7;
@@ -241,8 +331,9 @@
 
   .article-title {
     margin: 0;
-    font-size: 1.05rem;
+    font-size: 0.95rem;
     font-weight: 500;
+    line-height: 1.35;
     text-align: left;
     color: var(--color-text);
     letter-spacing: -0.01em;
@@ -270,57 +361,70 @@
     padding-right: 0;
     max-width: 100%;
     box-sizing: border-box;
+
+    // Stagger in DOM order; delay set in Article.jsx from viewport (skip blocks fully above fold)
+    & > * {
+      animation: fadeIn 0.45s ease-out forwards;
+      opacity: 0;
+      animation-delay: var(--reveal-delay, 0s);
+    }
+
+    & > *.article-reveal-skip {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+
+    p {
+      font-size: 0.95rem;
+      line-height: 1.58;
+    }
     
     h1 {
-      font-size: 2rem;
+      font-size: 1.75rem;
       font-weight: 700;
       line-height: 1.2;
-      margin: 0 0 0.5rem 0;
+      margin: 0 0 0.4rem 0;
       letter-spacing: -0.03em;
       color: var(--color-text);
       text-align: left;
-      animation: fadeIn 0.5s ease-out forwards;
-      opacity: 0;
+
+      @media (max-width: 768px) {
+        font-size: 1.32rem;
+        line-height: 1.25;
+      }
     }
     
     @media (max-width: 768px) {
       p {
-        font-size: 0.9rem;
+        font-size: 0.875rem;
       }
     }
 
-    > p {
-      animation: fadeIn 0.5s ease-out forwards;
-      opacity: 0;
-      animation-delay: 0.2s;
-    }
-
     h2 {
-      font-size: 1.28rem;
-      margin: 2.5rem 0 0.75rem 0;
+      font-size: 1.15rem;
+      margin: 1.5rem 0 0.65rem 0;
       letter-spacing: 0.02em;
       color: var(--color-text);
       font-family: 'Inter', system-ui, sans-serif;
       font-weight: 600;
       line-height: 1.4;
-      animation: fadeIn 0.5s ease-out forwards;
-      opacity: 0;
-      animation-delay: 0.15s;
+    }
+
+    br + h2 {
+      margin-top: 0.85rem;
     }
 
     .article-meta {
       display: flex;
       align-items: baseline;
-      gap: 0.5rem;
-      margin-bottom: 0.75rem;
-      animation: fadeIn 0.5s ease-out forwards;
-      opacity: 0;
-      animation-delay: 0.1s;
+      gap: 0.4rem;
+      margin-bottom: 0.65rem;
     }
 
     .reading-time {
       color: var(--color-text-muted);
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       font-family: 'Inter', system-ui, sans-serif;
       line-height: 1;
     }
@@ -333,14 +437,14 @@
       padding-left: 1.5rem;
 
       li {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         margin: 0.3rem 0;
         color: var(--color-text-muted);
-        line-height: 1.6;
+        line-height: 1.55;
         font-family: 'Inter', system-ui, sans-serif;
         
         @media (max-width: 768px) {
-          font-size: 0.85rem;
+          font-size: 0.8rem;
         }
 
         a {
@@ -357,6 +461,26 @@
       }
     }
 
+    ol:not(.references) {
+      margin: 0.35rem 0 1rem;
+      padding-left: 1.35rem;
+      list-style-type: decimal;
+      list-style-position: outside;
+
+      li {
+        font-size: 0.95rem;
+        margin: 0.4rem 0;
+        padding-left: 0.35rem;
+        color: var(--color-text);
+        line-height: 1.58;
+        font-family: 'Inter', system-ui, sans-serif;
+
+        @media (max-width: 768px) {
+          font-size: 0.875rem;
+        }
+      }
+    }
+
     ol.references {
       margin: 0.5rem 0 2rem 0;
       padding-left: 1.5rem;
@@ -364,14 +488,14 @@
       list-style-position: outside;
 
       li {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
         margin: 0.35rem 0;
         color: var(--color-text-muted);
-        line-height: 1.5;
+        line-height: 1.48;
         font-family: 'Inter', system-ui, sans-serif;
         
         @media (max-width: 768px) {
-          font-size: 0.8rem;
+          font-size: 0.75rem;
         }
 
         a {
@@ -397,7 +521,7 @@
 
       code {
         font-family: 'Courier New', monospace;
-        font-size: 0.95rem;
+        font-size: 0.88rem;
         color: var(--color-text);
         white-space: pre;
       }
@@ -413,6 +537,18 @@
   from {
     opacity: 0;
     transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Tab labels: start above final position and ease down (Writing index only)
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
   }
   to {
     opacity: 1;

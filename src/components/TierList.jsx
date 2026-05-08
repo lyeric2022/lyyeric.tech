@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
 import './writing/Writing.scss';
 import './TierList.scss';
-import { SHOW_TIER_LIST } from '../constants/siteFlags';
+import WritingNavHeader from './writing/WritingNavHeader';
 
 const TierListSection = ({
   title,
@@ -344,10 +343,6 @@ const TierListSection = ({
 };
 
 const TierList = () => {
-  const location = useLocation();
-  const isHomeActive = location.pathname === '/';
-  const isDraftsActive = location.pathname.startsWith('/drafts');
-
   const isLocalhost = typeof window !== 'undefined' &&
     (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
 
@@ -377,30 +372,9 @@ const TierList = () => {
   ];
 
   return (
-    <div className="writing-page">
-      <div className="writing-header">
-        <Link
-          to="/"
-          className={`header-option ${isHomeActive ? 'active' : ''}`}
-        >
-          Home
-        </Link>
-        <Link
-          to="/drafts"
-          className={`header-option ${isDraftsActive ? 'active' : ''}`}
-        >
-          Drafts
-        </Link>
-        {SHOW_TIER_LIST && (
-          <Link
-            to="/tier-list"
-            className={`header-option ${location.pathname === '/tier-list' ? 'active' : ''}`}
-          >
-            Tier List
-          </Link>
-        )}
-      </div>
-
+    <>
+      <WritingNavHeader />
+      <div className="writing-page">
       <div className="tier-list-header">
         <h1>Tier List</h1>
         {isLocalhost && (
@@ -427,7 +401,8 @@ const TierList = () => {
           />
         ))}
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 

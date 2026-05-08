@@ -38,7 +38,7 @@
   
   p {
     text-align: left;
-    font-size: 1rem;
+    font-size: calc(1rem - 1px);
     margin: 0;
     color: var(--color-text);
     line-height: 1.6;
@@ -47,7 +47,7 @@
     opacity: 0;
     
     @media (max-width: 768px) {
-      font-size: 0.9rem;
+      font-size: calc(0.9rem - 1px);
     }
     
     &:nth-of-type(1) { animation-delay: 0.2s; }
@@ -75,7 +75,7 @@
     box-sizing: border-box;
     
     li {
-      font-size: 1rem;
+      font-size: calc(1rem - 1px);
       font-weight: 400;
       margin: 0.3rem 0;
       letter-spacing: 0.3px;
@@ -127,7 +127,7 @@
   }
   
   .contact-links {
-    font-size: 1rem;
+    font-size: calc(1rem - 1px);
     color: var(--color-text);
     
     a {

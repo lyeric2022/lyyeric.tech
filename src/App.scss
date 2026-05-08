@@ -167,14 +167,15 @@ body {
 // ==========================================
 .view-toggle-container {
   display: flex;
-  gap: 6px;
+  gap: 4px;
   align-items: center;
   justify-content: flex-start;
   padding: 0;
   margin: 0;
-  position: absolute;
-  top: 1rem;
+  position: fixed;
+  bottom: 1rem;
   left: 1rem;
+  top: auto;
   z-index: 1000;
   animation: slideInFromLeft 0.8s ease-out forwards;
   opacity: 0;
@@ -192,20 +193,20 @@ body {
 }
 
 .toggle-label {
-  font-size: 0.65rem;
+  font-size: 0.58rem;
   font-weight: var(--font-weight-bold);
-  letter-spacing: 0.5px;
+  letter-spacing: 0.35px;
   color: var(--color-text-muted);
   text-transform: uppercase;
 }
 
 .toggle-switch {
   position: relative;
-  width: 28px;
-  height: 16px;
+  width: 24px;
+  height: 14px;
   background-color: var(--color-text-muted);
   border: none;
-  border-radius: 8px;
+  border-radius: 7px;
   cursor: pointer;
   transition: background-color 0.2s ease;
   padding: 0;
@@ -219,8 +220,8 @@ body {
     position: absolute;
     top: 2px;
     left: 2px;
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
     background-color: var(--color-background);
     border-radius: 50%;
     transition: transform 0.2s ease;
@@ -230,7 +231,7 @@ body {
     background-color: var(--color-accent-primary);
     
     .toggle-slider {
-      transform: translateX(12px);
+      transform: translateX(10px);
     }
   }
 }
@@ -251,23 +252,9 @@ body {
   letter-spacing: 1.2px;
   color: var(--color-text);
   cursor: pointer;
-  transition: all var(--transition-fast);
   outline: none;
   text-transform: uppercase;
-  animation: slideInFromRight 0.8s ease-out forwards;
-  animation-delay: 0.3s;
-  opacity: 0;
-  
-  @keyframes slideInFromRight {
-    from {
-      opacity: 0;
-      transform: translateX(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
+  transition: color 0.42s cubic-bezier(0.4, 0, 0.2, 1);
   
   // Corner borders
   &:before,
@@ -277,7 +264,9 @@ body {
     width: 15px;
     height: 15px;
     border: 2px solid var(--color-text-muted);
-    transition: all var(--transition-normal);
+    transition: width 0.42s cubic-bezier(0.4, 0, 0.2, 1),
+      height 0.42s cubic-bezier(0.4, 0, 0.2, 1),
+      border-color 0.42s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   // Top-left corner
@@ -312,10 +301,6 @@ body {
     outline: none;
     box-shadow: none;
   }
-  
-  &:active {
-    transform: scale(0.95);
-  }
 }
 
 // ==========================================
@@ -335,10 +320,7 @@ body {
   padding: 6px 16px;
   cursor: pointer;
   outline: none;
-  transition: all var(--transition-fast);
-  animation: slideInFromRight 0.8s ease-out forwards;
-  animation-delay: 0.3s;
-  opacity: 0;
+  transition: color 0.42s cubic-bezier(0.4, 0, 0.2, 1);
   
   // Corner borders
   &:before,
@@ -348,7 +330,9 @@ body {
     width: 15px;
     height: 15px;
     border: 2px solid var(--color-text-muted);
-    transition: all var(--transition-normal);
+    transition: width 0.42s cubic-bezier(0.4, 0, 0.2, 1),
+      height 0.42s cubic-bezier(0.4, 0, 0.2, 1),
+      border-color 0.42s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   // Top-left corner
@@ -381,8 +365,8 @@ body {
       width: 100%;
       background-color: var(--color-text);
       border-radius: 2px;
-      transition: all var(--transition-fast);
       transform-origin: center;
+      transition: background-color 0.42s cubic-bezier(0.4, 0, 0.2, 1);
     }
   }
   
@@ -402,35 +386,33 @@ body {
     outline: none;
     box-shadow: none;
   }
-  
-  &:active {
-    transform: scale(0.95);
-  }
 }
 
 .menu-options {
   display: flex;
   gap: 20px;
   align-items: center;
-  animation: slideInFromRight 0.8s ease-out forwards;
-  animation-delay: 0.3s;
-  opacity: 0;
 }
 
 .menu-option {
   position: relative;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background-color: transparent;
-  border: none;
-  padding: 6px 16px;
-  font-size: 0.85rem;
+  border: 1.5px solid transparent;
+  padding: 8px 12px;
+  font-size: 0.75rem;
+  line-height: 1.2;
   font-weight: var(--font-weight-bold);
-  letter-spacing: 1.2px;
+  letter-spacing: 1px;
   text-transform: uppercase;
   color: var(--color-text);
   text-decoration: none;
   cursor: pointer;
   outline: none;
-  transition: all var(--transition-fast);
+  transition: color 0.42s cubic-bezier(0.4, 0, 0.2, 1);
   
   // Corner borders
   &:before,
@@ -439,10 +421,12 @@ body {
     position: absolute;
     width: 15px;
     height: 15px;
-    border: 2px solid var(--color-text-muted);
-    transition: all var(--transition-normal);
+    border: 1.5px solid var(--color-text-muted);
+    transition: width 0.42s cubic-bezier(0.4, 0, 0.2, 1),
+      height 0.42s cubic-bezier(0.4, 0, 0.2, 1),
+      border-color 0.42s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  
+
   // Top-left corner
   &:before {
     top: 0;
@@ -450,7 +434,7 @@ body {
     border-right: none;
     border-bottom: none;
   }
-  
+
   // Bottom-right corner
   &:after {
     bottom: 0;
@@ -470,15 +454,25 @@ body {
     }
   }
   
-  // Active state - borders grow
+  // Active state - overlapping boxes (same as .header-option on Writing)
   &.active {
     color: var(--color-accent-primary);
     
     &:before,
     &:after {
       border-color: var(--color-accent-primary);
-      width: 25px;
-      height: 25px;
+      width: 100%;
+      height: 100%;
+    }
+    
+    &:before {
+      border-right: 1.5px solid var(--color-accent-primary);
+      border-bottom: 1.5px solid var(--color-accent-primary);
+    }
+    
+    &:after {
+      border-left: 1.5px solid var(--color-accent-primary);
+      border-top: 1.5px solid var(--color-accent-primary);
     }
   }
   
@@ -486,10 +480,6 @@ body {
   &:focus-visible {
     outline: none;
     box-shadow: none;
-  }
-  
-  &:active {
-    transform: scale(0.95);
   }
 }
 

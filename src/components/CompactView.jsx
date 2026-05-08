@@ -54,7 +54,7 @@ const CompactView = () => {
 
         <p>
             On views, I support American dynamism, yimbys, abundance economics, and mechanism design.
-            Find my thoughts <Link to="/drafts">here</Link>.        </p>
+            Find my thoughts <Link to="/writing">here</Link>. </p>
         <br />
 
         {/* <p>

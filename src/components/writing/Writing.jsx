@@ -1,9 +1,9 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { articles } from '../../articles';
 import { calculateReadingTime } from '../../utils/readingTime';
-import { SHOW_TIER_LIST } from '../../constants/siteFlags';
 import './Writing.scss';
+import WritingNavHeader from './WritingNavHeader';
 
 const formatDate = (dateStr) => {
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -11,57 +11,89 @@ const formatDate = (dateStr) => {
   return `${months[month - 1]} 20${year}`;
 };
 
+const ArticleRow = ({ article }) => {
+  const readingTime = calculateReadingTime(article.content);
+  return (
+    <Link to={`/writing/${article.slug}`} className="article-link">
+      <div className="article-preview">
+        <div className="article-title-row">
+          <p className="article-title">{article.title}</p>
+          <span className="article-date">{formatDate(article.date)}</span>
+        </div>
+        <span className="reading-time">{readingTime} min read</span>
+      </div>
+    </Link>
+  );
+};
+
 const Writing = () => {
-  const location = useLocation();
-  const isHomeActive = location.pathname === '/';
-  const isDraftsActive = location.pathname.startsWith('/drafts');
+  const essays = articles.filter((a) => a.draftKind !== 'note');
+  const notes = articles.filter((a) => a.draftKind === 'note');
+
+  const [writingTab, setWritingTab] = useState(() => {
+    if (typeof window === 'undefined') return 'essay';
+    const savedTab = window.localStorage.getItem('writing-tab');
+    return savedTab === 'note' ? 'note' : 'essay';
+  });
+  const activeList = writingTab === 'essay' ? essays : notes;
+
+  const noFocus = (e) => { if (e.button === 0) e.preventDefault(); };
+
+  useEffect(() => {
+    window.localStorage.setItem('writing-tab', writingTab);
+  }, [writingTab]);
 
   return (
-    <div className="writing-page">
-      <div className="writing-header">
-        <Link 
-          to="/" 
-          className={`header-option ${isHomeActive ? 'active' : ''}`}
+    <>
+      <WritingNavHeader />
+      <div className="writing-page">
+        <div
+          className="drafts-kind-toggle"
+        role="tablist"
+        aria-label="Writing categories"
+      >
+        <button
+          type="button"
+          role="tab"
+          id="tab-drafts-essays"
+          aria-selected={writingTab === 'essay'}
+          aria-controls="writing-list-panel"
+          tabIndex={0}
+          className={`drafts-kind-toggle__btn ${writingTab === 'essay' ? 'is-active' : ''}`}
+          onMouseDown={noFocus}
+          onClick={() => setWritingTab('essay')}
         >
-          Home
-        </Link>
-        <Link 
-          to="/drafts" 
-          className={`header-option ${isDraftsActive ? 'active' : ''}`}
+          Essays
+        </button>
+        <button
+          type="button"
+          role="tab"
+          id="tab-drafts-notes"
+          aria-selected={writingTab === 'note'}
+          aria-controls="writing-list-panel"
+          tabIndex={0}
+          className={`drafts-kind-toggle__btn ${writingTab === 'note' ? 'is-active' : ''}`}
+          onMouseDown={noFocus}
+          onClick={() => setWritingTab('note')}
         >
           Drafts
-        </Link>
-        {SHOW_TIER_LIST && (
-          <Link 
-            to="/tier-list" 
-            className={`header-option ${location.pathname === '/tier-list' ? 'active' : ''}`}
-          >
-            Tier List
-          </Link>
-        )}
+        </button>
       </div>
-      <h1>Drafts</h1>
-      <div className="articles-list">
-      {articles.map((article) => {
-        const readingTime = calculateReadingTime(article.content);
-        return (
-          <Link 
-            key={article.id} 
-            to={`/drafts/${article.slug}`}
-            className="article-link"
-          >
-            <div className="article-preview">
-              <div className="article-title-row">
-                <p className="article-title">{article.title}</p>
-                <span className="article-date">{formatDate(article.date)}</span>
-              </div>
-              <span className="reading-time">{readingTime} min read</span>
-            </div>
-          </Link>
-        );
-      })}
-    </div>
-  </div>
+
+      <section
+        id="writing-list-panel"
+        role="tabpanel"
+        aria-labelledby={writingTab === 'essay' ? 'tab-drafts-essays' : 'tab-drafts-notes'}
+        className="drafts-panel"
+      >
+        <div key={writingTab} className="articles-list">
+          {activeList.map((article) => (
+            <ArticleRow key={article.id} article={article} />
+          ))}
+        </div>
+      </section>
+      </div>
+    </>
   );
 };
 
