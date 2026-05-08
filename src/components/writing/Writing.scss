@@ -19,12 +19,17 @@
   }
 
   @media (max-width: 1148px) {
-    position: static;
-    top: auto;
+    // Match home `.menu-container`: top-right cluster so layout does not jump vs compact view
+    position: fixed;
+    top: max(1.62rem, env(safe-area-inset-top, 0px));
+    right: max(1.62rem, env(safe-area-inset-right, 0px));
     left: auto;
-    right: auto;
-    z-index: auto;
-    padding: 1rem max(1.5rem, env(safe-area-inset-right, 0px)) 1rem max(1.5rem, env(safe-area-inset-left, 0px));
+    width: auto;
+    padding: 0;
+    background-color: transparent;
+    justify-content: flex-end;
+    gap: 20px;
+    z-index: 1000;
   }
 
   .header-option {
@@ -119,7 +124,6 @@
   width: 100%;
   max-width: 750px;
   margin: 0 auto;
-  // In-flow header below 1149px — no extra offset; sticky bar only on wide viewports
   padding-top: max(0.35rem, env(safe-area-inset-top, 0px));
   padding-bottom: 6rem;
   padding-left: 1.5rem;
@@ -127,6 +131,15 @@
   background-color: var(--color-background);
   color: var(--color-text);
   box-sizing: border-box;
+
+  // Below wide breakpoint, nav is fixed like home menu — mirror compact-view top padding
+  @media (max-width: 1148px) {
+    padding-top: calc(6rem + env(safe-area-inset-top, 0px));
+  }
+
+  @media (max-width: 768px) {
+    padding-top: calc(4rem + env(safe-area-inset-top, 0px) + 0.35rem);
+  }
 
   @media (min-width: 1149px) {
     padding-top: calc(4rem + 60px);
