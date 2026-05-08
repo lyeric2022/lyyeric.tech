@@ -44,7 +44,7 @@ const Writing = () => {
   }, [writingTab]);
 
   return (
-    <>
+    <div className="writing-route">
       <WritingNavHeader />
       <div className="writing-page">
         <div
@@ -93,7 +93,7 @@ const Writing = () => {
         </div>
       </section>
       </div>
-    </>
+    </div>
   );
 };
 

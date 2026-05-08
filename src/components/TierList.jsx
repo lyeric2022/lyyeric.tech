@@ -372,7 +372,7 @@ const TierList = () => {
   ];
 
   return (
-    <>
+    <div className="writing-route">
       <WritingNavHeader />
       <div className="writing-page">
       <div className="tier-list-header">
@@ -402,7 +402,7 @@ const TierList = () => {
         ))}
       </div>
       </div>
-    </>
+    </div>
   );
 };
 

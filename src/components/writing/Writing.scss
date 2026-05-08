@@ -1,3 +1,10 @@
+// Scroll container for writing routes: mobile nav is `position: absolute` here so it is not sticky.
+.writing-route {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+}
+
 // Full viewport width — rendered outside .writing-page so it isn’t clipped by max-width
 .writing-header {
   position: fixed;
@@ -19,8 +26,8 @@
   }
 
   @media (max-width: 1148px) {
-    // Match home `.menu-container`: top-right cluster so layout does not jump vs compact view
-    position: fixed;
+    // Match home `.menu-container` inset; absolute inside `.writing-route` so header scrolls away (non-sticky)
+    position: absolute;
     top: max(1.62rem, env(safe-area-inset-top, 0px));
     right: max(1.62rem, env(safe-area-inset-right, 0px));
     left: auto;
@@ -377,7 +384,7 @@
 
     // Stagger in DOM order; delay set in Article.jsx from viewport (skip blocks fully above fold)
     & > * {
-      animation: fadeIn 0.45s ease-out forwards;
+      animation: fadeIn var(--article-fade-duration, 0.45s) ease-out forwards;
       opacity: 0;
       animation-delay: var(--reveal-delay, 0s);
     }
@@ -538,6 +545,13 @@
         color: var(--color-text);
         white-space: pre;
       }
+    }
+  }
+
+  // Article.jsx only: direct <article>; Writing list / TierList have no <article>
+  & > article > h1 {
+    @media (max-width: 768px) {
+      margin-top: 0.4rem;
     }
   }
 }
