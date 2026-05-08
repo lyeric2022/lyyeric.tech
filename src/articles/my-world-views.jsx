@@ -5,6 +5,7 @@ export const metadata = {
   slug: 'my-world-views',
   title: 'My World Views',
   date: '2.4.26',
+  draftKind: 'essay',
 };
 
 export const content = (
@@ -21,15 +22,19 @@ export const content = (
     </p>
     <br />
 
+    <h2>Geopolitics and pluralism</h2>
+
     <p>
       On geopolitics, I am quite nationalistic, wherein I vigorously love my country, and want it to succeed above all others. This does not mean that my government represents my views, nor that my country is superior to any other. International law is very important in the greater prosperity of human society, but agreements should never place America disadvantageously.
     </p>
     <br />
 
     <p>
-      On social views, I believe diversity is a core American strength. America benefits insanely with the pools of talent that it's able to draw from, and even absent support, it is able to produce global champions across all arenas. Albeit not all cultures are compatible with America's. As much as America is a melting pot of many groups and cultures, and generally benefits from the competitive mixing, it also stands that only people whose beliefs would benefit our communities, should be allowed in. This doesn't mean their cultures are any worse than ours, but that it seems rather self-destructive to enable such individuals residence, in the name of empathy.
+      On social views, I believe diversity is a core American strength. America benefits insanely with the pools of talent that it's able to draw from, and even absent support, it is able to produce global champions across all arenas. Albeit not all cultures are compatible with America's. As much as America is a melting pot of many groups and cultures, and generally benefits from the competitive mixing, it also stands that only people whose beliefs would benefit our communities, should be allowed in. This doesn't mean their cultures are any worse than ours, but that it seems rather self-destructive to enable such individuals residence,       in the name of empathy.
     </p>
     <br />
+
+    <h2>Economics</h2>
 
     <p>
       On economics, I support abundance economics, which focuses on subsidizing, investing into the supply productions of goods, in order to make them more abundant for societal access and enable industries to be more globally competitive. It is less efficient, yet I believe the marginal social and national advantages make the inefficiency worth the sacrifice. Every citizen should be able to comfortably access groceries, housing, healthcare, education, infrastructure, energy.
@@ -47,9 +52,11 @@ export const content = (
     <br />
 
     <p>
-      On social issues, staunch pragmatism precedes everything else, and so I support positions that maximize in pareto efficiencies between my interests and my nation. I also hold strong conviction regarding that market equilibria also extends towards societal variance in views, and so that it is wasteful for most individuals to care in shifting such equilibriums. I do hate inefficiencies though, and I think proper mechanism design systems (wherein selfish actions of participants lead to desirable societal outcomes), should be a requirement across all policies. I hate that many current/proposed policies tend to forget about potential second-order effects.
+      On social issues, staunch pragmatism precedes everything else, and so I support positions that maximize in pareto efficiencies between my interests and my nation. I also hold strong conviction regarding that market equilibria also extends towards societal variance in views, and so that it is wasteful for most individuals to care in shifting such equilibriums. I do hate inefficiencies though, and I think proper mechanism design systems (wherein selfish actions of participants lead to desirable societal outcomes), should be a requirement across all policies. I hate that many current/proposed policies tend to       forget about potential second-order effects.
     </p>
     <br />
+
+    <h2>Pragmatism, intelligence, and conviction</h2>
 
     <p>
       On intelligence, I think that some of the greatest showcases are the ability to predict the future (pattern recognition), and the ability to attain one's goals. Wealth creation is a general goal that lifts all boats, and this meant that growing up, I dedicated a lot of time towards exploring what I could do to maximize impact. I explored a lot in many diverse areas, especially history, to better predict future scenarios. Like any other person, I don't have certainty over many predictions, but the best way to improve my views is to validate uncertainties earlier by trying it out.

@@ -5,6 +5,7 @@ export const metadata = {
   slug: 'why-drafts',
   title: 'Why Drafts',
   date: '2.10.26',
+  draftKind: 'note',
 };
 
 export const content = (

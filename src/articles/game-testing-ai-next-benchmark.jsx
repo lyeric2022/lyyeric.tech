@@ -5,6 +5,7 @@ export const metadata = {
   slug: 'xai-vs-t1-ai-next-benchmark',
   title: 'xAI vs T1: AI\'s Next Benchmark',
   date: '11.28.25',
+  draftKind: 'essay',
 };
 
 export const content = (
@@ -20,6 +21,8 @@ export const content = (
       Elon putting xAI vs T1 in League of Legends makes my inner child so so happy, and as an adult, it's quite awesome my addictions converging to become proxies for AI research environments.
     </p>
     <br />
+
+    <h2>AlphaGo to AlphaStar</h2>
 
     <p>
       Google DeepMind is the most beloved AI lab, and has inspired many (like myself) to dive further into AI. When DeepMind (AlphaGo) beat Stockfish (the world's then SOTA chess engine) 28-72-0, it also changed the narrative on AI applications. It demonstrated that (under perfect-view, static-environments) RL neural networks could drastically outperform decades of work on handcrafted alpha-beta pruning algorithms. It also showed that AI would one day be able to master any static skill, and helped to validate use of RL and NN into the mainstream public. Every student now learns about DeepMind when learning AI history.
@@ -40,6 +43,8 @@ export const content = (
       Yet Starcraft 2 was DeepMind's last major work on games. So when Elon announced that xAI was moving into LOL, it got me really excited.
     </p>
     <br />
+
+    <h2>The five-player problem</h2>
 
     <p>
       League of Legends is similar to SC2 in that players need to perform under time-sensitive, evolving environments, with imperfect information and painful punishments. Winning against T1 (the world's greatest LOL team), requires mastering similar skills, such as managing the minion resources, defeating objectives, crafting items, and reacting to dynamic developments. xAI's Grok competing vs T1 would be an incredibly entertaining watch, and if successful, would mark another major key point in AI development.

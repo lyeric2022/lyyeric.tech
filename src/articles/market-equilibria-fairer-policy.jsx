@@ -3,8 +3,9 @@ import React from 'react';
 export const metadata = {
   id: 4,
   slug: 'market-equilibria-fairer-policy',
-  title: 'The Convergence of Market Equilibria Toward Fairer Policy',
+  title: 'Convergence of Market Equilibria Toward Fairer Policy',
   date: '11.23.25',
+  draftKind: 'essay',
 };
 
 export const content = (
@@ -15,6 +16,8 @@ export const content = (
       The convergence of market equilibria toward fairer policy (from my lens).
     </p>
     <br />
+
+    <h2>Definitions and mechanism</h2>
 
     <p>
       I define "fair" as the near-perfect balance in X (rights, rewards, treatment, punishment, etc.) as a result of one's actions and existence. Perfect fairness is obviously impossible.
@@ -36,6 +39,8 @@ export const content = (
     </p>
     <br />
 
+    <h2>Historical examples</h2>
+
     <p>
       I'm part of that niche minority of historians who believe that economics ended slavery, rather than the White majority simply having a change of heart. As cotton prices decreased from competition, it became less economically viable to own slaves. At the same time, as African Americans became further integrated into Northern societies, their economic contributions grew rapidly, and it made the White American majority far less incentivized to keep African Americans enslaved. Without such market pressures, slavery would have likely continued much longer. 
     </p>
@@ -50,6 +55,8 @@ export const content = (
       On women's rights, the same logic applies. Men had little incentive to continue the disenfranchisement of women. As women climbed the educational ladder and entered the workforce, the passage of time essentially guaranteed eventual equal rights.
     </p>
     <br />
+
+    <h2>Implications</h2>
 
     <p>
       Fundamentally, current policies are the result of many parties pushing the equilibrium acceptance of X policy over time. Despite imperfections, the standard deviation of negative sentiment has continuously depreciated.
@@ -82,7 +89,7 @@ export const content = (
 
     <br />
 
-    <h2>More: how to go about changing social policy (in my opinion)</h2>
+    <h2>Applied examples</h2>
 
     <p>
       First, understand the underlying principles in order to better approach and solve problems.
