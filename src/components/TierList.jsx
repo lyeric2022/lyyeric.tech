@@ -214,6 +214,8 @@ const TierListSection = ({
   const [items, setItems] = useState(() => readTierListCache(storageKey));
   const [fetchFinished, setFetchFinished] = useState(false);
   const [page, setPage] = useState(1);
+  const [paginationIntro, setPaginationIntro] = useState(true);
+  const prevPaginationPageRef = useRef(page);
   const [newItemName, setNewItemName] = useState('');
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [addMediaKind, setAddMediaKind] = useState('film');
@@ -231,7 +233,8 @@ const TierListSection = ({
     enabled: isActive && items.length > 0,
     layout: 'tier-grid',
     singleColumn: showEditOptions,
-    bottomReserve: 132,
+    // Pagination + `.writing-page--list` bottom padding; too low ⇒ too many rows ⇒ document scroll.
+    bottomReserve: 156,
     deps: [isActive, items.length, showEditOptions],
   });
 
@@ -326,6 +329,13 @@ const TierListSection = ({
   useEffect(() => {
     setPage((p) => Math.min(Math.max(1, p), totalPages));
   }, [items.length, totalPages, pageSize]);
+
+  useEffect(() => {
+    if (prevPaginationPageRef.current !== page) {
+      setPaginationIntro(false);
+      prevPaginationPageRef.current = page;
+    }
+  }, [page]);
 
   useEffect(() => {
     if (selectedIndex === null || items.length === 0) return;
@@ -729,7 +739,7 @@ const TierListSection = ({
         </ul>
         {totalPages > 1 && (
           <nav
-            className="list-pagination"
+            className={`list-pagination${paginationIntro ? ' list-pagination--intro' : ''}`}
             aria-label={`${title}, page ${page} of ${totalPages}`}
           >
             <div className="list-pagination__inner">
@@ -940,7 +950,7 @@ const TierList = () => {
   };
 
   return (
-      <div className="writing-page tier-list-page">
+      <div className="writing-page writing-page--list tier-list-page">
         <div className="tier-list-toolbar">
           <div
             className="drafts-kind-toggle"

@@ -303,10 +303,6 @@
       &.places-list__item--anchor {
         box-shadow: inset 3px 0 0 hsl(var(--tier-rank-h), 46%, 38%);
         background-color: hsla(var(--tier-rank-h), 40%, 94%, 0.65);
-
-        .place-score {
-          font-weight: 700;
-        }
       }
 
       .place-name {
@@ -340,7 +336,7 @@
       .place-score {
         color: hsl(var(--tier-rank-h), 42%, 22%);
         font-size: 0.8rem;
-        font-weight: 600;
+        font-weight: 500;
         min-width: 2rem;
         text-align: right;
         font-variant-numeric: tabular-nums;

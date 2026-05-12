@@ -134,7 +134,7 @@
   color: var(--color-text);
   box-sizing: border-box;
 
-  /** Essays/Drafts index — less bottom padding so viewport pagination matches visible rows (articles keep full `padding-bottom`). */
+  /** Index-style pages (Writing list, Rankings): tighter bottom padding so viewport-fit pagination math matches layout. */
   &.writing-page--list {
     padding-bottom: max(2.25rem, calc(env(safe-area-inset-bottom, 0px) + 1.25rem));
   }
@@ -334,11 +334,24 @@
     &:hover .article-preview {
       opacity: 0.7;
     }
+
+    &.article-link--pad {
+      animation: none !important;
+      opacity: 1;
+      visibility: hidden;
+      pointer-events: none;
+    }
   }
 
   .list-pagination {
-    margin-top: 0.35rem;
-    padding-top: 0.65rem;
+    margin-top: 0.65rem;
+    padding-top: 0.85rem;
+
+    &.list-pagination--intro {
+      opacity: 0;
+      /* Wait for list rows to paint / stagger in before fading (Writing links ~0.06+n·0.055s; tier grid similar). */
+      animation: fadeIn 0.48s ease-out 0.48s both;
+    }
   }
 
   .list-pagination__inner {
@@ -409,7 +422,7 @@
 
   .article-preview {
     width: 100%;
-    padding: 1.25rem 0;
+    padding: 1rem 0;
     border-bottom: 1px solid var(--color-border);
     transition: opacity 0.2s ease;
     margin-bottom: 0;
@@ -420,7 +433,7 @@
     justify-content: space-between;
     align-items: baseline;
     gap: clamp(0rem, 8vw, 8rem);
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.2rem;
   }
 
   .article-title {

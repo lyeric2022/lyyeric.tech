@@ -29,6 +29,30 @@ const ArticleRow = ({ article }) => {
   );
 };
 
+/** Keeps pagination vertically aligned when the last page has fewer rows than `pageSize`. */
+function WritingListPadRows({ count, tabKey, page }) {
+  if (count <= 0) return null;
+  return (
+    <>
+      {Array.from({ length: count }, (_, i) => (
+        <div
+          key={`writing-list-pad-${tabKey}-${page}-${i}`}
+          className="article-link article-link--pad"
+          aria-hidden="true"
+        >
+          <div className="article-preview">
+            <div className="article-title-row">
+              <p className="article-title">{'\u200b'}</p>
+              <span className="article-date">{'\u200b'}</span>
+            </div>
+            <span className="reading-time">{'\u200b'}</span>
+          </div>
+        </div>
+      ))}
+    </>
+  );
+}
+
 const Writing = () => {
   const essays = articles.filter((a) => a.draftKind !== 'note');
   const notes = articles.filter((a) => a.draftKind === 'note');
@@ -41,16 +65,34 @@ const Writing = () => {
   const activeList = writingTab === 'essay' ? essays : notes;
 
   const listRef = useRef(null);
-  // Reserve pagination + page bottom padding (see `.writing-page--list`). Without this, pageSize is too large and the document scrolls.
+  // Reserve pagination + page bottom padding (see `.writing-page--list`). Tuned so ~one more row fits when there is visible slack without document scroll.
   const pageSize = useHeightBasedPageSize(listRef, ':scope > .article-link', {
     enabled: activeList.length > 0,
     layout: 'writing',
-    bottomReserve: 204,
+    bottomReserve: 108,
     deps: [writingTab, activeList.length],
   });
 
   const [listPage, setListPage] = useState(1);
+  const [paginationIntro, setPaginationIntro] = useState(true);
+  const prevWritingTabRef = useRef(writingTab);
+  const prevListPageRef = useRef(listPage);
   const totalListPages = Math.max(1, Math.ceil(activeList.length / pageSize));
+
+  useEffect(() => {
+    const tabChanged = prevWritingTabRef.current !== writingTab;
+    const pageChanged = prevListPageRef.current !== listPage;
+    prevWritingTabRef.current = writingTab;
+    prevListPageRef.current = listPage;
+
+    if (tabChanged) {
+      setPaginationIntro(true);
+      return;
+    }
+    if (pageChanged) {
+      setPaginationIntro(false);
+    }
+  }, [writingTab, listPage]);
 
   const prevTab = usePrevious(writingTab);
   const toIdx = writingTab === 'essay' ? 0 : 1;
@@ -93,6 +135,8 @@ const Writing = () => {
 
   const listOffset = (listPage - 1) * pageSize;
   const paginatedArticles = activeList.slice(listOffset, listOffset + pageSize);
+  const padLinkCount =
+    totalListPages > 1 ? Math.max(0, pageSize - paginatedArticles.length) : 0;
 
   return (
     <div className="writing-page writing-page--list">
@@ -145,10 +189,11 @@ const Writing = () => {
           {paginatedArticles.map((article) => (
             <ArticleRow key={article.id} article={article} />
           ))}
+          <WritingListPadRows count={padLinkCount} tabKey={writingTab} page={listPage} />
         </div>
         {totalListPages > 1 && (
           <nav
-            className="list-pagination"
+            className={`list-pagination${paginationIntro ? ' list-pagination--intro' : ''}`}
             aria-label={`Writing list, page ${listPage} of ${totalListPages}`}
           >
             <div className="list-pagination__inner">
