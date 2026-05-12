@@ -5,7 +5,7 @@ export const metadata = {
   slug: 'my-world-views',
   title: 'My World Views',
   date: '2.4.26',
-  draftKind: 'essay',
+  draftKind: 'note',
 };
 
 export const content = (

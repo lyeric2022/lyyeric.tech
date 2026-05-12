@@ -1,7 +1,12 @@
 .arrow-container {
+    appearance: none;
+    background: none;
+    border: none;
     cursor: pointer;
     height: 120px;
     left: 50%;
+    margin: 0;
+    padding: 0;
     position: absolute; // Change to absolute
     bottom: 20px; // Position it 20px from the bottom, adjust as needed
     transform: translateX(-50%);
@@ -65,13 +70,14 @@
         }
     }
 
-    &:hover & {
-        &-right:after {
+    // Was `&:hover &` → `.arrow:hover .arrow`, which never matches (no nested .arrow)
+    &:hover {
+        .arrow-right:after {
             left: 0;
             transition-delay: $transition-time;
         }
 
-        &-left:after {
+        .arrow-left:after {
             right: 0;
             transition-delay: 0s;
         }

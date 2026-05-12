@@ -5,7 +5,7 @@ export const metadata = {
   slug: 'market-equilibria-fairer-policy',
   title: 'Convergence of Market Equilibria Toward Fairer Policy',
   date: '11.23.25',
-  draftKind: 'essay',
+  draftKind: 'note',
 };
 
 export const content = (

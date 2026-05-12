@@ -5,7 +5,7 @@ export const metadata = {
   slug: 'the-lean-and-hungry-ant',
   title: 'The Lean and Hungry Ant',
   date: '2.10.26',
-  draftKind: 'essay',
+  draftKind: 'note',
 };
 
 export const content = (

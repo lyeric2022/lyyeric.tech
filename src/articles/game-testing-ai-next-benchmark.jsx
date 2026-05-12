@@ -5,7 +5,7 @@ export const metadata = {
   slug: 'xai-vs-t1-ai-next-benchmark',
   title: 'xAI vs T1: AI\'s Next Benchmark',
   date: '11.28.25',
-  draftKind: 'essay',
+  draftKind: 'note',
 };
 
 export const content = (

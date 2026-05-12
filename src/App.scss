@@ -567,6 +567,11 @@ body {
 // ==========================================
 // Project Section Container
 // ==========================================
+// DownArrow scroll target: leave ~50px breathing room above section (replaces manual offset math)
+#projects-section {
+  scroll-margin-top: 50px;
+}
+
 .section-container {
   position: relative;
   margin-top: 200px;

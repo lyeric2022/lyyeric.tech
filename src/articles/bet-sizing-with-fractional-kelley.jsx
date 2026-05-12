@@ -51,7 +51,7 @@ export const content = (
     <br />
 
     <p>
-    With the Kelly Criterion, you are shielded from falling into an unrecoverable hole of losses whilst still maintaining maximum long-term growth.
+    With the Kelly Criterion, you are shielded from falling into an unrecoverable hole of losses, whilst still maintaining maximum long-term growth.
     Other strategies, like fixed fractional betting, fixed bet sizes, or Martingale either grow slower, risk ruin, 
     or fail to scale with bankroll.
     </p>
