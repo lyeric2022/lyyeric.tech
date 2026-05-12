@@ -1,1 +1,1 @@
-export const SHOW_TIER_LIST = false;
+export const SHOW_RANKINGS = true;

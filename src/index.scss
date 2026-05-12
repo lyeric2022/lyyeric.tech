@@ -71,7 +71,11 @@ button {
     border-color: #646cff;
   }
 
-  &:focus,
+  /* Mouse click leaves :focus; showing outline only for :focus-visible avoids a stuck ring. */
+  &:focus {
+    outline: none;
+  }
+
   &:focus-visible {
     outline: 4px auto -webkit-focus-ring-color;
   }

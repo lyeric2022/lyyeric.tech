@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import './App.scss';
 import './components/DownArrow.scss';
 import posthog from './posthogClient';
@@ -15,41 +15,13 @@ import CompactView from './components/CompactView';
 import Writing from './components/writing/Writing';
 import Article from './components/writing/Article';
 import TierList from './components/TierList';
-import { SHOW_TIER_LIST } from './constants/siteFlags';
+import WritingRouteLayout from './components/writing/WritingRouteLayout';
+import { NavChromeMotionContext } from './context/NavChromeMotionContext';
 
 function RedirectDraftsArticleToWriting() {
   const { slug } = useParams();
   return <Navigate to={`/writing/${slug}`} replace />;
 }
-
-// Menu component that needs access to location
-const MenuButton = () => {
-  const location = useLocation();
-  const isWritingActive = location.pathname.startsWith('/writing');
-  const isHomeActive = location.pathname === '/';
-
-  return (
-    <div className="menu-options">
-      <Link to="/" className={`menu-option ${isHomeActive ? 'active' : ''}`}>
-        Home
-      </Link>
-      <Link 
-        to="/writing" 
-        className={`menu-option ${isWritingActive ? 'active' : ''}`}
-      >
-        Writing
-      </Link>
-      {SHOW_TIER_LIST && (
-        <Link 
-          to="/tier-list" 
-          className={`menu-option ${location.pathname === '/tier-list' ? 'active' : ''}`}
-        >
-          Tier List
-        </Link>
-      )}
-    </div>
-  );
-};
 
 function App() {
   const detectIsMobile = () => {
@@ -155,91 +127,133 @@ function App() {
 
   return (
     <Router>
+      <AppRoutesShell
+        isMobile={isMobile}
+        viewMode={viewMode}
+        setViewMode={setViewMode}
+        handleOpenFile={handleOpenFile}
+        handleOpenLinkedIn={handleOpenLinkedIn}
+        handleOpenGitHub={handleOpenGitHub}
+        handleSendEmail={handleSendEmail}
+      />
+    </Router>
+  );
+}
+
+function AppRoutesShell({
+  isMobile,
+  viewMode,
+  setViewMode,
+  handleOpenFile,
+  handleOpenLinkedIn,
+  handleOpenGitHub,
+  handleSendEmail,
+}) {
+  const pathname = useLocation().pathname;
+  const prevPathRef = useRef(null);
+  const skipIntroFade = prevPathRef.current !== null && prevPathRef.current !== pathname;
+
+  useLayoutEffect(() => {
+    prevPathRef.current = pathname;
+  }, [pathname]);
+
+  return (
+    <NavChromeMotionContext.Provider value={{ skipIntroFade, viewMode }}>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              {!isMobile && (
-                <div className="view-toggle-container">
-                  <span className="toggle-label">v2</span>
-                  <button 
-                    className={`toggle-switch ${viewMode === 'v1' ? 'active' : ''}`}
-                    onClick={() => setViewMode(viewMode === 'v1' ? 'v2' : 'v1')}
-                    aria-label="Toggle between v1 and v2"
-                  >
-                    <span className="toggle-slider" />
-                  </button>
-                  <span className="toggle-label">v1</span>
-                </div>
-              )}
-
-              {/* {viewMode === 'v2' && (
-                <button className="theme-toggle-btn" onClick={toggleTheme}>
-                  {theme === 'dark' ? 'Light' : 'Dark'}
-                </button>
-              )} */}
-
-              {viewMode === 'v2' ? (
-                <div className="menu-container">
-                  <MenuButton />
-                </div>
-              ) : (
-                <Link to="/writing" className="theme-toggle-btn" style={{ textDecoration: 'none', display: 'inline-block' }}>Writing</Link>
-              )}
-
-              {viewMode === 'v1' ? (
-                <>
-                  <div className="home-screen">
-                    <UniqueVisitors />
-                    <div className="introduction">
-                      <h4>Hi, my name is</h4>
-                      <div className='content'>
-                        <h1>Eric Ly.</h1>
-                        <h1>Eric Ly.</h1>
-                      </div>
-                      <h2>I'm a Software Engineer. </h2>
-                      <div className="introduction-paragraph">
-                        <p>Currently, I'm studying Computer Science & Economics, at California State University, Fullerton. </p>
-                        <p>This is my personal website, where I highlight my projects and interests. </p>
-                        <p>
-                          Thanks for reading!{' '}
-                          <Link to="/ghost" style={{ textDecoration: 'none' }} title="Woah. What does this do?">
-                            👻
-                          </Link>
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="card linkers">
-                      <button onClick={handleOpenFile}>Resume</button>
-                      <button onClick={handleOpenLinkedIn}>LinkedIn</button>
-                      <button onClick={handleOpenGitHub}>GitHub</button>
-                      <button onClick={handleSendEmail}>Email</button>
-                    </div>
-
-                    {/* {console.log(isMobile)} */}
-                    {!isMobile && <DownArrow />}
-                  </div>
-
-                  <Projects />
-                  <VideoMedia />
-                </>
-              ) : (
-                <CompactView />
-              )}
-            </>
-          }
-        />
         <Route path="/privacy" element={<PrivacyInfo />} />
         <Route path="/ghost" element={<GhostGame />} />
-        <Route path="/writing" element={<Writing />} />
-        <Route path="/writing/:slug" element={<Article />} />
         <Route path="/drafts" element={<Navigate to="/writing" replace />} />
         <Route path="/drafts/:slug" element={<RedirectDraftsArticleToWriting />} />
-        <Route path="/tier-list" element={<TierList />} />
+        <Route element={<WritingRouteLayout />}>
+          <Route
+            path="/"
+            element={
+              <>
+                {!isMobile && (
+                  <div className="view-toggle-container">
+                    <span className="toggle-label">v2</span>
+                    <button
+                      type="button"
+                      className={`toggle-switch ${viewMode === 'v1' ? 'active' : ''}`}
+                      onClick={() => setViewMode(viewMode === 'v1' ? 'v2' : 'v1')}
+                      aria-label="Toggle between v1 and v2"
+                    >
+                      <span className="toggle-slider" />
+                    </button>
+                    <span className="toggle-label">v1</span>
+                  </div>
+                )}
+
+                {viewMode !== 'v2' && (
+                  <Link
+                    to="/writing"
+                    className="theme-toggle-btn"
+                    style={{ textDecoration: 'none', display: 'inline-block' }}
+                  >
+                    Writing
+                  </Link>
+                )}
+
+                {viewMode === 'v1' ? (
+                  <>
+                    <div className="home-screen">
+                      <UniqueVisitors />
+                      <div className="introduction">
+                        <h4>Hi, my name is</h4>
+                        <div className="content">
+                          <h1>Eric Ly.</h1>
+                          <h1>Eric Ly.</h1>
+                        </div>
+                        <h2>I&apos;m a Software Engineer. </h2>
+                        <div className="introduction-paragraph">
+                          <p>
+                            Currently, I&apos;m studying Computer Science & Economics, at California State University,
+                            Fullerton.{' '}
+                          </p>
+                          <p>This is my personal website, where I highlight my projects and interests. </p>
+                          <p>
+                            Thanks for reading!{' '}
+                            <Link to="/ghost" style={{ textDecoration: 'none' }} title="Woah. What does this do?">
+                              👻
+                            </Link>
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="card linkers">
+                        <button type="button" onClick={handleOpenFile}>
+                          Resume
+                        </button>
+                        <button type="button" onClick={handleOpenLinkedIn}>
+                          LinkedIn
+                        </button>
+                        <button type="button" onClick={handleOpenGitHub}>
+                          GitHub
+                        </button>
+                        <button type="button" onClick={handleSendEmail}>
+                          Email
+                        </button>
+                      </div>
+
+                      {!isMobile && <DownArrow />}
+                    </div>
+
+                    <Projects />
+                    <VideoMedia />
+                  </>
+                ) : (
+                  <CompactView />
+                )}
+              </>
+            }
+          />
+          <Route path="/writing" element={<Writing />} />
+          <Route path="/writing/:slug" element={<Article />} />
+          <Route path="/rankings" element={<TierList />} />
+          <Route path="/tier-list" element={<Navigate to="/rankings" replace />} />
+        </Route>
       </Routes>
-    </Router>
+    </NavChromeMotionContext.Provider>
   );
 }
 

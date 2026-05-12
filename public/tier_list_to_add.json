@@ -2,32 +2,36 @@
   {
     "id": 1735689600000,
     "name": "Invincible",
-    "category": "Shows",
+    "mediaKind": "series",
+    "category": "Series",
     "dateAdded": "2024-12-31T00:00:00.000Z"
   },
   {
     "id": 1735689601000,
     "name": "Jujutsu Kaisen",
-    "category": "Shows",
+    "mediaKind": "series",
+    "category": "Series",
     "dateAdded": "2024-12-31T00:00:01.000Z"
   },
   {
     "id": 1735689602000,
     "name": "Noragami",
-    "category": "Shows",
+    "mediaKind": "series",
+    "category": "Series",
     "dateAdded": "2024-12-31T00:00:02.000Z"
   },
   {
     "id": 1735689603000,
     "name": "Big Hero 6",
-    "category": "Shows",
+    "mediaKind": "film",
+    "category": "Film",
     "dateAdded": "2024-12-31T00:00:03.000Z"
   },
   {
     "id": 1735689604000,
     "name": "Code Geass",
-    "category": "Shows",
+    "mediaKind": "series",
+    "category": "Series",
     "dateAdded": "2024-12-31T00:00:04.000Z"
   }
 ]
-

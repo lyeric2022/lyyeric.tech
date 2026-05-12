@@ -3,7 +3,6 @@ import { useParams, Link } from 'react-router-dom';
 import { articles } from '../../articles';
 import { calculateReadingTime } from '../../utils/readingTime';
 import './Writing.scss';
-import WritingNavHeader from './WritingNavHeader';
 
 const BASE_STAGGER_S = 0.038;
 const MIN_STAGGER_S = 0.014;
@@ -61,19 +60,14 @@ const Article = () => {
 
   if (!article) {
     return (
-      <div className="writing-route">
-        <WritingNavHeader />
-        <div className="writing-page">
-          <h2>Article not found</h2>
-          <Link to="/writing">← Back to Writing</Link>
-        </div>
+      <div className="writing-page">
+        <h2>Article not found</h2>
+        <Link to="/writing">← Back to Writing</Link>
       </div>
     );
   }
 
   return (
-    <div className="writing-route">
-      <WritingNavHeader />
       <div className="writing-page">
       <article ref={articleRef}>
         <h1>{article.title}</h1>
@@ -84,7 +78,6 @@ const Article = () => {
         {article.content}
       </article>
       </div>
-    </div>
   );
 };
 

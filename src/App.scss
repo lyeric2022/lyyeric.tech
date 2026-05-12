@@ -390,7 +390,7 @@ body {
 
 .menu-options {
   display: flex;
-  gap: 20px;
+  gap: 1.5rem;
   align-items: center;
 }
 
@@ -400,86 +400,90 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: transparent;
-  border: 1.5px solid transparent;
-  padding: 8px 12px;
-  font-size: 0.75rem;
-  line-height: 1.2;
-  font-weight: var(--font-weight-bold);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--color-text);
+  margin: 0;
+  padding: 0.35rem 0 0.5rem;
+  font-size: 0.95rem;
+  line-height: 1.35;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  color: var(--color-text-muted);
   text-decoration: none;
   cursor: pointer;
   outline: none;
-  transition: color 0.42s cubic-bezier(0.4, 0, 0.2, 1);
-  
-  // Corner borders
-  &:before,
-  &:after {
+  -webkit-tap-highlight-color: transparent;
+  opacity: 0;
+  animation: navFadeInDown 0.5s ease-out forwards;
+  transition:
+    color var(--transition-fast),
+    opacity var(--transition-fast);
+
+  &:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+
+  &:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  &:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+
+  &::after {
     content: '';
     position: absolute;
-    width: 15px;
-    height: 15px;
-    border: 1.5px solid var(--color-text-muted);
-    transition: width 0.42s cubic-bezier(0.4, 0, 0.2, 1),
-      height 0.42s cubic-bezier(0.4, 0, 0.2, 1),
-      border-color 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+    left: 50%;
+    bottom: 0.1rem;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: var(--color-text);
+    opacity: 0;
+    transform: translateX(-50%) scale(0.65);
+    transition:
+      opacity var(--transition-fast),
+      transform var(--transition-fast);
+    pointer-events: none;
   }
 
-  // Top-left corner
-  &:before {
-    top: 0;
-    left: 0;
-    border-right: none;
-    border-bottom: none;
-  }
-
-  // Bottom-right corner
-  &:after {
-    bottom: 0;
-    right: 0;
-    border-left: none;
-    border-top: none;
-  }
-  
   &:hover {
-    color: var(--color-accent-primary);
-    
-    &:before,
-    &:after {
-      border-color: var(--color-accent-primary);
-      width: 20px;
-      height: 20px;
-    }
+    color: var(--color-text);
   }
-  
-  // Active state - overlapping boxes (same as .header-option on Writing)
-  &.active {
-    color: var(--color-accent-primary);
-    
-    &:before,
-    &:after {
-      border-color: var(--color-accent-primary);
-      width: 100%;
-      height: 100%;
-    }
-    
-    &:before {
-      border-right: 1.5px solid var(--color-accent-primary);
-      border-bottom: 1.5px solid var(--color-accent-primary);
-    }
-    
-    &:after {
-      border-left: 1.5px solid var(--color-accent-primary);
-      border-top: 1.5px solid var(--color-accent-primary);
-    }
-  }
-  
-  &:focus,
+
   &:focus-visible {
-    outline: none;
-    box-shadow: none;
+    outline: 2px solid var(--color-accent-primary);
+    outline-offset: 2px;
+  }
+
+  &.active {
+    color: var(--color-text);
+
+    &::after {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+  }
+
+  &.menu-option--no-intro {
+    opacity: 1;
+    animation: none;
+  }
+}
+
+@keyframes navFadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -629,7 +633,10 @@ body {
         border-color: var(--color-accent-secondary);
       }
 
-      &:focus,
+      &:focus {
+        outline: none;
+      }
+
       &:focus-visible {
         outline: 4px auto -webkit-focus-ring-color;
       }
@@ -673,7 +680,10 @@ body {
         border-color: var(--color-accent-secondary);
       }
 
-      &:focus,
+      &:focus {
+        outline: none;
+      }
+
       &:focus-visible {
         outline: 4px auto -webkit-focus-ring-color;
       }

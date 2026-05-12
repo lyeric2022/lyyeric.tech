@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { articles } from '../../articles';
 import { calculateReadingTime } from '../../utils/readingTime';
+import { shouldIgnoreListPaginationArrowKeys } from '../../constants/listPagination';
+import { useHeightBasedPageSize } from '../../hooks/useHeightBasedPageSize';
+import { usePrevious } from '../../hooks/usePrevious';
+import { slotUnderlineOrigin } from '../../utils/navUnderlineOrigin';
 import './Writing.scss';
-import WritingNavHeader from './WritingNavHeader';
 
 const formatDate = (dateStr) => {
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -37,21 +40,66 @@ const Writing = () => {
   });
   const activeList = writingTab === 'essay' ? essays : notes;
 
+  const listRef = useRef(null);
+  const pageSize = useHeightBasedPageSize(listRef, ':scope > .article-link', {
+    enabled: activeList.length > 0,
+    layout: 'writing',
+    bottomReserve: 108,
+    deps: [writingTab, activeList.length],
+  });
+
+  const [listPage, setListPage] = useState(1);
+  const totalListPages = Math.max(1, Math.ceil(activeList.length / pageSize));
+
+  const prevTab = usePrevious(writingTab);
+  const toIdx = writingTab === 'essay' ? 0 : 1;
+  const fromIdx =
+    prevTab === undefined ? toIdx : prevTab === 'essay' ? 0 : 1;
+  const essayOrigin = slotUnderlineOrigin(fromIdx, toIdx, 0);
+  const noteOrigin = slotUnderlineOrigin(fromIdx, toIdx, 1);
+
   const noFocus = (e) => { if (e.button === 0) e.preventDefault(); };
 
   useEffect(() => {
     window.localStorage.setItem('writing-tab', writingTab);
   }, [writingTab]);
 
+  useEffect(() => {
+    setListPage(1);
+  }, [writingTab]);
+
+  useEffect(() => {
+    setListPage((p) => Math.min(Math.max(1, p), totalListPages));
+  }, [activeList.length, totalListPages, pageSize]);
+
+  useEffect(() => {
+    if (totalListPages <= 1) return undefined;
+    const onKey = (e) => {
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      if (shouldIgnoreListPaginationArrowKeys(e.target)) return;
+      if (e.shiftKey || e.metaKey || e.ctrlKey || e.altKey) return;
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        setListPage((p) => Math.max(1, p - 1));
+      } else {
+        e.preventDefault();
+        setListPage((p) => Math.min(totalListPages, p + 1));
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [totalListPages]);
+
+  const listOffset = (listPage - 1) * pageSize;
+  const paginatedArticles = activeList.slice(listOffset, listOffset + pageSize);
+
   return (
-    <div className="writing-route">
-      <WritingNavHeader />
-      <div className="writing-page">
+    <div className="writing-page">
         <div
           className="drafts-kind-toggle"
-        role="tablist"
-        aria-label="Writing categories"
-      >
+          role="tablist"
+          aria-label="Writing categories"
+        >
         <button
           type="button"
           role="tab"
@@ -60,6 +108,7 @@ const Writing = () => {
           aria-controls="writing-list-panel"
           tabIndex={0}
           className={`drafts-kind-toggle__btn ${writingTab === 'essay' ? 'is-active' : ''}`}
+          data-underline-origin={essayOrigin}
           onMouseDown={noFocus}
           onClick={() => setWritingTab('essay')}
         >
@@ -73,6 +122,7 @@ const Writing = () => {
           aria-controls="writing-list-panel"
           tabIndex={0}
           className={`drafts-kind-toggle__btn ${writingTab === 'note' ? 'is-active' : ''}`}
+          data-underline-origin={noteOrigin}
           onMouseDown={noFocus}
           onClick={() => setWritingTab('note')}
         >
@@ -86,13 +136,49 @@ const Writing = () => {
         aria-labelledby={writingTab === 'essay' ? 'tab-drafts-essays' : 'tab-drafts-notes'}
         className="drafts-panel"
       >
-        <div key={writingTab} className="articles-list">
-          {activeList.map((article) => (
+        <div
+          key={writingTab}
+          ref={listRef}
+          className="articles-list"
+        >
+          {paginatedArticles.map((article) => (
             <ArticleRow key={article.id} article={article} />
           ))}
         </div>
+        {totalListPages > 1 && (
+          <nav
+            className="list-pagination"
+            aria-label={`Writing list, page ${listPage} of ${totalListPages}`}
+          >
+            <div className="list-pagination__inner">
+              <button
+                type="button"
+                className="list-pagination__btn"
+                disabled={listPage <= 1}
+                aria-label="Previous page"
+                onClick={() => setListPage((p) => p - 1)}
+              >
+                Prev
+              </button>
+              <p className="list-pagination__meta">
+                <span className="list-pagination__range">
+                  {listOffset + 1}–{Math.min(listOffset + paginatedArticles.length, activeList.length)} of{' '}
+                  {activeList.length}
+                </span>
+              </p>
+              <button
+                type="button"
+                className="list-pagination__btn"
+                disabled={listPage >= totalListPages}
+                aria-label="Next page"
+                onClick={() => setListPage((p) => p + 1)}
+              >
+                Next
+              </button>
+            </div>
+          </nav>
+        )}
       </section>
-      </div>
     </div>
   );
 };

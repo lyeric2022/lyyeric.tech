@@ -7,9 +7,10 @@
     "node": "22.x"
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "concurrently -n vite,api -c cyan,magenta \"vite\" \"node api/server.js\"",
+    "dev:vite": "vite",
     "api": "node api/server.js",
-    "dev:all": "concurrently \"npm run dev\" \"npm run api\"",
+    "dev:all": "npm run dev",
     "build": "vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
