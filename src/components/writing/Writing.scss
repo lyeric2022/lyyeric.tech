@@ -134,6 +134,11 @@
   color: var(--color-text);
   box-sizing: border-box;
 
+  /** Essays/Drafts index — less bottom padding so viewport pagination matches visible rows (articles keep full `padding-bottom`). */
+  &.writing-page--list {
+    padding-bottom: max(2.25rem, calc(env(safe-area-inset-bottom, 0px) + 1.25rem));
+  }
+
   // Below wide breakpoint, nav is fixed like home menu — mirror compact-view top padding
   @media (max-width: 1148px) {
     padding-top: calc(6rem + env(safe-area-inset-top, 0px));

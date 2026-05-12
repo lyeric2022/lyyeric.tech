@@ -115,7 +115,8 @@
     }
   }
 
-  .tier-list-empty {
+  .tier-list-empty,
+  .tier-list-loading {
     opacity: 0;
     animation: fadeIn 0.48s ease-out forwards;
     animation-delay: 0.12s;
@@ -270,6 +271,13 @@
       grid-template-columns: 1fr;
     }
 
+    li.places-list__slot--empty {
+      animation: none !important;
+      opacity: 1;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
     li {
       min-width: 0;
       padding: 0.35rem 0.35rem 0.35rem clamp(0.45rem, 1.4vw, 0.7rem);
@@ -306,43 +314,6 @@
         flex: 1;
         min-width: 0;
         text-align: left;
-        font-size: 0.95rem;
-        line-height: 1.35;
-        letter-spacing: -0.01em;
-        color: var(--color-text);
-        font-family: 'Inter', system-ui, sans-serif;
-
-        &--with-kind {
-          display: flex;
-          align-items: baseline;
-          flex-wrap: wrap;
-          gap: 0.35rem 0.5rem;
-        }
-      }
-
-      .place-kind {
-        flex-shrink: 0;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        box-sizing: border-box;
-        min-width: 1.35rem;
-        height: 1.35rem;
-        padding: 0 0.32rem;
-        border-radius: 4px;
-        color: var(--color-text-muted);
-        background-color: color-mix(in srgb, var(--color-border) 55%, transparent);
-        font-family: 'Inter', system-ui, sans-serif;
-        font-size: 0.72rem;
-        font-weight: 600;
-        line-height: 1;
-        letter-spacing: -0.02em;
-      }
-
-      .place-title {
-        flex: 1;
-        min-width: min(100%, 10rem);
-        font-weight: 500;
         font-size: 0.95rem;
         line-height: 1.35;
         letter-spacing: -0.01em;
@@ -507,10 +478,6 @@
       color: var(--color-accent-primary);
     }
   }
-}
-
-[data-theme='dark'] .writing-page.tier-list-page .places-list li .place-kind {
-  background-color: color-mix(in srgb, var(--color-border) 65%, transparent);
 }
 
 [data-theme='dark'] .writing-page.tier-list-page .places-list li .place-score {

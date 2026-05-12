@@ -1,12 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import './writing/Writing.scss';
 import './TierList.scss';
 import { shouldIgnoreListPaginationArrowKeys } from '../constants/listPagination';
+import { SHOW_VIDEO_ESSAYS_RANKINGS } from '../constants/siteFlags';
 import { useHeightBasedPageSize } from '../hooks/useHeightBasedPageSize';
 import { usePrevious } from '../hooks/usePrevious';
 import { slotUnderlineOrigin } from '../utils/navUnderlineOrigin';
-
-const TIER_TAB_KEYS = ['main', 'videoEssays'];
 
 /** Empty body → null. Valid JSON → object. Non‑JSON → throws with a clear hint (API down / HTML error page). */
 async function readResponseJson(response) {
@@ -19,6 +18,18 @@ async function readResponseJson(response) {
     throw new Error(
       `Save API returned non-JSON (HTTP ${response.status}). Start the API server on port 3001 (see api/server.js).`
     );
+  }
+}
+
+function readTierListCache(storageKey) {
+  if (typeof window === 'undefined') return [];
+  try {
+    const raw = window.localStorage.getItem(storageKey);
+    if (!raw) return [];
+    const data = JSON.parse(raw);
+    return Array.isArray(data) ? data : [];
+  } catch {
+    return [];
   }
 }
 
@@ -150,6 +161,43 @@ function tierItemMediaKind(item) {
   return 'film';
 }
 
+/** Invisible grid cells so the last paginated page keeps the same height as full pages (pagination does not jump). */
+function TierListPaginationPadRows({ count, page, sectionTabId, showEditOptions }) {
+  if (count <= 0) return null;
+  return (
+    <>
+      {Array.from({ length: count }, (_, padIdx) => (
+        <li
+          key={`tier-list-pad-${sectionTabId}-${page}-${padIdx}`}
+          className="places-list__slot--empty"
+          aria-hidden="true"
+        >
+          <span className="place-name">{'\u200b'}</span>
+          <div className="place-row-end">
+            <span className="place-score">{'\u200b'}</span>
+            {showEditOptions ? (
+              <div className="row-actions" aria-hidden>
+                <button type="button" className="arrow-button" tabIndex={-1} disabled>
+                  ↑
+                </button>
+                <button type="button" className="arrow-button" tabIndex={-1} disabled>
+                  ↓
+                </button>
+                <button type="button" className="edit-link" tabIndex={-1} disabled>
+                  edit
+                </button>
+                <button type="button" className="delete-link" tabIndex={-1} disabled>
+                  delete
+                </button>
+              </div>
+            ) : null}
+          </div>
+        </li>
+      ))}
+    </>
+  );
+}
+
 const TierListSection = ({
   sectionTabId,
   title,
@@ -162,9 +210,9 @@ const TierListSection = ({
   isActive,
   onActivate,
   anchorRatings,
-  showMediaKind = false,
 }) => {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(() => readTierListCache(storageKey));
+  const [fetchFinished, setFetchFinished] = useState(false);
   const [page, setPage] = useState(1);
   const [newItemName, setNewItemName] = useState('');
   const [addModalOpen, setAddModalOpen] = useState(false);
@@ -224,27 +272,44 @@ const TierListSection = ({
     return () => window.cancelAnimationFrame(id);
   }, [addModalOpen, showEditOptions]);
 
-  // Load data for this list
+  // Load network JSON (browser HTTP cache applies); localStorage hydrates initial state for instant paint.
   useEffect(() => {
+    let cancelled = false;
+
     const loadData = async () => {
       try {
         const response = await fetch(fetchPath);
         if (response.ok) {
           const data = await response.json();
-          setItems(data);
+          if (!cancelled && Array.isArray(data)) {
+            setItems(data);
+          }
           return;
         }
       } catch (error) {
         console.error(`Error loading ${title}:`, error);
       }
 
-      const saved = localStorage.getItem(storageKey);
-      if (saved) {
-        setItems(JSON.parse(saved));
+      if (!cancelled) {
+        try {
+          const saved = localStorage.getItem(storageKey);
+          if (saved) {
+            const parsed = JSON.parse(saved);
+            if (Array.isArray(parsed)) setItems(parsed);
+          }
+        } catch {
+          /* ignore corrupt backup */
+        }
       }
     };
 
-    loadData();
+    loadData().finally(() => {
+      if (!cancelled) setFetchFinished(true);
+    });
+
+    return () => {
+      cancelled = true;
+    };
   }, [fetchPath, storageKey, title]);
 
   // Save to localStorage whenever items change (as backup)
@@ -345,7 +410,7 @@ const TierListSection = ({
     );
 
     let base;
-    if (showMediaKind) {
+    if (sectionTabId === 'main') {
       const category = addMediaKind === 'series' ? 'Series' : 'Film';
       base = {
         id: Date.now(),
@@ -502,6 +567,8 @@ const TierListSection = ({
 
   const pageOffset = (page - 1) * pageSize;
   const visibleItems = items.slice(pageOffset, pageOffset + pageSize);
+  const padRowCount =
+    totalPages > 1 ? Math.max(0, pageSize - visibleItems.length) : 0;
 
   const goToPage = (nextPage) => {
     setPage(nextPage);
@@ -570,7 +637,6 @@ const TierListSection = ({
         >
           {visibleItems.map((item, localIndex) => {
             const index = pageOffset + localIndex;
-            const mediaKind = tierItemMediaKind(item);
             return (
             <li
               key={item.id}
@@ -598,24 +664,13 @@ const TierListSection = ({
                   className="edit-input"
                   onClick={(e) => e.stopPropagation()}
                 />
-              ) : showMediaKind ? (
-                <span className="place-name place-name--with-kind">
-                  <span className="place-title">
-                    {item.name}
-                    {mediaKind === 'series' && item.season ? (
-                      <span className="place-season"> · {item.season}</span>
-                    ) : null}
-                  </span>
-                  <span
-                    className="place-kind"
-                    aria-label={mediaKind === 'series' ? 'Series' : 'Film'}
-                    title={mediaKind === 'series' ? 'Series (TV)' : 'Film (cinema)'}
-                  >
-                    <span aria-hidden="true">{mediaKind === 'series' ? 's' : 'f'}</span>
-                  </span>
-                </span>
               ) : (
-                <span className="place-name">{item.name}</span>
+                <span className="place-name">
+                  {item.name}
+                  {tierItemMediaKind(item) === 'series' && item.season ? (
+                    <span className="place-season"> · {item.season}</span>
+                  ) : null}
+                </span>
               )}
               <div className="place-row-end">
                 <span
@@ -665,6 +720,12 @@ const TierListSection = ({
             </li>
             );
           })}
+          <TierListPaginationPadRows
+            count={padRowCount}
+            page={page}
+            sectionTabId={sectionTabId}
+            showEditOptions={showEditOptions}
+          />
         </ul>
         {totalPages > 1 && (
           <nav
@@ -700,6 +761,10 @@ const TierListSection = ({
           </nav>
         )}
         </>
+      ) : !fetchFinished ? (
+        <p className="tier-list-loading" role="status" aria-live="polite">
+          Loading…
+        </p>
       ) : (
         <p className="tier-list-empty">No items yet. Click add to create one.</p>
       ))}
@@ -737,7 +802,7 @@ const TierListSection = ({
                 />
               </div>
 
-              {showMediaKind ? (
+              {sectionTabId === 'main' ? (
                 <>
                   <div className="tier-add-modal__field">
                     <label className="tier-add-modal__label" htmlFor={`tier-add-kind-${sectionTabId}`}>
@@ -828,16 +893,9 @@ const TierList = () => {
   const showEditOptions = isLocalhost && isDevView;
   const [activeList, setActiveList] = useState('main');
   const prevActiveList = usePrevious(activeList);
-  const tierToIdx = TIER_TAB_KEYS.indexOf(activeList);
-  const tierFromIdx =
-    prevActiveList === undefined ? tierToIdx : TIER_TAB_KEYS.indexOf(prevActiveList);
 
-  const noFocus = (e) => {
-    if (e.button === 0) e.preventDefault();
-  };
-
-  const sectionConfigs = [
-    {
+  const sectionConfigs = useMemo(() => {
+    const main = {
       key: 'main',
       title: 'Films & Shows',
       placeholder: 'Add film/show',
@@ -845,7 +903,6 @@ const TierList = () => {
       storageKey: 'tier_list_published',
       saveEndpoint: '/api/save-published',
       exportFileName: 'tier_list_published.json',
-      showMediaKind: true,
       anchorRatings: [
         { match: 'Way of Water', score: 10 },
         { match: 'Alice in Borderland', score: 5 },
@@ -853,8 +910,8 @@ const TierList = () => {
         { match: 'Castlevania', score: 9 },
         { match: 'Ragnarok the Animation', score: 7 },
       ],
-    },
-    {
+    };
+    const videoEssays = {
       key: 'videoEssays',
       title: 'Video Essays',
       placeholder: 'Add video essay',
@@ -862,9 +919,25 @@ const TierList = () => {
       storageKey: 'video_essays_published',
       saveEndpoint: '/api/save-video-essays',
       exportFileName: 'video_essays_published.json',
-      showMediaKind: false,
-    },
-  ];
+    };
+    return SHOW_VIDEO_ESSAYS_RANKINGS ? [main, videoEssays] : [main];
+  }, []);
+
+  const tierTabKeys = useMemo(() => sectionConfigs.map((c) => c.key), [sectionConfigs]);
+
+  useEffect(() => {
+    setActiveList((current) =>
+      tierTabKeys.includes(current) ? current : tierTabKeys[0]
+    );
+  }, [tierTabKeys]);
+
+  const tierToIdx = tierTabKeys.indexOf(activeList);
+  const tierFromIdx =
+    prevActiveList === undefined ? tierToIdx : tierTabKeys.indexOf(prevActiveList);
+
+  const noFocus = (e) => {
+    if (e.button === 0) e.preventDefault();
+  };
 
   return (
       <div className="writing-page tier-list-page">
@@ -875,7 +948,7 @@ const TierList = () => {
             aria-label="Rankings categories"
           >
             {sectionConfigs.map((config) => {
-              const slotIdx = TIER_TAB_KEYS.indexOf(config.key);
+              const slotIdx = tierTabKeys.indexOf(config.key);
               return (
               <button
                 key={config.key}

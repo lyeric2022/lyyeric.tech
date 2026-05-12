@@ -41,10 +41,11 @@ const Writing = () => {
   const activeList = writingTab === 'essay' ? essays : notes;
 
   const listRef = useRef(null);
+  // Reserve pagination + page bottom padding (see `.writing-page--list`). Without this, pageSize is too large and the document scrolls.
   const pageSize = useHeightBasedPageSize(listRef, ':scope > .article-link', {
     enabled: activeList.length > 0,
     layout: 'writing',
-    bottomReserve: 108,
+    bottomReserve: 204,
     deps: [writingTab, activeList.length],
   });
 
@@ -94,7 +95,7 @@ const Writing = () => {
   const paginatedArticles = activeList.slice(listOffset, listOffset + pageSize);
 
   return (
-    <div className="writing-page">
+    <div className="writing-page writing-page--list">
         <div
           className="drafts-kind-toggle"
           role="tablist"
