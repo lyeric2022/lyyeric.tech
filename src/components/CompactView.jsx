@@ -22,7 +22,7 @@ const CompactView = () => {
             Developer platform — indexing API, multimodal document ingest, and virtual filesystem
           </li>
           <li className="reveal-4">
-            Giving agents the ability to search and traverse large organizational knowledge corpora in the cloud{' '}
+            Giving agents the ability to search and traverse large organizational knowledge corpora{' '}
             [<a href="https://www.humandelta.ai/blog/vector-database-vs-knowledge-infrastructure-production" target="_blank" rel="noopener noreferrer">blog</a>]
           </li>
         </ul>
@@ -46,7 +46,7 @@ const CompactView = () => {
           <a href="https://acmcsuf.com/teams?term=F24#nodebuds" target="_blank" rel="noopener noreferrer">Node Buds</a>,
           and won 7 hackathons. In hs, my team {' '}
         <a href="https://www.congressionalappchallenge.us/21-ca46/" target="_blank" rel="noopener noreferrer">won</a>
-        {' '}the Congressional App Challenge, and I participated in Google CSSI.
+        {' '}the Congressional App Challenge, and participated in Google Code Next & CSSI.
         </p>
         <br />
 
@@ -67,11 +67,9 @@ const CompactView = () => {
         <br /> */}
 
         <p className="reveal-8">
-          Reach me via {' '}
-          <a href="https://x.com/lyyeric" target="_blank" rel="noopener noreferrer">X</a>
-          ,{' '}
+          Reach me via{' '}
           <a href="https://www.linkedin.com/in/lyyeric/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          , or{' '}
+          {' '}or{' '}
           <a href="mailto:ly.eric2022@gmail.com">email</a>.
            This is my{' '}
            <a href="/Eric Ly Resume 060826.pdf" target="_blank" rel="noopener noreferrer">resume</a>.
