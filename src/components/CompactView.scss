@@ -19,6 +19,13 @@
 }
 
 .compact-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  font-family: var(--font-family-prose);
+  letter-spacing: -0.022em;
+  font-kerning: normal;
+  font-feature-settings: 'kern' 1, 'liga' 1;
   text-align: left;
   padding-left: 0;
   padding-right: 0;
@@ -26,14 +33,25 @@
   max-width: 100%;
   box-sizing: border-box;
   
+  h1,
+  p,
+  li {
+    animation: fadeIn 0.55s ease-out forwards;
+    opacity: 0;
+  }
+
+  @for $i from 0 through 9 {
+    .reveal-#{$i} {
+      animation-delay: #{0.08 + $i * 0.1}s;
+    }
+  }
+
   h1 {
     font-size: 2rem;
-    margin: 0rem 0 0rem 0;
-    letter-spacing: 0.5px;
+    margin: 0;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
     color: var(--color-text);
-    animation: fadeIn 0.6s ease-out forwards;
-    opacity: 0;
-    animation-delay: 0.1s;
 
     @media (max-width: 768px) {
       margin-top: 1rem;
@@ -42,25 +60,11 @@
   
   p {
     text-align: left;
-    font-size: calc(1rem - 1px);
+    font-size: 1rem;
     margin: 0;
     color: var(--color-text);
-    line-height: 1.6;
-    font-family: 'Inter', system-ui, sans-serif;
-    animation: fadeIn 0.6s ease-out forwards;
-    opacity: 0;
-    
-    @media (max-width: 768px) {
-      font-size: calc(0.9rem - 1px);
-    }
-    
-    &:nth-of-type(1) { animation-delay: 0.2s; }
-    &:nth-of-type(2) { animation-delay: 0.35s; }
-    &:nth-of-type(3) { animation-delay: 0.5s; }
-    &:nth-of-type(4) { animation-delay: 0.6s; }
-    &:nth-of-type(5) { animation-delay: 0.7s; }
-    &:nth-of-type(6) { animation-delay: 0.8s; }
-    &:nth-of-type(7) { animation-delay: 0.9s; }
+    line-height: 1.45;
+    font-family: inherit;
     
     i, em {
       font-style: italic !important;
@@ -70,8 +74,8 @@
   }
   
   ul {
-    margin: 0.5rem 0;
-    padding-left: 1.5rem;
+    margin: 0;
+    padding-left: 1.25rem;
     padding-right: 0;
     list-style-type: disc;
     list-style-position: outside;
@@ -79,13 +83,12 @@
     box-sizing: border-box;
     
     li {
-      font-size: calc(1rem - 1px);
+      font-size: 1rem;
       font-weight: 400;
-      margin: 0.3rem 0;
-      letter-spacing: 0.3px;
+      margin: 0.15rem 0;
       color: var(--color-text);
-      line-height: 1.6;
-      font-family: 'Inter', system-ui, sans-serif;
+      line-height: 1.55;
+      font-family: inherit;
       overflow-wrap: break-word;
       word-wrap: break-word;
       word-break: normal;
@@ -94,19 +97,13 @@
       box-sizing: border-box;
       min-width: 0;
       white-space: normal;
-      animation: fadeIn 0.6s ease-out forwards;
-      opacity: 0;
-      
-      &:nth-child(1) { animation-delay: 0.5s; }
-      &:nth-child(2) { animation-delay: 0.6s; }
-      &:nth-child(3) { animation-delay: 0.7s; }
-      &:nth-child(4) { animation-delay: 0.8s; }
       
       a {
         color: var(--color-text);
         text-decoration: underline;
-        text-underline-offset: 6px;
+        text-underline-offset: 0.3em;
         text-decoration-thickness: 1px;
+        text-decoration-skip-ink: all;
         transition: opacity var(--transition-fast);
         
         &:hover {
@@ -120,8 +117,9 @@
     a {
       color: var(--color-text);
       text-decoration: underline;
-      text-underline-offset: 0.34rem;
+      text-underline-offset: 0.22em;
       text-decoration-thickness: 1px;
+      text-decoration-skip-ink: auto;
       transition: opacity var(--transition-fast);
       
       &:hover {
@@ -152,9 +150,6 @@
   }
 }
 
-// Import Inter font
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
-
 .webring-footer {
   display: flex;
   justify-content: center;
@@ -163,7 +158,7 @@
   padding: 3rem 0 2rem;
   margin-top: auto;
   animation: fadeInSimple 0.6s ease-out forwards;
-  animation-delay: 1s;
+  animation-delay: 1.05s;
   opacity: 0;
 }
 
@@ -189,7 +184,7 @@
   font-size: 0.8rem;
   opacity: 0.5;
   color: var(--color-text);
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: var(--font-family-prose);
 }
 
 // Fade in animation

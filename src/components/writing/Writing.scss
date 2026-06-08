@@ -7,6 +7,8 @@
 
 // Full viewport width — rendered outside .writing-page so it isn’t clipped by max-width
 .writing-header {
+  font-family: var(--font-family-prose);
+  letter-spacing: -0.022em;
   position: fixed;
   top: 0;
   left: 0;
@@ -52,7 +54,7 @@
     font-weight: 500;
     letter-spacing: -0.01em;
     text-transform: none;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: inherit;
     background: transparent;
     border: none;
     border-radius: 0;
@@ -122,6 +124,10 @@
 }
 
 .writing-page {
+  font-family: var(--font-family-prose);
+  letter-spacing: -0.022em;
+  font-kerning: normal;
+  font-feature-settings: 'kern' 1, 'liga' 1;
   min-height: 100vh;
   width: 100%;
   max-width: 750px;
@@ -168,7 +174,7 @@
     margin: 2rem 0 1rem 0;
     letter-spacing: 0.3px;
     color: var(--color-text);
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: inherit;
     font-weight: 700;
   }
 
@@ -179,7 +185,7 @@
     // letter-spacing: 0.3px;
     color: var(--color-text);
     line-height: 1.6;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: inherit;
 
     &.date {
       color: var(--color-text-muted);
@@ -232,7 +238,7 @@
     gap: 1.5rem;
     margin-top: -2.45rem;
     margin-bottom: 1.45rem;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: inherit;
 
     @media (max-width: 1148px) {
       margin-top: 0.5rem;
@@ -361,7 +367,7 @@
     flex-wrap: nowrap;
     gap: 0.65rem;
     width: 100%;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: inherit;
     font-size: 0.8rem;
     font-weight: 400;
     line-height: 1.35;
@@ -513,7 +519,7 @@
       margin: 1.5rem 0 0.65rem 0;
       letter-spacing: 0.02em;
       color: var(--color-text);
-      font-family: 'Inter', system-ui, sans-serif;
+      font-family: inherit;
       font-weight: 600;
       line-height: 1.4;
     }
@@ -532,7 +538,7 @@
     .reading-time {
       color: var(--color-text-muted);
       font-size: 0.8rem;
-      font-family: 'Inter', system-ui, sans-serif;
+      font-family: inherit;
       line-height: 1;
     }
 
@@ -548,7 +554,7 @@
         margin: 0.3rem 0;
         color: var(--color-text-muted);
         line-height: 1.55;
-        font-family: 'Inter', system-ui, sans-serif;
+        font-family: inherit;
         
         @media (max-width: 768px) {
           font-size: 0.8rem;
@@ -580,7 +586,7 @@
         padding-left: 0.35rem;
         color: var(--color-text);
         line-height: 1.58;
-        font-family: 'Inter', system-ui, sans-serif;
+        font-family: inherit;
 
         @media (max-width: 768px) {
           font-size: 0.875rem;
@@ -599,7 +605,7 @@
         margin: 0.35rem 0;
         color: var(--color-text-muted);
         line-height: 1.48;
-        font-family: 'Inter', system-ui, sans-serif;
+        font-family: inherit;
         
         @media (max-width: 768px) {
           font-size: 0.75rem;
@@ -642,9 +648,6 @@
     }
   }
 }
-
-// Import Inter font
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
 // Fade in animation
 @keyframes fadeIn {

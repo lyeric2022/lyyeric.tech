@@ -9,7 +9,7 @@ export const metadata = {
   id: 1,
   slug: 'bet-sizing-with-fractional-kelley',
   title: 'Bet Sizing with Fractional Kelly',
-  date: '1.31.25',
+  date: '1.31.26',
   draftKind: 'essay',
 };
 

@@ -97,7 +97,7 @@ function App() {
   }, [isMobile, viewMode]);
 
   const handleOpenFile = () => {
-    const fileUrl = './Eric Ly Resume 30926.pdf';
+    const fileUrl = './Eric Ly Resume 060826.pdf';
     logAnalyticsEvent('resume_click');
     if (posthog?.capture) posthog.capture('resume_click');
     window.open(fileUrl, '_blank');

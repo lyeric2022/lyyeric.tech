@@ -13,12 +13,12 @@ export const content = (
     <br />
 
     <p>
-      In a few years time, most citizens will live a life of more accessible education, healthcare, food, and transit. The AI revolution will lead us to a better quality of life, improve our common wealth and defense, and unlock new paradigms of experiences.
+      In a few years’ time, most citizens will live a life of more accessible education, healthcare, food, and transit. The AI revolution will lead us to a better quality of life, improve our common wealth and defense, and unlock new paradigms of experiences.
     </p>
     <br />
 
     <p>
-      But I’m uncertain about the concept of the billionaire class. As much as such individuals have mostly accumulated their wealth via societally-beneficial means, I wonder about the limits? I don’t wanna claim envy, if anything, their increased wealth actually goes to benefit society more, rather than the reverse. It is their tax dollars that fuel that revenue. It is their risk and capital allocations that has led to such abundance in the first place.
+      But I’m uncertain about the concept of the billionaire class. As much as such individuals have mostly accumulated their wealth via societally-beneficial means, I wonder about the limits? I don’t wanna claim envy, if anything, their increased wealth actually goes to benefit society more, rather than the reverse. It is their tax dollars that fuel that revenue. It is their risk and capital allocations that have led to such abundance in the first place.
     </p>
     <br />
 
@@ -28,19 +28,19 @@ export const content = (
     <br />
 
     <p>
-      Increasingly, our economy seeks to service the wealthy. Rising housing costs actually isn’t a problem for the wealthy– if anything is a net-benefit to their asset values. Airlines are increasingly looking to service wealthier clients over the rest, and this is reflective across every industry, every country tbh. The compound wealth growth of the asset class, means that in time, more and more of ownership and wealth will accumulate to such asset owners.
+      Increasingly, our economy seeks to service the wealthy. Rising housing costs actually aren’t a problem for the wealthy– if anything, they’re a net benefit to their asset values. Airlines are increasingly looking to service wealthier clients over the rest, and this is reflective across every industry, every country tbh. The compound wealth growth of the asset class means that in time, more and more of ownership and wealth will accumulate to such asset owners.
     </p>
     <br />
 
     <h2>What’s the solution?</h2>
 
     <p>
-      For nations that have tried to fix this issue with massive taxation, it has led to an overall weaker economy and lower quality life than otherwise, and they’ve also regressed in innovation and labor productivity. A wealth tax would benefit poorer nations who’d happily, freely host them, and nations have even seen their welfare weaken from such departures. This cannot be the solution– I cannot support policies that aim to sacrifice its people’s potential in the name of envy.
+      For nations that have tried to fix this issue with massive taxation, it has led to an overall weaker economy and lower quality life than otherwise, and they’ve also regressed in innovation and labor productivity. A wealth tax would benefit poorer nations who’d happily, freely host them, and nations have even seen their welfare weaken from such departures. This cannot be the solution– I cannot support policies that aim to sacrifice their people’s potential in the name of envy.
     </p>
     <br />
 
     <p>
-      Yet the current status quo is leading us to such increasing wealth inequality that billionaires are all but gods in name. They can do anything. They could birth 1000s of children and each could be multi-millionaires, living lives of luxury and power. The economy and industry increasingly works to service them and their wealth.
+      Yet the current status quo is leading us to such increasing wealth inequality that billionaires are all but gods in name. They can do anything. They could birth 1000s of children and each could be multi-millionaires, living lives of luxury and power. The economy and industry increasingly work to service them and their wealth.
     </p>
     <br />
 
@@ -50,12 +50,12 @@ export const content = (
     <br />
 
     <p>
-      In a hundred years time though, the wealthy will be so so much more wealthy. While the status of the “permanent underclass” is debatable, the emergence of the permanent overclass is real.
+      In a hundred years’ time though, the wealthy will be so so much more wealthy. While the status of the “permanent underclass” is debatable, the emergence of the permanent overclass is real.
     </p>
     <br />
 
     <p>
-      Would our future grandchildren prefer a higher quality of life, at the expense of such wealth irreversible inequality? Or would they rather regress, but have a more equal society?
+      Would our future grandchildren prefer a higher quality of life, at the expense of such irreversible wealth inequality? Or would they rather regress, but have a more equal society?
     </p>
     <br />
 
@@ -77,12 +77,12 @@ export const content = (
     <br />
 
     <p>
-      There’s a good chance that such thesis may not resolve though, since the relationship is quite symbiotic. But the convergent equilibrium requires a more balanced distribution, and it seems like birthrates collapsing is going to be the fix.
+      There’s a good chance that such a thesis may not resolve though, since the relationship is quite symbiotic. But the convergent equilibrium requires a more balanced distribution, and it seems like birthrates collapsing is going to be the fix.
     </p>
     <br />
 
     <p>
-      I’m reminded of the Irish potato famine, where Ireland lost half their population and workers’ salaries started to spike, or during times of war, when wages increased to compete for less workers. Although both aren’t exactly ideal, and neither too is the looming population collapse.
+      I’m reminded of the Irish potato famine, where Ireland lost half their population and workers’ salaries started to spike, or during times of war, when wages increased to compete for fewer workers. Although, neither are exactly ideal, and neither is the looming population collapse.
     </p>
     <br />
 
@@ -161,7 +161,7 @@ export const content = (
     <br />
 
     <p>
-      The goal of the republic is to protect and enable its people’s potential. It’ll be for nothing if our economic system leads to an end state where only a few groups can survive and the rest give up on the future. I will never support redistribution policies that hurts the nations’ potential, but I think there’s a real urgency in how to evolve our system, so that we can all prosper collectively.
+      The goal of the republic is to protect and enable its people’s potential. It’ll be for nothing if our economic system leads to an end state where only a few groups can survive and the rest give up on the future. I will never support redistribution policies that hurt the nation’s potential, but I think there’s a real urgency in how to evolve our system, so that we can all prosper collectively.
     </p>
     <br />
   </>

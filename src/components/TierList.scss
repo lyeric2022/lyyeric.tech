@@ -1,6 +1,11 @@
-// Tier list — aligned with v2 Writing / CompactView: flat lists, Inter type, underline accents
+// Tier list — aligned with v2 Writing / CompactView: flat lists, Source Sans 3, underline accents
 
 .writing-page.tier-list-page {
+  font-family: var(--font-family-prose);
+  letter-spacing: -0.022em;
+  font-kerning: normal;
+  font-feature-settings: 'kern' 1, 'liga' 1;
+
   /* Global index.scss gives all buttons margin; row controls + toolbar must stay tight. */
   button {
     margin: 0;
@@ -82,7 +87,7 @@
     letter-spacing: -0.01em;
     color: var(--color-text);
     cursor: pointer;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: inherit;
     position: relative;
     transition: color var(--transition-fast), opacity var(--transition-fast);
 
@@ -143,7 +148,7 @@
     border: 1px solid var(--color-border);
     background-color: var(--color-background);
     box-shadow: var(--shadow-lg);
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: inherit;
   }
 
   .tier-add-modal__title {
@@ -187,7 +192,7 @@
       border-bottom: 1px solid var(--color-border);
       background-color: transparent;
       color: var(--color-text);
-      font-family: 'Inter', system-ui, sans-serif;
+      font-family: inherit;
       transition: border-color var(--transition-fast);
 
       &:focus {
@@ -243,7 +248,7 @@
     margin-bottom: 0;
     color: var(--color-text-muted);
     font-size: 0.8rem;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: inherit;
     line-height: 1.5;
   }
 
@@ -314,7 +319,7 @@
         line-height: 1.35;
         letter-spacing: -0.01em;
         color: var(--color-text);
-        font-family: 'Inter', system-ui, sans-serif;
+        font-family: inherit;
       }
 
       .place-season {
@@ -340,7 +345,7 @@
         min-width: 2rem;
         text-align: right;
         font-variant-numeric: tabular-nums;
-        font-family: 'Inter', system-ui, sans-serif;
+        font-family: inherit;
       }
 
       .row-actions {
@@ -358,7 +363,7 @@
         font-size: 0.95rem;
         cursor: pointer;
         transition: color var(--transition-fast), opacity var(--transition-fast);
-        font-family: 'Inter', system-ui, sans-serif;
+        font-family: inherit;
         line-height: 1;
 
         &:hover:not(:disabled) {
@@ -384,7 +389,7 @@
         text-underline-offset: 3px;
         text-decoration-thickness: 1px;
         transition: color var(--transition-fast), opacity var(--transition-fast);
-        font-family: 'Inter', system-ui, sans-serif;
+        font-family: inherit;
 
         &:hover:not(:disabled) {
           color: var(--color-text);
@@ -408,7 +413,7 @@
         border-bottom: 1px solid var(--color-accent-primary);
         background-color: transparent;
         color: var(--color-text);
-        font-family: 'Inter', system-ui, sans-serif;
+        font-family: inherit;
         text-align: left;
         outline: none;
 
@@ -458,7 +463,7 @@
     text-underline-offset: 3px;
     text-decoration-thickness: 1px;
     transition: color var(--transition-fast), opacity var(--transition-fast);
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: inherit;
 
     &:hover {
       color: var(--color-text);
