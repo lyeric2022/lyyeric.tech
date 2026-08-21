@@ -1,59 +1,60 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import './CompactView.scss';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, X } from 'lucide-react';
+
+const RESUME_URL = '/Eric Ly Resume 060826.pdf';
 
 const CompactView = () => {
+  const [resumeOpen, setResumeOpen] = useState(false);
+
+  useEffect(() => {
+    if (!resumeOpen) return undefined;
+
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') setResumeOpen(false);
+    };
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', onKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [resumeOpen]);
+
   return (
     <div className="compact-view">
       <div className="compact-intro">
         <h1 className="reveal-0">I'm Eric Ly</h1>
-        <br />
         <p className="reveal-1">
-          I was an early engineer at{' '}
-          <a href="https://www.humandelta.ai/" target="_blank" rel="noopener noreferrer">Human Delta</a>, building knowledge infrastructure for enterprise AI agents. I contributed to and led several efforts:
+          I'm a current engineer at{' '}
+          <a href="https://afterquery.com/" target="_blank" rel="noopener noreferrer">AfterQuery</a>, working on AI research, human data, LLM evals, and platform infra.
         </p>
-        <ul>
-          <li className="reveal-2">
-            Enterprise audit platform — crawl, analyze & remediate knowledge bases before AI deploy{' '}
-            [<a href="https://www.humandelta.ai/case-studies/espn" target="_blank" rel="noopener noreferrer">blog</a>]
-          </li>
-          <li className="reveal-3">
-            Developer platform — indexing API, multimodal document ingest, and virtual filesystem
-          </li>
-          <li className="reveal-4">
-            Giving agents the ability to search and traverse large organizational knowledge corpora{' '}
-            [<a href="https://www.humandelta.ai/blog/vector-database-vs-knowledge-infrastructure-production" target="_blank" rel="noopener noreferrer">blog</a>]
-          </li>
-        </ul>
-        <br />
-        <p className="reveal-5">
-          Before that, I worked on the Agents Developer Platform at{' '}
-          <a href="https://www.letta.com/" target="_blank" rel="noopener noreferrer">Letta</a>, AI Sales agents at{' '}
+        <p className="reveal-2">
+          Before that, I was an early engineer at{' '}
+          <a href="https://www.humandelta.ai/" target="_blank" rel="noopener noreferrer">Human Delta</a>, working on knowledge infrastructure for enterprise AI agents: an audit platform{' '}
+          [<a href="https://www.humandelta.ai/case-studies/espn" target="_blank" rel="noopener noreferrer">blog</a>], a developer platform, and corpus search.
+        </p>
+        <p className="reveal-3">
+          Earlier, I worked on the Agents Developer Platform at{' '}
+          <a href="https://www.letta.com/" target="_blank" rel="noopener noreferrer">Letta</a>, workflow agents at{' '}
           <a href="https://www.zams.com/" target="_blank" rel="noopener noreferrer">Zams</a>, and researched voice synthesis at{' '}
-          <a href="https://www.att.com/" target="_blank" rel="noopener noreferrer">AT&T</a>. I also worked as a reviewer on various post-training lab data via{' '}
-          <a href="https://www.mercor.com/" target="_blank" rel="noopener noreferrer">Mercor</a>.
+          <a href="https://www.att.com/" target="_blank" rel="noopener noreferrer">AT&T</a>.
         </p>
-        <br />
-
-        <p className="reveal-6">
-        {/* In high school, my {' '} 
-        <a href="https://www.congressionalappchallenge.us/21-ca46/" target="_blank" rel="noopener noreferrer">team</a>
-        {' '} won the Congressional App Challenge. */}
-        At CSUF, I studied CS & Econ, served as board of directors on <a href="https://asi.fullerton.edu/" target="_blank" rel="noopener noreferrer">ASI</a>, 
+        <p className="reveal-4">
+        I studied cs & econ at csuf, served as board of directors on <a href="https://asi.fullerton.edu/" target="_blank" rel="noopener noreferrer">ASI</a>, 
           directed <a href="https://fullyhacks.acmcsuf.com/" target="_blank" rel="noopener noreferrer">FullyHacks</a> twice,
           led ACM{' '}
-          <a href="https://acmcsuf.com/teams?term=F24#nodebuds" target="_blank" rel="noopener noreferrer">Node Buds</a>,
-          and won 7 hackathons. In hs, my team {' '}
-        <a href="https://www.congressionalappchallenge.us/21-ca46/" target="_blank" rel="noopener noreferrer">won</a>
-        {' '}the Congressional App Challenge, and participated in Google Code Next & CSSI.
+          <a href="https://acmcsuf.com/teams?term=F24#nodebuds" target="_blank" rel="noopener noreferrer">NodeBuds</a>,
+          and won 7 hackathons.
         </p>
-        <br />
-
-        <p className="reveal-7">
+        <p className="reveal-5">
             On views, I support American dynamism, yimbys, abundance economics, and mechanism design.
             Find my thoughts <Link to="/writing">here</Link>. </p>
-        <br />
 
         {/* <p>
           When 
@@ -66,13 +67,22 @@ const CompactView = () => {
         </p>
         <br /> */}
 
-        <p className="reveal-8">
+        <p className="reveal-6">
           Reach me via{' '}
           <a href="https://www.linkedin.com/in/lyyeric/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           {' '}or{' '}
           <a href="mailto:ly.eric2022@gmail.com">email</a>.
            This is my{' '}
-           <a href="/Eric Ly Resume 060826.pdf" target="_blank" rel="noopener noreferrer">resume</a>.
+           <a
+             href={RESUME_URL}
+             className="resume-link"
+             onClick={(event) => {
+               event.preventDefault();
+               setResumeOpen(true);
+             }}
+           >
+             resume
+           </a>.
          </p>
          {/* <br />
          <p>
@@ -85,6 +95,38 @@ const CompactView = () => {
          </p>
         <br /> */}
       </div>
+
+      {resumeOpen &&
+        createPortal(
+          <div
+            className="resume-modal-backdrop"
+            onClick={() => setResumeOpen(false)}
+            role="presentation"
+          >
+            <button
+              type="button"
+              className="resume-modal__close"
+              onClick={() => setResumeOpen(false)}
+              aria-label="Close resume"
+            >
+              <X size={20} strokeWidth={1.5} />
+            </button>
+            <div
+              className="resume-modal"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Resume"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <iframe
+                className="resume-modal__frame"
+                title="Eric Ly resume"
+                src={`${RESUME_URL}#toolbar=0&navpanes=0&scrollbar=0`}
+              />
+            </div>
+          </div>,
+          document.body
+        )}
 
       <footer className="webring-footer">
         <a href="https://webring-1.vercel.app/?from=lyyeric&dir=prev" rel="noopener noreferrer" className="webring-link" title="Previous site">

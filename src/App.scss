@@ -52,6 +52,13 @@
   --shadow-lg: 0px 8px 16px rgba(0,0,0,0.5);
 }
 
+// After reveal keyframes finish, keep the visible end state for session replay.
+.is-revealed {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
 // Webring Toast
 .webring-toast {
   position: fixed;

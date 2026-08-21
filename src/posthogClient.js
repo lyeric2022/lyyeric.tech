@@ -7,7 +7,7 @@ const POSTHOG_HOST = import.meta.env.VITE_POSTHOG_HOST || 'https://us.i.posthog.
 if (typeof window !== 'undefined' && POSTHOG_KEY) {
   posthog.init(POSTHOG_KEY, {
     api_host: POSTHOG_HOST,
-    capture_pageview: true,
+    capture_pageview: 'history_change',
     capture_pageleave: true,
     autocapture: true,
     session_recording: {
@@ -20,6 +20,24 @@ if (typeof window !== 'undefined' && POSTHOG_KEY) {
       }
     },
   });
+}
+
+// CSS keyframes never write opacity onto nodes, so session replay would otherwise
+// snapshot reveal elements as invisible. Lock the end state after each fade.
+if (typeof document !== 'undefined' && !window.__lyyericRevealLock) {
+  window.__lyyericRevealLock = true;
+  const revealAnimations = new Set(['fadeIn', 'fadeInDown', 'fadeInSimple']);
+  document.addEventListener(
+    'animationend',
+    (event) => {
+      const el = event.target;
+      if (!(el instanceof Element)) return;
+      if (revealAnimations.has(event.animationName)) {
+        el.classList.add('is-revealed');
+      }
+    },
+    true
+  );
 }
 
 export default posthog;

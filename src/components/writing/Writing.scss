@@ -63,8 +63,7 @@
     cursor: pointer;
     outline: none;
     -webkit-tap-highlight-color: transparent;
-    opacity: 0;
-    animation: fadeInDown 0.5s ease-out forwards;
+    animation: fadeInDown 0.5s ease-out both;
     transition:
       color var(--transition-fast),
       opacity var(--transition-fast);
@@ -165,8 +164,7 @@
     letter-spacing: 0.5px;
     color: var(--color-text);
     text-align: left;
-    animation: fadeIn 0.5s ease-out forwards;
-    opacity: 0;
+    animation: fadeIn 0.5s ease-out both;
   }
 
   h2 {
@@ -260,8 +258,7 @@
     cursor: pointer;
     outline: none;
     -webkit-tap-highlight-color: transparent;
-    opacity: 0;
-    animation: fadeInDown 0.5s ease-out forwards;
+    animation: fadeInDown 0.5s ease-out both;
     transition:
       color var(--transition-fast),
       opacity var(--transition-fast);
@@ -328,8 +325,7 @@
     text-decoration: none;
     color: inherit;
     display: block;
-    animation: fadeIn 0.5s ease-out forwards;
-    opacity: 0;
+    animation: fadeIn 0.5s ease-out both;
 
     @for $i from 1 through 120 {
       &:nth-child(#{$i}) {
@@ -354,7 +350,6 @@
     padding-top: 0.85rem;
 
     &.list-pagination--intro {
-      opacity: 0;
       /* Wait for list rows to paint / stagger in before fading (Writing links ~0.06+n·0.055s; tier grid similar). */
       animation: fadeIn 0.48s ease-out 0.48s both;
     }
@@ -477,8 +472,7 @@
 
     // Stagger in DOM order; delay set in Article.jsx from viewport (skip blocks fully above fold)
     & > * {
-      animation: fadeIn var(--article-fade-duration, 0.45s) ease-out forwards;
-      opacity: 0;
+      animation: fadeIn var(--article-fade-duration, 0.45s) ease-out both;
       animation-delay: var(--reveal-delay, 0s);
     }
 
