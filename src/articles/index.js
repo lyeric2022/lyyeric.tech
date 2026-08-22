@@ -10,6 +10,7 @@ import { metadata as gameTestingMetadata, content as gameTestingContent } from '
 import { metadata as worldViewsMetadata, content as worldViewsContent } from './my-world-views';
 import { metadata as leanHungryMetadata, content as leanHungryContent } from './the-lean-and-hungry-ant';
 import { metadata as whyDraftsMetadata, content as whyDraftsContent } from './why-drafts';
+import { metadata as beforeTheSunMetadata, content as beforeTheSunContent } from './before-the-sun-burns-out';
 
 // Helper function to parse date string (MM.DD.YY) to Date object for sorting
 const parseDate = (dateStr) => {
@@ -64,6 +65,10 @@ const allArticles = [
   {
     ...whyDraftsMetadata,
     content: whyDraftsContent,
+  },
+  {
+    ...beforeTheSunMetadata,
+    content: beforeTheSunContent,
   },
 ];
 
