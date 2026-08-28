@@ -5,6 +5,7 @@ import './CompactView.scss';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 
 const RESUME_URL = '/Eric Ly Resume 060826.pdf';
+const RESUME_PREVIEW_URL = '/eric-ly-resume.png';
 
 const CompactView = () => {
   const [resumeOpen, setResumeOpen] = useState(false);
@@ -103,14 +104,6 @@ const CompactView = () => {
             onClick={() => setResumeOpen(false)}
             role="presentation"
           >
-            <button
-              type="button"
-              className="resume-modal__close"
-              onClick={() => setResumeOpen(false)}
-              aria-label="Close resume"
-            >
-              <X size={20} strokeWidth={1.5} />
-            </button>
             <div
               className="resume-modal"
               role="dialog"
@@ -118,11 +111,26 @@ const CompactView = () => {
               aria-label="Resume"
               onClick={(event) => event.stopPropagation()}
             >
-              <iframe
-                className="resume-modal__frame"
-                title="Eric Ly resume"
-                src={`${RESUME_URL}#toolbar=0&navpanes=0&scrollbar=0`}
-              />
+              <div className="resume-modal__bar">
+                <a href={RESUME_URL} target="_blank" rel="noopener noreferrer">
+                  Open
+                </a>
+                <button
+                  type="button"
+                  className="resume-modal__close"
+                  onClick={() => setResumeOpen(false)}
+                  aria-label="Close resume"
+                >
+                  <X size={20} strokeWidth={1.5} />
+                </button>
+              </div>
+              <div className="resume-modal__page">
+                <img
+                  className="resume-modal__image"
+                  src={RESUME_PREVIEW_URL}
+                  alt="Eric Ly resume"
+                />
+              </div>
             </div>
           </div>,
           document.body

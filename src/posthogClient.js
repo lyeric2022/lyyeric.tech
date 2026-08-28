@@ -26,7 +26,13 @@ if (typeof window !== 'undefined' && POSTHOG_KEY) {
 // snapshot reveal elements as invisible. Lock the end state after each fade.
 if (typeof document !== 'undefined' && !window.__lyyericRevealLock) {
   window.__lyyericRevealLock = true;
-  const revealAnimations = new Set(['fadeIn', 'fadeInDown', 'fadeInSimple']);
+  const revealAnimations = new Set([
+    'fadeIn',
+    'fadeInDown',
+    'fadeInSimple',
+    'resumeBackdropIn',
+    'resumeSheetIn',
+  ]);
   document.addEventListener(
     'animationend',
     (event) => {
