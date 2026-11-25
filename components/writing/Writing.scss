@@ -1,0 +1,666 @@
+// Scroll container for writing routes: mobile nav is `position: absolute` here so it is not sticky.
+.writing-route {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+}
+
+// Full viewport width — rendered outside .writing-page so it isn’t clipped by max-width
+.writing-header {
+  font-family: var(--font-family-prose);
+  letter-spacing: -0.022em;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.62rem max(1.62rem, env(safe-area-inset-right, 0px)) 1.62rem max(1.62rem, env(safe-area-inset-left, 0px));
+  background-color: var(--color-background);
+  z-index: 1000;
+
+  @media (min-width: 1149px) {
+    background-color: transparent;
+  }
+
+  @media (max-width: 1148px) {
+    // Match home `.menu-container` inset; absolute inside `.writing-route` so header scrolls away (non-sticky)
+    position: absolute;
+    top: max(1.62rem, env(safe-area-inset-top, 0px));
+    right: max(1.62rem, env(safe-area-inset-right, 0px));
+    left: auto;
+    width: auto;
+    padding: 0;
+    background-color: transparent;
+    justify-content: flex-end;
+    gap: 1.5rem;
+    z-index: 1000;
+  }
+
+  .header-option {
+    position: relative;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0.35rem 0 0.5rem;
+    font-size: 0.95rem;
+    line-height: 1.35;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    text-transform: none;
+    font-family: inherit;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    cursor: pointer;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    animation: fadeInDown 0.5s ease-out both;
+    transition:
+      color var(--transition-fast),
+      opacity var(--transition-fast);
+
+    &:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    &:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    &:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: 0.1rem;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background-color: var(--color-text);
+      opacity: 0;
+      transform: translateX(-50%) scale(0.65);
+      transition:
+        opacity var(--transition-fast),
+        transform var(--transition-fast);
+      pointer-events: none;
+    }
+
+    &:hover {
+      color: var(--color-text);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-accent-primary);
+      outline-offset: 2px;
+    }
+
+    &.active {
+      color: var(--color-text);
+
+      &::after {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+      }
+    }
+
+    &.header-option--no-intro {
+      opacity: 1;
+      animation: none;
+    }
+  }
+}
+
+.writing-page {
+  font-family: var(--font-family-prose);
+  letter-spacing: -0.022em;
+  font-kerning: normal;
+  font-feature-settings: 'kern' 1, 'liga' 1;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding-top: max(0.35rem, env(safe-area-inset-top, 0px));
+  padding-bottom: 6rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  box-sizing: border-box;
+
+  /** Index-style pages (Writing list, Rankings): tighter bottom padding so viewport-fit pagination math matches layout. */
+  &.writing-page--list {
+    padding-bottom: max(2.25rem, calc(env(safe-area-inset-bottom, 0px) + 1.25rem));
+  }
+
+  // Below wide breakpoint, nav is fixed like home menu — mirror compact-view top padding
+  @media (max-width: 1148px) {
+    padding-top: calc(6rem + env(safe-area-inset-top, 0px));
+  }
+
+  @media (max-width: 768px) {
+    padding-top: calc(4rem + env(safe-area-inset-top, 0px) + 0.35rem);
+  }
+
+  @media (min-width: 1149px) {
+    padding-top: calc(4rem + 60px);
+  }
+
+  // h1 for drafts list page only
+  > h1 {
+    font-size: 2rem;
+    margin: 0;
+    letter-spacing: 0.5px;
+    color: var(--color-text);
+    text-align: left;
+    animation: fadeIn 0.5s ease-out both;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin: 2rem 0 1rem 0;
+    letter-spacing: 0.3px;
+    color: var(--color-text);
+    font-family: inherit;
+    font-weight: 700;
+  }
+
+  p {
+    text-align: left;
+    font-size: 1rem;
+    margin: 0;
+    // letter-spacing: 0.3px;
+    color: var(--color-text);
+    line-height: 1.6;
+    font-family: inherit;
+
+    &.date {
+      color: var(--color-text-muted);
+      font-size: 0.8rem;
+      margin: 0;
+    }
+
+    i, em {
+      font-style: italic !important;
+      font-family: Georgia, 'Times New Roman', serif;
+      opacity: 0.9;
+    }
+
+    a {
+      color: var(--color-text);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-thickness: 1px;
+      transition: opacity var(--transition-fast);
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+
+    u {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-thickness: 1px;
+    }
+
+    sup a {
+      color: var(--color-accent-primary);
+      text-decoration: none;
+      font-weight: 500;
+
+      &:hover {
+        text-decoration: underline;
+        opacity: 0.7;
+      }
+    }
+  }
+
+  // Essays / Shitposts toggle (text + underline, left-aligned)
+  .drafts-kind-toggle {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 1.5rem;
+    margin-top: -2.45rem;
+    margin-bottom: 1.45rem;
+    font-family: inherit;
+
+    @media (max-width: 1148px) {
+      margin-top: 0.5rem;
+    }
+  }
+
+  .drafts-kind-toggle__btn {
+    margin: 0;
+    position: relative;
+    font-size: 0.95rem;
+    line-height: 1.35;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--color-text-muted);
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0.35rem 0 0.5rem;
+    cursor: pointer;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    animation: fadeInDown 0.5s ease-out both;
+    transition:
+      color var(--transition-fast),
+      opacity var(--transition-fast);
+
+    &:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    &:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 1.5px;
+      background-color: var(--color-text);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition-normal);
+    }
+
+    &[data-underline-origin='right']::after {
+      transform-origin: right;
+    }
+
+    &[data-underline-origin='left']::after {
+      transform-origin: left;
+    }
+
+    &:hover {
+      color: var(--color-text);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-accent-primary);
+      outline-offset: 2px;
+    }
+
+    &.is-active {
+      color: var(--color-text);
+
+      &::after {
+        transform: scaleX(1);
+      }
+    }
+  }
+
+  .drafts-panel {
+    margin-top: 0;
+  }
+
+  .articles-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 0.35rem;
+  }
+
+  .article-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    animation: fadeIn 0.5s ease-out both;
+
+    @for $i from 1 through 120 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{0.06 + ($i - 1) * 0.055}s;
+      }
+    }
+    
+    &:hover .article-preview {
+      opacity: 0.7;
+    }
+
+    &.article-link--pad {
+      animation: none !important;
+      opacity: 1;
+      visibility: hidden;
+      pointer-events: none;
+    }
+  }
+
+  .list-pagination {
+    margin-top: 0.65rem;
+    padding-top: 0.85rem;
+
+    &.list-pagination--intro {
+      /* Wait for list rows to paint / stagger in before fading (Writing links ~0.06+n·0.055s; tier grid similar). */
+      animation: fadeIn 0.48s ease-out 0.48s both;
+    }
+  }
+
+  .list-pagination__inner {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 0.65rem;
+    width: 100%;
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 400;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    color: var(--color-text-muted);
+  }
+
+  .list-pagination__btn {
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    font: inherit;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    transition: color var(--transition-fast), opacity var(--transition-fast);
+    -webkit-tap-highlight-color: transparent;
+
+    &:hover:not(:disabled) {
+      color: var(--color-text);
+      opacity: 0.85;
+    }
+
+    &:disabled {
+      opacity: 0.32;
+      cursor: not-allowed;
+      text-decoration: none;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-accent-primary);
+      outline-offset: 2px;
+    }
+  }
+
+  .list-pagination__meta {
+    display: inline-flex;
+    align-items: baseline;
+    flex: 1;
+    justify-content: center;
+    margin: 0;
+    min-width: 0;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    white-space: nowrap;
+  }
+
+  .list-pagination__range {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .article-preview {
+    width: 100%;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--color-border);
+    transition: opacity 0.2s ease;
+    margin-bottom: 0;
+  }
+
+  .article-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: clamp(0rem, 8vw, 8rem);
+    margin-bottom: 0.2rem;
+  }
+
+  .article-title {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 500;
+    line-height: 1.35;
+    text-align: left;
+    color: var(--color-text);
+    letter-spacing: -0.01em;
+  }
+
+  .article-date {
+    color: var(--color-text-muted);
+    font-size: 0.8rem;
+    font-weight: 400;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .reading-time {
+    display: block;
+    text-align: left;
+    color: var(--color-text-muted);
+    font-size: 0.8rem;
+    font-weight: 400;
+  }
+
+  article {
+    text-align: left;
+    padding-left: 0;
+    padding-right: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+
+    & > * {
+      animation: fadeIn 0.45s ease-out both;
+    }
+
+    @for $i from 1 through 16 {
+      & > *:nth-child(#{$i}) {
+        animation-delay: #{($i - 1) * 0.035}s;
+      }
+    }
+
+    p {
+      font-size: 0.95rem;
+      line-height: 1.58;
+    }
+    
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin: 0 0 0.4rem 0;
+      letter-spacing: -0.03em;
+      color: var(--color-text);
+      text-align: left;
+
+      @media (max-width: 768px) {
+        font-size: 1.32rem;
+        line-height: 1.25;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      p {
+        font-size: 0.875rem;
+      }
+    }
+
+    h2 {
+      font-size: 1.15rem;
+      margin: 1.5rem 0 0.65rem 0;
+      letter-spacing: 0.02em;
+      color: var(--color-text);
+      font-family: inherit;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    br + h2 {
+      margin-top: 0.85rem;
+    }
+
+    .article-meta {
+      display: flex;
+      align-items: baseline;
+      gap: 0.4rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .reading-time {
+      color: var(--color-text-muted);
+      font-size: 0.8rem;
+      font-family: inherit;
+      line-height: 1;
+    }
+
+    ul {
+      margin: 0.75rem 0;
+      padding-left: 0;
+      list-style-type: disc;
+      list-style-position: outside;
+      padding-left: 1.5rem;
+
+      li {
+        font-size: 0.85rem;
+        margin: 0.3rem 0;
+        color: var(--color-text-muted);
+        line-height: 1.55;
+        font-family: inherit;
+        
+        @media (max-width: 768px) {
+          font-size: 0.8rem;
+        }
+
+        a {
+          color: var(--color-accent-primary);
+          text-decoration: underline;
+          text-underline-offset: 5px;
+          text-decoration-thickness: 1px;
+          transition: opacity var(--transition-fast);
+
+          &:hover {
+            opacity: 0.7;
+          }
+        }
+      }
+    }
+
+    ol:not(.references) {
+      margin: 0.35rem 0 1rem;
+      padding-left: 1.35rem;
+      list-style-type: decimal;
+      list-style-position: outside;
+
+      li {
+        font-size: 0.95rem;
+        margin: 0.4rem 0;
+        padding-left: 0.35rem;
+        color: var(--color-text);
+        line-height: 1.58;
+        font-family: inherit;
+
+        @media (max-width: 768px) {
+          font-size: 0.875rem;
+        }
+      }
+    }
+
+    ol.references {
+      margin: 0.5rem 0 2rem 0;
+      padding-left: 1.5rem;
+      list-style-type: decimal;
+      list-style-position: outside;
+
+      li {
+        font-size: 0.8rem;
+        margin: 0.35rem 0;
+        color: var(--color-text-muted);
+        line-height: 1.48;
+        font-family: inherit;
+        
+        @media (max-width: 768px) {
+          font-size: 0.75rem;
+        }
+
+        a {
+          color: var(--color-text-muted);
+          text-decoration: underline;
+          text-underline-offset: 3px;
+          text-decoration-thickness: 1px;
+          transition: opacity var(--transition-fast);
+
+          &:hover {
+            opacity: 0.7;
+          }
+        }
+      }
+    }
+
+    .formula {
+      margin: 1.5rem 0;
+      padding: 1rem;
+      background-color: var(--color-background);
+      border-left: 3px solid var(--color-accent-primary);
+      overflow-x: auto;
+
+      code {
+        font-family: 'Courier New', monospace;
+        font-size: 0.88rem;
+        color: var(--color-text);
+        white-space: pre;
+      }
+    }
+  }
+
+  // Article.jsx only: direct <article>; Writing list / TierList have no <article>
+  & > article > h1 {
+    @media (max-width: 768px) {
+      margin-top: 0.4rem;
+    }
+  }
+}
+
+// Fade in animation
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Tab labels: start above final position and ease down (Writing index only)
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
