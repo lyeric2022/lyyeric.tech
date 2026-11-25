@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
-import { Source_Sans_3 } from 'next/font/google'
+import { Noto_Sans_JP, Source_Sans_3 } from 'next/font/google'
 import { Analytics } from '@/components/Analytics'
 import { SiteNav } from '@/components/SiteNav'
 import './globals.scss'
 import '@/components/writing/Writing.scss'
 import '@/components/TierList.scss'
 import '@/styles/home.scss'
+import '@/styles/v1.scss'
 
 const sourceSans = Source_Sans_3({
   subsets: ['latin'],
@@ -13,6 +14,13 @@ const sourceSans = Source_Sans_3({
   style: ['normal', 'italic'],
   display: 'swap',
   variable: '--font-source-sans',
+})
+
+const notoSansJp = Noto_Sans_JP({
+  subsets: ['latin'],
+  weight: ['300', '700'],
+  display: 'swap',
+  variable: '--font-noto-sans-jp',
 })
 
 export const metadata: Metadata = {
@@ -25,7 +33,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={sourceSans.variable} suppressHydrationWarning>
+    <html lang="en" className={`${sourceSans.variable} ${notoSansJp.variable}`} suppressHydrationWarning>
       <body>
         <Analytics />
         <div className="writing-route">
