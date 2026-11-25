@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   FRAG_ADVECTION,
   FRAG_CLEAR,
@@ -16,6 +16,11 @@ import {
   VERT_FULLSCREEN,
   VERT_PARTICLES,
   pickFluidVariant,
+  pickNextFluidVariant,
+  readFluidEnabled,
+  saveFluidEnabled,
+  type FluidVariantConfig,
+  type FluidVariantId,
 } from './fluid/shaders'
 
 interface FboTarget {
@@ -204,13 +209,21 @@ function buildParticleBuffers(gridSize: number) {
 
 export function FluidFieldBg() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
+  const [enabled, setEnabled] = useState<boolean | null>(null)
+  const [activeVariant, setActiveVariant] = useState<FluidVariantConfig | null>(null)
+  const enabledRef = useRef<boolean | null>(null)
+  const setEnabledRef = useRef<((next: boolean) => FluidVariantConfig | null) | null>(null)
 
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
 
-    const variant = pickFluidVariant()
-    canvas.dataset.variant = variant.id
+    let variant = pickFluidVariant()
+    let disabled = !readFluidEnabled()
+    canvas.dataset.variant = disabled ? 'none' : variant.id
+    enabledRef.current = !disabled
+    setActiveVariant(variant)
+    setEnabled(!disabled)
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
@@ -240,25 +253,36 @@ export function FluidFieldBg() {
       gradientSubtract: createProgram(gl, VERT_FULLSCREEN, FRAG_GRADIENT_SUBTRACT),
       advection: createProgram(gl, VERT_FULLSCREEN, FRAG_ADVECTION),
       particleUpdate: createProgram(gl, VERT_FULLSCREEN, FRAG_PARTICLE_UPDATE),
-      display: createProgram(gl, VERT_FULLSCREEN, variant.displayShader),
       particles: createProgram(gl, VERT_PARTICLES, FRAG_PARTICLES),
     }
 
-    const allPrograms = Object.values(programs)
-    if (allPrograms.some((p) => !p)) {
-      allPrograms.forEach((p) => p && gl.deleteProgram(p))
+    const displayPrograms = new Map<FluidVariantId, WebGLProgram>()
+    const getDisplayProgram = (v: FluidVariantConfig) => {
+      const cached = displayPrograms.get(v.id)
+      if (cached) return cached
+      const compiled = createProgram(gl, VERT_FULLSCREEN, v.displayShader)
+      if (compiled) displayPrograms.set(v.id, compiled)
+      return compiled
+    }
+
+    const initialDisplay = getDisplayProgram(variant)
+    const corePrograms = Object.values(programs)
+    if (!initialDisplay || corePrograms.some((p) => !p)) {
+      corePrograms.forEach((p) => p && gl.deleteProgram(p))
+      displayPrograms.forEach((p) => gl.deleteProgram(p))
       return
     }
 
     const vao = gl.createVertexArray()
     if (!vao) {
-      allPrograms.forEach((p) => p && gl.deleteProgram(p))
+      corePrograms.forEach((p) => p && gl.deleteProgram(p))
+      displayPrograms.forEach((p) => gl.deleteProgram(p))
       return
     }
 
     const SIM_BASE = 144
     const DYE_BASE = 384
-    const PARTICLE_GRID = 76 // 5,776 particles
+    const PARTICLE_GRID = 76
     const PRESSURE_ITERS = 12
 
     let viewW = Math.max(1, window.innerWidth)
@@ -302,7 +326,8 @@ export function FluidFieldBg() {
         gl.deleteFramebuffer(particleHome.fbo)
       }
       gl.deleteVertexArray(vao)
-      allPrograms.forEach((p) => p && gl.deleteProgram(p))
+      corePrograms.forEach((p) => p && gl.deleteProgram(p))
+      displayPrograms.forEach((p) => gl.deleteProgram(p))
     }
 
     if (!velocity || !dye || !pressure || !curl || !divergence || !particleHome || !particleState) {
@@ -428,7 +453,8 @@ export function FluidFieldBg() {
     }
 
     const onPointerDown = (e: PointerEvent) => {
-      if (reducedMotion) return
+      if (reducedMotion || disabled) return
+      if (e.target instanceof Element && e.target.closest('a, button')) return
       const nx = e.clientX / viewW
       const ny = 1.0 - e.clientY / viewH
       emitVortex(nx, ny, variant.vortexStrength)
@@ -493,7 +519,6 @@ export function FluidFieldBg() {
       const simTexelX = 1 / simDims.w
       const simTexelY = 1 / simDims.h
 
-      // 1. Curl
       let prog = programs.curl!
       gl.useProgram(prog)
       gl.uniform2f(uLoc(prog, 'uTexelSize'), simTexelX, simTexelY)
@@ -501,7 +526,6 @@ export function FluidFieldBg() {
       gl.uniform1i(uLoc(prog, 'uVelocity'), 0)
       drawQuad(curl)
 
-      // 2. Vorticity confinement
       prog = programs.vorticity!
       gl.useProgram(prog)
       gl.uniform2f(uLoc(prog, 'uTexelSize'), simTexelX, simTexelY)
@@ -514,7 +538,6 @@ export function FluidFieldBg() {
       drawQuad(velocity.write)
       velocity.swap()
 
-      // 3. Divergence
       prog = programs.divergence!
       gl.useProgram(prog)
       gl.uniform2f(uLoc(prog, 'uTexelSize'), simTexelX, simTexelY)
@@ -522,7 +545,6 @@ export function FluidFieldBg() {
       gl.uniform1i(uLoc(prog, 'uVelocity'), 0)
       drawQuad(divergence)
 
-      // 4. Pressure clear + Jacobi solve
       prog = programs.clear!
       gl.useProgram(prog)
       gl.uniform1f(uLoc(prog, 'uValue'), Math.pow(0.8, dt * 60))
@@ -543,7 +565,6 @@ export function FluidFieldBg() {
         pressure.swap()
       }
 
-      // 5. Gradient subtract
       prog = programs.gradientSubtract!
       gl.useProgram(prog)
       gl.uniform2f(uLoc(prog, 'uTexelSize'), simTexelX, simTexelY)
@@ -554,7 +575,6 @@ export function FluidFieldBg() {
       drawQuad(velocity.write)
       velocity.swap()
 
-      // 6. Velocity advection
       prog = programs.advection!
       gl.useProgram(prog)
       gl.uniform2f(uLoc(prog, 'uTexelSize'), simTexelX, simTexelY)
@@ -567,7 +587,6 @@ export function FluidFieldBg() {
       drawQuad(velocity.write)
       velocity.swap()
 
-      // 7. Dye advection
       gl.uniform2f(uLoc(prog, 'uTexelSize'), 1 / dyeDims.w, 1 / dyeDims.h)
       gl.uniform1f(uLoc(prog, 'uDissipation'), Math.pow(variant.dyeDissipation, dt * 60))
       bindTex(0, velocity.read.tex)
@@ -577,7 +596,6 @@ export function FluidFieldBg() {
       drawQuad(dye.write)
       dye.swap()
 
-      // 8. Particle advection
       prog = programs.particleUpdate!
       gl.useProgram(prog)
       gl.uniform2f(uLoc(prog, 'uSimTexelSize'), simTexelX, simTexelY)
@@ -595,32 +613,34 @@ export function FluidFieldBg() {
 
     const renderScene = () => {
       if (!velocity || !dye || !curl) return
+      const displayProg = getDisplayProgram(variant)
+      if (!displayProg) return
+
       const simTexelX = 1 / simDims.w
       const simTexelY = 1 / simDims.h
 
       gl.disable(gl.BLEND)
-      let prog = programs.display!
-      gl.useProgram(prog)
-      gl.uniform2f(uLoc(prog, 'uSimTexelSize'), simTexelX, simTexelY)
-      gl.uniform2f(uLoc(prog, 'uDyeTexelSize'), 1 / dyeDims.w, 1 / dyeDims.h)
-      gl.uniform2f(uLoc(prog, 'uResolution'), canvas.width, canvas.height)
-      gl.uniform1f(uLoc(prog, 'uDpr'), dpr)
-      gl.uniform1f(uLoc(prog, 'uAspect'), aspect)
-      gl.uniform1f(uLoc(prog, 'uTime'), elapsed)
-      gl.uniform2f(uLoc(prog, 'uPointer'), pointer.x, pointer.y)
-      gl.uniform1f(uLoc(prog, 'uPointerActive'), pointer.active ? 1.0 : 0.0)
+      gl.useProgram(displayProg)
+      gl.uniform2f(uLoc(displayProg, 'uSimTexelSize'), simTexelX, simTexelY)
+      gl.uniform2f(uLoc(displayProg, 'uDyeTexelSize'), 1 / dyeDims.w, 1 / dyeDims.h)
+      gl.uniform2f(uLoc(displayProg, 'uResolution'), canvas.width, canvas.height)
+      gl.uniform1f(uLoc(displayProg, 'uDpr'), dpr)
+      gl.uniform1f(uLoc(displayProg, 'uAspect'), aspect)
+      gl.uniform1f(uLoc(displayProg, 'uTime'), elapsed)
+      gl.uniform2f(uLoc(displayProg, 'uPointer'), pointer.x, pointer.y)
+      gl.uniform1f(uLoc(displayProg, 'uPointerActive'), pointer.active ? 1.0 : 0.0)
       bindTex(0, velocity.read.tex)
-      gl.uniform1i(uLoc(prog, 'uVelocity'), 0)
+      gl.uniform1i(uLoc(displayProg, 'uVelocity'), 0)
       bindTex(1, dye.read.tex)
-      gl.uniform1i(uLoc(prog, 'uDye'), 1)
+      gl.uniform1i(uLoc(displayProg, 'uDye'), 1)
       bindTex(2, curl.tex)
-      gl.uniform1i(uLoc(prog, 'uCurl'), 2)
+      gl.uniform1i(uLoc(displayProg, 'uCurl'), 2)
       drawQuad(null)
 
       if (variant.particleAlpha > 0.01) {
         gl.enable(gl.BLEND)
         gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
-        prog = programs.particles!
+        const prog = programs.particles!
         gl.useProgram(prog)
         gl.uniform1i(uLoc(prog, 'uGridSize'), PARTICLE_GRID)
         gl.uniform1f(uLoc(prog, 'uDpr'), dpr)
@@ -643,8 +663,45 @@ export function FluidFieldBg() {
       }
     }
 
+    setEnabledRef.current = (nextEnabled: boolean) => {
+      if (!nextEnabled) {
+        disabled = true
+        running = false
+        window.cancelAnimationFrame(rafId)
+        canvas.dataset.variant = 'none'
+        gl.bindFramebuffer(gl.FRAMEBUFFER, null)
+        gl.clearColor(1, 1, 1, 1)
+        gl.clear(gl.COLOR_BUFFER_BIT)
+        for (const target of [velocity?.read, velocity?.write, dye?.read, dye?.write, curl]) {
+          if (!target) continue
+          gl.bindFramebuffer(gl.FRAMEBUFFER, target.fbo)
+          gl.clearColor(0, 0, 0, 1)
+          gl.clear(gl.COLOR_BUFFER_BIT)
+        }
+        gl.bindFramebuffer(gl.FRAMEBUFFER, null)
+        return null
+      }
+
+      const wasDisabled = disabled
+      if (wasDisabled) {
+        variant = pickNextFluidVariant(variant.id)
+      }
+      disabled = false
+      canvas.dataset.variant = variant.id
+
+      if (reducedMotion) {
+        renderScene()
+      } else if (wasDisabled && !document.hidden) {
+        running = true
+        lastTime = performance.now()
+        renderScene()
+        rafId = window.requestAnimationFrame(tick)
+      }
+      return variant
+    }
+
     const tick = (now: number) => {
-      if (!running) return
+      if (!running || disabled) return
       rafId = window.requestAnimationFrame(tick)
 
       const dt = Math.min((now - lastTime) / 1000, 1 / 30)
@@ -662,7 +719,7 @@ export function FluidFieldBg() {
             const boost = 1.0 + Math.min(speed * 0.32, 1.2)
             const force = variant.forceScale * boost
             const warm = Math.min(Math.max((speed - 0.8) * 0.28, 0.04), 0.38)
-            const cobalt = 0.30 + Math.min(speed * 0.11, 0.22)
+            const cobalt = 0.3 + Math.min(speed * 0.11, 0.22)
             const peri = 0.22 + 0.13 * Math.sin(elapsed * 0.8)
             splat(
               pointer.x,
@@ -693,7 +750,7 @@ export function FluidFieldBg() {
     }
 
     const onVisibility = () => {
-      if (document.hidden) {
+      if (document.hidden || disabled) {
         running = false
         window.cancelAnimationFrame(rafId)
       } else {
@@ -705,13 +762,19 @@ export function FluidFieldBg() {
 
     document.addEventListener('visibilitychange', onVisibility)
 
-    if (reducedMotion) {
+    if (disabled) {
+      running = false
+      gl.bindFramebuffer(gl.FRAMEBUFFER, null)
+      gl.clearColor(1, 1, 1, 1)
+      gl.clear(gl.COLOR_BUFFER_BIT)
+    } else if (reducedMotion) {
       renderScene()
     } else if (running) {
       rafId = window.requestAnimationFrame(tick)
     }
 
     return () => {
+      setEnabledRef.current = null
       running = false
       window.cancelAnimationFrame(rafId)
       window.clearTimeout(resizeTimer)
@@ -725,5 +788,49 @@ export function FluidFieldBg() {
     }
   }, [])
 
-  return <canvas ref={canvasRef} className="fluid-bg-canvas" aria-hidden="true" />
+  const handleToggle = () => {
+    if (enabledRef.current === null) return
+    const next = !enabledRef.current
+    enabledRef.current = next
+    setEnabled(next)
+    saveFluidEnabled(next)
+    const nextVariant = setEnabledRef.current?.(next)
+    if (nextVariant) {
+      setActiveVariant(nextVariant)
+    }
+  }
+
+  return (
+    <>
+      <canvas
+        ref={canvasRef}
+        className={`fluid-bg-canvas${enabled === false ? ' is-hidden' : ''}`}
+        aria-hidden="true"
+      />
+      {enabled !== null && (
+        <button
+          type="button"
+          role="switch"
+          aria-checked={enabled}
+          aria-label={enabled ? 'Turn background shader off' : 'Turn background shader on'}
+          title={
+            enabled && activeVariant
+              ? `${activeVariant.label} — click to turn off`
+              : 'Turn background shader on'
+          }
+          className={`fluid-toggle${enabled ? ' is-on' : ''}`}
+          onClick={handleToggle}
+        >
+          <span className="fluid-toggle__label">Shader</span>
+          <span
+            className="fluid-toggle__track"
+            style={enabled && activeVariant ? { background: activeVariant.swatch } : undefined}
+            aria-hidden="true"
+          >
+            <span className="fluid-toggle__thumb" />
+          </span>
+        </button>
+      )}
+    </>
+  )
 }
