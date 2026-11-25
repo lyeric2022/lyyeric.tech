@@ -1,3 +1,13 @@
+.fluid-bg-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  display: block;
+}
+
 .compact-view {
   position: relative;
   min-height: 100vh;
@@ -7,7 +17,7 @@
   padding-top: 6rem;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
-  background-color: var(--color-background);
+  background-color: transparent;
   color: var(--color-text);
   overflow-x: hidden;
   box-sizing: border-box;

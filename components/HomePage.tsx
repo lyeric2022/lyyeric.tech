@@ -1,10 +1,12 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
+import { FluidFieldBg } from './FluidFieldBg'
 import { ResumeDialog } from './ResumeDialog'
 
 export function HomePage() {
   return (
     <div className="compact-view">
+      <FluidFieldBg />
       <div className="compact-intro">
         <h1 className="reveal-0">I&apos;m Eric Ly</h1>
         <p className="reveal-1">
