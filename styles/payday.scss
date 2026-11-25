@@ -1,0 +1,1639 @@
+.payday-page {
+  width: 100%;
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 5.75rem 1.5rem 4.5rem;
+  font-family: var(--font-family-prose);
+  color: var(--color-text);
+  box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    padding: 4.5rem 1.15rem 3.5rem;
+  }
+}
+
+.payday-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+  padding-bottom: 1.15rem;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.09);
+}
+
+.payday-title-group {
+  h1 {
+    margin: 0;
+    font-size: 1.95rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: var(--color-text);
+  }
+
+  p {
+    margin: 0.4rem 0 0;
+    font-size: 0.96rem;
+    color: var(--color-text-muted);
+    letter-spacing: -0.01em;
+  }
+}
+
+.payday-header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.payday-google-btn {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  height: 2rem;
+  padding: 0 0.78rem;
+  border-radius: 7px;
+  border: 1px solid rgba(15, 23, 42, 0.14);
+  background: #ffffff;
+  color: rgba(15, 23, 42, 0.86);
+  font-size: 0.82rem;
+  font-weight: 550;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+
+  &:hover:not(:disabled),
+  &:focus-visible:not(:disabled) {
+    border-color: rgba(15, 23, 42, 0.28);
+    background: rgba(15, 23, 42, 0.02);
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+  }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+}
+
+.payday-user-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  height: 2rem;
+  padding: 0 0.35rem 0 0.32rem;
+  border-radius: 999px;
+  border: 1px solid rgba(15, 23, 42, 0.11);
+  background: #ffffff;
+  font-size: 0.8rem;
+  color: var(--color-text);
+
+  &__name {
+    font-weight: 600;
+    padding-left: 0.1rem;
+  }
+
+  &__record {
+    font-size: 0.73rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-text-muted);
+    padding: 0.1rem 0.4rem;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.05);
+  }
+
+  &__out {
+    all: unset;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.45rem;
+    height: 1.45rem;
+    border-radius: 50%;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition:
+      color var(--transition-fast),
+      background-color var(--transition-fast);
+
+    &:hover {
+      color: var(--color-text);
+      background: rgba(15, 23, 42, 0.06);
+    }
+  }
+}
+
+.payday-avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.payday-row-avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  border: 1px solid rgba(15, 23, 42, 0.1);
+}
+
+.payday-auth-error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(190, 18, 60, 0.25);
+  background: rgba(190, 18, 60, 0.05);
+  color: #9f1239;
+  font-size: 0.83rem;
+
+  button {
+    all: unset;
+    display: inline-flex;
+    cursor: pointer;
+    color: inherit;
+    opacity: 0.7;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.payday-ghost-btn {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  height: 2rem;
+  padding: 0 0.72rem;
+  border-radius: 7px;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  background: #ffffff;
+  color: rgba(15, 23, 42, 0.72);
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    background-color var(--transition-fast);
+
+  &:hover,
+  &:focus-visible {
+    border-color: rgba(15, 23, 42, 0.28);
+    color: var(--color-text);
+    background: rgba(15, 23, 42, 0.025);
+  }
+}
+
+// Setup bar
+.payday-setup {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem 1.25rem;
+  padding: 0.9rem 1.05rem;
+  margin-bottom: 1.4rem;
+  border-radius: 10px;
+  border: 1px solid rgba(15, 23, 42, 0.09);
+  background: rgba(15, 23, 42, 0.018);
+}
+
+.payday-setup-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+}
+
+.payday-segmented {
+  display: inline-flex;
+  padding: 2px;
+  border-radius: 8px;
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  background: #ffffff;
+
+  button {
+    all: unset;
+    padding: 0.3rem 0.65rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition:
+      background-color var(--transition-fast),
+      color var(--transition-fast);
+
+    &.active {
+      background: rgba(15, 23, 42, 0.08);
+      color: var(--color-text);
+    }
+
+    &:hover:not(.active) {
+      color: var(--color-text);
+    }
+  }
+}
+
+.payday-field {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+
+  input[type='text'] {
+    width: 7.5rem;
+    height: 1.9rem;
+    padding: 0 0.55rem;
+    border-radius: 7px;
+    border: 1px solid rgba(15, 23, 42, 0.14);
+    background: #ffffff;
+    font-size: 0.82rem;
+    color: var(--color-text);
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-accent-primary);
+    }
+  }
+}
+
+.payday-toggle-chip {
+  all: unset;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.79rem;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  transition:
+    color var(--transition-fast),
+    background-color var(--transition-fast);
+
+  &:hover {
+    color: var(--color-text);
+    background: rgba(15, 23, 42, 0.04);
+  }
+
+  &.active {
+    color: var(--color-text);
+    font-weight: 500;
+  }
+}
+
+// Metrics strip
+.payday-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin-bottom: 1.25rem;
+
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.payday-metric {
+  padding: 0.72rem 0.85rem;
+  border-radius: 9px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: #ffffff;
+
+  &__label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+  }
+
+  &__value {
+    margin-top: 0.22rem;
+    font-size: 1.15rem;
+    font-weight: 650;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-text);
+  }
+}
+
+// Result / commentary banner
+.payday-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  padding: 0.9rem 1.05rem;
+  margin-bottom: 1.25rem;
+  border-radius: 10px;
+  border: 1px solid rgba(15, 23, 42, 0.11);
+  background: rgba(15, 23, 42, 0.025);
+
+  &--danger {
+    border-color: rgba(190, 18, 60, 0.22);
+    background: rgba(190, 18, 60, 0.04);
+  }
+
+  &--victory {
+    border-color: rgba(15, 118, 110, 0.28);
+    background: rgba(15, 118, 110, 0.055);
+  }
+
+  &__body {
+    flex: 1;
+    min-width: 220px;
+
+    strong {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 650;
+      letter-spacing: -0.015em;
+      color: var(--color-text);
+    }
+
+    span {
+      display: block;
+      margin-top: 0.2rem;
+      font-size: 0.86rem;
+      color: var(--color-text-muted);
+    }
+  }
+}
+
+// Primary button
+.payday-primary-btn {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  height: 2.35rem;
+  padding: 0 1.1rem;
+  border-radius: 8px;
+  background: #111827;
+  color: #ffffff;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition:
+    background-color var(--transition-fast),
+    transform var(--transition-fast),
+    opacity var(--transition-fast);
+
+  &:hover:not(:disabled) {
+    background: #000000;
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.985);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+// Bid desk
+.payday-bid-card {
+  padding: 1.15rem 1.2rem;
+  margin-bottom: 1.35rem;
+  border-radius: 11px;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  background: #ffffff;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+}
+
+.payday-bid-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.9rem;
+
+  h2 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 650;
+    letter-spacing: -0.02em;
+  }
+
+  span {
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.payday-bid-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.payday-bid-input-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+
+  span {
+    position: absolute;
+    left: 0.72rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    pointer-events: none;
+  }
+
+  input {
+    width: 8.5rem;
+    height: 2.35rem;
+    padding: 0 0.7rem 0 1.45rem;
+    border-radius: 8px;
+    border: 1px solid rgba(15, 23, 42, 0.18);
+    font-size: 1rem;
+    font-weight: 650;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-text);
+    background: #ffffff;
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-accent-primary);
+      box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+    }
+  }
+}
+
+.payday-slider {
+  flex: 1;
+  min-width: 160px;
+  accent-color: #111827;
+  cursor: pointer;
+}
+
+.payday-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.42rem;
+  margin-top: 0.8rem;
+
+  button {
+    all: unset;
+    padding: 0.28rem 0.62rem;
+    border-radius: 999px;
+    border: 1px solid rgba(15, 23, 42, 0.11);
+    background: rgba(15, 23, 42, 0.02);
+    font-size: 0.77rem;
+    font-weight: 500;
+    color: rgba(15, 23, 42, 0.72);
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
+    transition:
+      border-color var(--transition-fast),
+      background-color var(--transition-fast),
+      color var(--transition-fast);
+
+    &:hover {
+      border-color: rgba(15, 23, 42, 0.28);
+      background: rgba(15, 23, 42, 0.06);
+      color: var(--color-text);
+    }
+  }
+}
+
+// Pass & play privacy screen
+.payday-handoff {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.7rem;
+  padding: 1.8rem 1rem;
+
+  h2 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 650;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
+  }
+}
+
+// Debtors table
+.payday-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin-bottom: 1.65rem;
+}
+
+.payday-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(100px, 1fr) auto;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.82rem 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(15, 23, 42, 0.085);
+  background: #ffffff;
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    opacity var(--transition-fast);
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr auto;
+    gap: 0.55rem 0.75rem;
+  }
+
+  &--self {
+    border-color: rgba(0, 102, 204, 0.25);
+    background: rgba(0, 102, 204, 0.02);
+  }
+
+  &--loser {
+    border-color: rgba(190, 18, 60, 0.32);
+    background: rgba(190, 18, 60, 0.035);
+  }
+
+  &--dead {
+    opacity: 0.46;
+    background: rgba(15, 23, 42, 0.015);
+  }
+}
+
+.payday-player-id {
+  display: flex;
+  flex-direction: column;
+  gap: 0.22rem;
+  min-width: 0;
+}
+
+.payday-player-top {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
+.payday-player-name {
+  font-size: 0.92rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+}
+
+.payday-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.1rem 0.42rem;
+  border-radius: 999px;
+  font-size: 0.69rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  background: rgba(15, 23, 42, 0.06);
+  color: rgba(15, 23, 42, 0.68);
+
+  &--you {
+    background: rgba(0, 102, 204, 0.1);
+    color: var(--color-accent-primary);
+  }
+
+  &--danger {
+    background: rgba(190, 18, 60, 0.12);
+    color: #be123c;
+  }
+
+  &--dead {
+    background: rgba(15, 23, 42, 0.09);
+    color: rgba(15, 23, 42, 0.55);
+  }
+}
+
+.payday-hearts {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.18rem;
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.payday-heart {
+  color: #dc2626;
+
+  &--empty {
+    color: rgba(15, 23, 42, 0.18);
+  }
+}
+
+.payday-bank-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+
+  @media (max-width: 600px) {
+    grid-column: 1 / -1;
+    order: 3;
+  }
+}
+
+.payday-bank-amount {
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text);
+}
+
+.payday-bank-bar {
+  width: 100%;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.07);
+  overflow: hidden;
+
+  > div {
+    height: 100%;
+    border-radius: 999px;
+    background: #111827;
+    transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+.payday-bid-col {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  min-width: 5.5rem;
+
+  &__label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-text-muted);
+  }
+
+  &__val {
+    margin-top: 0.12rem;
+    font-size: 0.92rem;
+    font-weight: 650;
+    color: var(--color-text);
+
+    &--muted {
+      color: var(--color-text-muted);
+      font-weight: 500;
+    }
+
+    &--loser {
+      color: #be123c;
+    }
+  }
+}
+
+// Chart & ledger
+.payday-section {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
+
+  h3 {
+    margin: 0 0 0.8rem;
+    font-size: 0.82rem;
+    font-weight: 650;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-muted);
+  }
+}
+
+.payday-chart-wrap {
+  padding: 0.85rem 1rem 0.65rem;
+  border-radius: 10px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: #ffffff;
+
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+
+.payday-chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin-top: 0.6rem;
+  font-size: 0.76rem;
+  color: var(--color-text-muted);
+}
+
+.payday-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.payday-legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.payday-ledger {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.payday-ledger-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.4rem 1rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.02);
+  font-size: 0.83rem;
+
+  strong {
+    font-variant-numeric: tabular-nums;
+    margin-right: 0.5rem;
+  }
+
+  .payday-ledger-stats {
+    font-variant-numeric: tabular-nums;
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+  }
+}
+
+// Rules & Lore modal
+.payday-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 2500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(4px);
+}
+
+.payday-modal {
+  width: 100%;
+  max-width: 540px;
+  max-height: 82vh;
+  overflow-y: auto;
+  padding: 1.4rem 1.5rem;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.2);
+
+  h2 {
+    margin: 0 0 0.85rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  h4 {
+    margin: 1.15rem 0 0.45rem;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-muted);
+  }
+
+  p,
+  li {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: rgba(15, 23, 42, 0.82);
+  }
+
+  ul {
+    margin: 0.4rem 0 0;
+    padding-left: 1.15rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+}
+
+.payday-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+
+  h2 {
+    margin: 0;
+  }
+}
+
+.payday-modal--compact {
+  max-width: 390px;
+}
+
+.payday-confirm-text {
+  margin: 0.45rem 0 1.25rem;
+  font-size: 0.89rem;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+
+  strong {
+    color: var(--color-text);
+  }
+}
+
+.payday-confirm-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.payday-primary-btn--danger {
+  background: #be123c;
+
+  &:hover:not(:disabled) {
+    background: #9f1239;
+  }
+}
+
+// Online Multiplayer UI
+.payday-mode-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+  margin-right: 0.35rem;
+  vertical-align: middle;
+}
+
+.payday-online-gate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+  padding: 2.4rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  background: #ffffff;
+
+  &__icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(15, 23, 42, 0.05);
+    color: var(--color-text);
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 650;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    margin: 0;
+    max-width: 440px;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--color-text-muted);
+  }
+
+  &__invite {
+    padding: 0.45rem 0.75rem;
+    border-radius: 8px;
+    background: rgba(0, 102, 204, 0.07);
+    color: var(--color-accent-primary);
+  }
+}
+
+.payday-online-launcher {
+  margin-bottom: 1.5rem;
+}
+
+.payday-launcher-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.payday-launcher-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 1.2rem;
+  border-radius: 12px;
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  background: #ffffff;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.025);
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 0.98rem;
+    font-weight: 650;
+    letter-spacing: -0.015em;
+  }
+
+  p {
+    margin: 0;
+    flex: 1;
+    font-size: 0.84rem;
+    line-height: 1.48;
+    color: var(--color-text-muted);
+  }
+}
+
+.payday-launcher-ghost {
+  height: 2.35rem;
+  justify-content: center;
+}
+
+.payday-code-row {
+  display: flex;
+  gap: 0.45rem;
+}
+
+.payday-code-input {
+  flex: 1;
+  min-width: 0;
+  height: 2.35rem;
+  padding: 0 0.75rem;
+  border-radius: 8px;
+  border: 1px solid rgba(15, 23, 42, 0.16);
+  background: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text);
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-accent-primary);
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+  }
+}
+
+.payday-room-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.15rem;
+  border-radius: 10px;
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  background: #ffffff;
+
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    flex-wrap: wrap;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+  }
+}
+
+.payday-live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+}
+
+.payday-room-code {
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--color-text);
+}
+
+.payday-room-phase {
+  padding: 0.14rem 0.52rem;
+  border-radius: 999px;
+  font-size: 0.73rem;
+  font-weight: 600;
+  background: rgba(15, 23, 42, 0.05);
+  color: var(--color-text-muted);
+}
+
+.payday-lobby-name-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+
+  label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+
+  input {
+    height: 2rem;
+    padding: 0 0.65rem;
+    border-radius: 7px;
+    border: 1px solid rgba(15, 23, 42, 0.16);
+    font-size: 0.85rem;
+    color: var(--color-text);
+    background: #ffffff;
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-accent-primary);
+    }
+  }
+}
+
+.payday-lobby-roster {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-bottom: 1.1rem;
+}
+
+.payday-lobby-seat {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: rgba(15, 23, 42, 0.015);
+
+  &__id {
+    display: flex;
+    align-items: center;
+    gap: 0.48rem;
+    flex-wrap: wrap;
+  }
+}
+
+.payday-bot-avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 23, 42, 0.08);
+  color: rgba(15, 23, 42, 0.68);
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.payday-tag--host {
+  gap: 0.22rem;
+  background: rgba(180, 83, 9, 0.1);
+  color: #b45309;
+}
+
+.payday-seat-remove {
+  all: unset;
+  width: 1.55rem;
+  height: 1.55rem;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  cursor: pointer;
+
+  &:hover {
+    color: #be123c;
+    background: rgba(190, 18, 60, 0.08);
+  }
+}
+
+.payday-lobby-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.payday-waiting-note {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.payday-locked-callout {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.8rem;
+  margin-bottom: 0.85rem;
+  border-radius: 8px;
+  border: 1px solid rgba(16, 185, 129, 0.26);
+  background: rgba(16, 185, 129, 0.06);
+  color: #065f46;
+  font-size: 0.82rem;
+}
+
+.payday-ready-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.1rem 0.44rem;
+  border-radius: 999px;
+  font-size: 0.69rem;
+  font-weight: 600;
+  background: rgba(15, 23, 42, 0.06);
+  color: var(--color-text-muted);
+
+  &.is-ready {
+    background: rgba(16, 185, 129, 0.14);
+    color: #047857;
+  }
+}
+
+// Host match settings panel (collapsible)
+.payday-host-settings {
+  margin-bottom: 1.05rem;
+  border-radius: 9px;
+  border: 1px solid rgba(15, 23, 42, 0.085);
+  background: rgba(15, 23, 42, 0.018);
+  overflow: hidden;
+
+  &__toggle {
+    all: unset;
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.7rem 0.9rem;
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+
+    &:hover {
+      background: rgba(15, 23, 42, 0.025);
+    }
+  }
+
+  &__title {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.42rem;
+    font-size: 0.77rem;
+    font-weight: 650;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text);
+    white-space: nowrap;
+  }
+
+  &__summary {
+    flex: 1;
+    min-width: 0;
+    font-size: 0.78rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__chevron {
+    display: inline-flex;
+    color: var(--color-text-muted);
+    margin-left: auto;
+  }
+
+  &__body {
+    padding: 0.8rem 0.95rem 0.95rem;
+    border-top: 1px solid rgba(15, 23, 42, 0.07);
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem 1.1rem;
+
+    @media (max-width: 640px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+.payday-setting-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.payday-setting-label {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: rgba(15, 23, 42, 0.72);
+}
+
+.payday-setting-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.payday-setting-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.32rem;
+}
+
+.payday-setting-chip {
+  all: unset;
+  padding: 0.24rem 0.56rem;
+  border-radius: 6px;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  background: #ffffff;
+  font-size: 0.77rem;
+  font-weight: 550;
+  font-variant-numeric: tabular-nums;
+  color: rgba(15, 23, 42, 0.72);
+  cursor: pointer;
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    color var(--transition-fast);
+
+  &:hover {
+    border-color: rgba(15, 23, 42, 0.3);
+    color: var(--color-text);
+  }
+
+  &.active {
+    background: #111827;
+    border-color: #111827;
+    color: #ffffff;
+  }
+}
+
+.payday-setting-custom {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+
+  span {
+    position: absolute;
+    left: 0.55rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    pointer-events: none;
+  }
+
+  input {
+    width: 7.5rem;
+    height: 1.85rem;
+    padding: 0 0.5rem 0 1.2rem;
+    border-radius: 6px;
+    border: 1px solid rgba(15, 23, 42, 0.14);
+    background: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-text);
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-accent-primary);
+    }
+  }
+}
+
+.payday-setting-stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+
+  .payday-setting-chip {
+    width: 1.75rem;
+    height: 1.75rem;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    &:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+  }
+
+  &__val {
+    min-width: 2.5rem;
+    text-align: center;
+    font-size: 0.84rem;
+    font-weight: 650;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-text);
+  }
+}
+
+.payday-guest-rules {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 1.1rem;
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+
+  strong {
+    color: var(--color-text);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.payday-bid-header__meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+}
+
+.payday-timer-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.14rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  background: rgba(15, 23, 42, 0.07);
+  color: var(--color-text);
+
+  &.is-urgent {
+    background: rgba(190, 18, 60, 0.14);
+    color: #be123c;
+  }
+}
+
+// Tactile cash stack & liquid vault visuals
+.payday-online-gate__stack {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.15rem;
+}
+
+.payday-cash-stack {
+  display: block;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 3px rgba(15, 23, 42, 0.08));
+}
+
+.payday-metric--pot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.45rem;
+}
+
+.payday-split-preview {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 1rem;
+
+  @media (max-width: 560px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.payday-split-card {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 10px;
+  border: 1px solid rgba(5, 150, 105, 0.2);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.06), rgba(255, 255, 255, 0.9));
+  transition:
+    border-color var(--transition-fast),
+    background var(--transition-fast);
+
+  &--burn {
+    border-color: rgba(15, 23, 42, 0.1);
+    background: rgba(15, 23, 42, 0.02);
+
+    &.is-active {
+      border-color: rgba(220, 38, 38, 0.26);
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.07), rgba(255, 255, 255, 0.92));
+    }
+  }
+
+  &__meta {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  &__label {
+    font-size: 0.68rem;
+    font-weight: 650;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+  }
+
+  &__val {
+    font-size: 1.05rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+  }
+
+  &__sub {
+    font-size: 0.74rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-text-muted);
+  }
+}
+
+.payday-split-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.05);
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  @media (max-width: 560px) {
+    display: none;
+  }
+}
+
+.payday-row--visual {
+  grid-template-columns: auto minmax(0, 1.25fr) minmax(130px, 1.1fr) auto;
+
+  @media (max-width: 640px) {
+    grid-template-columns: auto 1fr auto;
+  }
+}
+
+.payday-row-stack {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.payday-vault-meter {
+  width: 100%;
+
+  &__track {
+    position: relative;
+    height: 28px;
+    border-radius: 8px;
+    border: 1px solid rgba(15, 23, 42, 0.11);
+    background: rgba(15, 23, 42, 0.035);
+    overflow: hidden;
+  }
+
+  &__fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    border-radius: 7px;
+    transition:
+      width 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      background 0.3s ease;
+    background-image: linear-gradient(
+      90deg,
+      rgba(16, 185, 129, 0.22),
+      rgba(5, 150, 105, 0.34)
+    );
+    box-shadow: inset -1px 0 0 rgba(5, 150, 105, 0.35);
+  }
+
+  &__content {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    padding: 0 0.62rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__amount {
+    font-size: 0.86rem;
+    font-weight: 650;
+    color: var(--color-text);
+  }
+
+  &__pct {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: rgba(15, 23, 42, 0.58);
+  }
+
+  &--low &__fill {
+    background-image: linear-gradient(
+      90deg,
+      rgba(245, 158, 11, 0.22),
+      rgba(217, 119, 6, 0.36)
+    );
+    box-shadow: inset -1px 0 0 rgba(217, 119, 6, 0.4);
+  }
+
+  &--critical &__fill {
+    background-image: linear-gradient(
+      90deg,
+      rgba(244, 63, 94, 0.22),
+      rgba(225, 29, 72, 0.38)
+    );
+    box-shadow: inset -1px 0 0 rgba(225, 29, 72, 0.45);
+  }
+
+  &--empty &__track {
+    border-style: dashed;
+    background: rgba(15, 23, 42, 0.02);
+  }
+}
+
+@keyframes paydayHeartPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.16);
+  }
+}
+
+.payday-hearts--critical .payday-heart:not(.payday-heart--empty) {
+  display: inline-block;
+  animation: paydayHeartPulse 1.35s ease-in-out infinite;
+}
