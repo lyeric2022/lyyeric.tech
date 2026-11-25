@@ -1,6 +1,3 @@
 {
-  "rewrites": [
-    { "source": "/api/:match*", "destination": "/api/:match*" },
-    { "source": "/:path*", "destination": "/index.html" }
-  ]
+  "framework": "nextjs"
 }

@@ -1,40 +1,30 @@
 {
   "name": "lyyeric",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "engines": {
-    "node": "22.x"
-  },
+  "version": "1.0.0",
   "scripts": {
-    "dev": "concurrently -n vite,api -c cyan,magenta \"vite\" \"node api/server.js\"",
-    "dev:vite": "vite",
-    "api": "node api/server.js",
-    "dev:all": "npm run dev",
-    "build": "vite build",
-    "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.18.2",
-    "firebase": "^10.14.1",
+    "gray-matter": "^4.0.3",
     "lucide-react": "^0.563.0",
+    "next": "^16.0.0",
+    "next-mdx-remote": "^6.0.0",
     "posthog-js": "^1.177.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^7.5.1"
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
   },
   "devDependencies": {
-    "@types/react": "^18.0.37",
-    "@types/react-dom": "^18.0.11",
-    "@vitejs/plugin-react-swc": "^3.0.0",
-    "concurrently": "^8.2.2",
-    "eslint": "^8.38.0",
-    "eslint-plugin-react": "^7.32.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.3.4",
-    "sass": "^1.63.6",
-    "vite": "^4.5.5"
+    "@types/node": "^24.10.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "sass": "^1.93.0",
+    "typescript": "^5.9.0"
+  },
+  "allowScripts": {
+    "@parcel/watcher@2.6.0": true,
+    "core-js@3.51.0": true
   }
 }
