@@ -46,3 +46,10 @@ input,
 textarea {
   font-family: inherit;
 }
+
+// After reveal keyframes finish, lock visible end state for session replay.
+.is-revealed {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
