@@ -17,6 +17,8 @@ import Article from './components/writing/Article';
 import TierList from './components/TierList';
 import WritingRouteLayout from './components/writing/WritingRouteLayout';
 import { NavChromeMotionContext } from './context/NavChromeMotionContext';
+import DesignFx from './designs/DesignFx';
+import './designs/DesignFx.scss';
 
 function RedirectDraftsArticleToWriting() {
   const { slug } = useParams();
@@ -253,6 +255,7 @@ function AppRoutesShell({
           <Route path="/tier-list" element={<Navigate to="/rankings" replace />} />
         </Route>
       </Routes>
+      <DesignFx />
     </NavChromeMotionContext.Provider>
   );
 }

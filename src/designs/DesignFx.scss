@@ -1,0 +1,649 @@
+// Seven picture treatments. The page underneath stays the same; html[data-fx] changes the look.
+
+.fx-switch {
+  position: fixed;
+  z-index: 1400;
+  top: 4.6rem;
+  left: 0.7rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.12rem;
+  max-width: 11rem;
+  pointer-events: auto;
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.fx-switch__btn {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0.28rem 0.32rem;
+  color: var(--color-text-muted);
+  background: transparent;
+  cursor: pointer;
+  border-radius: 0;
+  white-space: nowrap;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-text);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 1px solid currentColor;
+    outline-offset: 2px;
+  }
+
+  &[aria-pressed='true'] {
+    color: var(--color-text);
+  }
+}
+
+.fx-switch__num {
+  font-variant-numeric: tabular-nums;
+}
+
+.fx-switch__name {
+  display: none;
+}
+
+.fx-switch__btn:hover .fx-switch__name,
+.fx-switch__btn:focus-visible .fx-switch__name,
+.fx-switch__btn[aria-pressed='true'] .fx-switch__name {
+  display: inline;
+}
+
+@media (max-width: 1040px) {
+  .fx-switch {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-width: none;
+    flex-direction: row;
+    gap: 0;
+    overflow-x: auto;
+    padding: 0.35rem 0.4rem calc(0.35rem + env(safe-area-inset-bottom, 0px));
+    background: var(--color-background);
+    background: color-mix(in srgb, var(--color-background) 88%, transparent);
+    border-top: 1px solid var(--color-border);
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .fx-switch__name {
+    display: inline;
+  }
+
+  .fx-switch__btn {
+    flex: 0 0 auto;
+    padding: 0.45rem 0.55rem;
+  }
+
+  .compact-view,
+  .writing-page {
+    padding-bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 01 datamosh
+// ---------------------------------------------------------------------------
+
+html[data-fx='datamosh'] .compact-intro,
+html[data-fx='datamosh'] .writing-page {
+  text-shadow:
+    1px 0 rgba(255, 30, 90, 0.45),
+    -1px 0 rgba(30, 170, 255, 0.4);
+}
+
+.datamosh-host {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.datamosh-slice {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.datamosh-slice__inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  background: var(--color-background);
+  will-change: transform;
+}
+
+.datamosh-slice[data-channel='r'] .datamosh-slice__inner {
+  filter: drop-shadow(-2px 0 0 rgba(255, 40, 80, 0.9));
+}
+
+.datamosh-slice[data-channel='b'] .datamosh-slice__inner {
+  filter: drop-shadow(2px 0 0 rgba(40, 150, 255, 0.9));
+}
+
+// ---------------------------------------------------------------------------
+// 02 blob tracking
+// ---------------------------------------------------------------------------
+
+html[data-fx='blob'] {
+  --color-background: #12140f;
+  --color-text: rgba(232, 236, 220, 0.92);
+  --color-text-muted: #9aa392;
+  --color-accent-primary: #d6ff4a;
+  --color-border: #2a2e24;
+  background: #12140f;
+}
+
+html[data-fx='blob'] body {
+  background: #12140f;
+}
+
+html[data-fx='blob'] .compact-view,
+html[data-fx='blob'] .writing-page,
+html[data-fx='blob'] .writing-header {
+  background-color: #12140f;
+}
+
+.blob-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.blob-layer__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+
+  line {
+    stroke: rgba(214, 255, 74, 0.45);
+    stroke-width: 1;
+  }
+
+  text {
+    fill: #d6ff4a;
+    font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+    font-size: 10px;
+    letter-spacing: 0.02em;
+  }
+}
+
+.blob-layer__box {
+  fill: none;
+  stroke: rgba(214, 255, 74, 0.28);
+  stroke-width: 1;
+}
+
+.blob-layer__corners {
+  fill: none;
+  stroke: #d6ff4a;
+  stroke-width: 1.25;
+}
+
+.blob-readout {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  display: flex;
+  gap: 0.8rem;
+  color: #d6ff4a;
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 1040px) {
+  .blob-readout {
+    bottom: calc(3.1rem + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 03 flash light — white silhouette, dim recognizable room
+// ---------------------------------------------------------------------------
+
+html[data-fx='flash'] {
+  --color-background: #0e0e0e;
+  --color-text: #3a3a3a;
+  --color-text-muted: #2a2a2a;
+  --color-accent-primary: #454545;
+  --color-border: #222;
+  background: #0e0e0e;
+  color-scheme: dark;
+}
+
+html[data-fx='flash'] body {
+  background: #0e0e0e;
+}
+
+html[data-fx='flash'] .compact-intro,
+html[data-fx='flash'] .compact-intro :is(h1, p, a, li, em, i),
+html[data-fx='flash'] .writing-page,
+html[data-fx='flash'] .writing-page :is(h1, h2, h3, p, a, li, span, em, i, blockquote) {
+  color: #fff;
+  opacity: 1;
+  text-shadow: none;
+}
+
+html[data-fx='flash'] .writing-page a,
+html[data-fx='flash'] .compact-intro a {
+  text-decoration: none;
+}
+
+html[data-fx='flash'] img,
+html[data-fx='flash'] .project-image {
+  filter: grayscale(1) contrast(40) brightness(4);
+}
+
+.fx-flash {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  background: #fff;
+  pointer-events: none;
+  animation: fx-flash 720ms ease-out forwards;
+}
+
+@keyframes fx-flash {
+  0% { opacity: 1; }
+  28% { opacity: 0.92; }
+  100% { opacity: 0; }
+}
+
+// ---------------------------------------------------------------------------
+// 04 receipt ticket
+// ---------------------------------------------------------------------------
+
+html[data-fx='receipt'] {
+  --color-text: #1a1a1a;
+  --color-text-muted: #3a3a3a;
+  --color-accent-primary: #1a1a1a;
+  --color-border: #1a1a1a;
+  --font-family-prose: 'Courier New', Courier, ui-monospace, monospace;
+  background: #b7b1a4;
+  color-scheme: light;
+}
+
+html[data-fx='receipt'] body {
+  background:
+    radial-gradient(ellipse at 18% 0%, rgba(255, 255, 255, 0.28), transparent 46%),
+    linear-gradient(#c9c3b6, #a39e92);
+}
+
+@mixin receipt-sheet {
+  width: min(22.4rem, calc(100% - 1.5rem));
+  max-width: 22.4rem;
+  margin: 4.8rem auto 2.5rem;
+  padding: 1.35rem 1rem 1.2rem;
+  min-height: 0;
+  background-color: #f4f0e6;
+  background-image:
+    linear-gradient(180deg, transparent 42%, rgba(0, 0, 0, 0.035) 48%, transparent 56%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.05), transparent 10%, transparent 90%, rgba(0, 0, 0, 0.06));
+  color: #1c1c1c;
+  font-family: 'Courier New', Courier, ui-monospace, monospace;
+  letter-spacing: 0;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.65) inset,
+    0 16px 40px rgba(0, 0, 0, 0.18);
+  filter: contrast(0.96);
+  -webkit-mask-image:
+    radial-gradient(circle at 8px 0, transparent 7px, #000 8px),
+    radial-gradient(circle at 8px 100%, transparent 7px, #000 8px);
+  -webkit-mask-size: 16px 100%, 16px 100%;
+  -webkit-mask-position: left top, left bottom;
+  -webkit-mask-repeat: repeat-x, repeat-x;
+  -webkit-mask-composite: source-in;
+  mask-image:
+    radial-gradient(circle at 8px 0, transparent 7px, #000 8px),
+    radial-gradient(circle at 8px 100%, transparent 7px, #000 8px);
+  mask-size: 16px 100%, 16px 100%;
+  mask-position: left top, left bottom;
+  mask-repeat: repeat-x, repeat-x;
+  mask-composite: intersect;
+}
+
+html[data-fx='receipt'] .compact-view,
+html[data-fx='receipt'] .writing-page,
+html[data-fx='receipt'] .home-screen {
+  @include receipt-sheet;
+}
+
+html[data-fx='receipt'] .compact-intro,
+html[data-fx='receipt'] .writing-page,
+html[data-fx='receipt'] .home-screen {
+  font-family: 'Courier New', Courier, ui-monospace, monospace;
+  letter-spacing: 0;
+  gap: 0.85rem;
+}
+
+html[data-fx='receipt'] .compact-intro h1,
+html[data-fx='receipt'] .writing-page h1,
+html[data-fx='receipt'] .home-screen h1 {
+  font-family: 'Courier New', Courier, ui-monospace, monospace;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-align: center;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+
+html[data-fx='receipt'] .compact-intro p,
+html[data-fx='receipt'] .writing-page p,
+html[data-fx='receipt'] .article-title,
+html[data-fx='receipt'] .article-date,
+html[data-fx='receipt'] .reading-time {
+  font-family: inherit;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: #242424;
+}
+
+html[data-fx='receipt'] .compact-intro > p,
+html[data-fx='receipt'] .writing-page .article-preview {
+  border-top: 1px dashed #1a1a1a;
+  padding-top: 0.55rem;
+}
+
+html[data-fx='receipt'] a {
+  color: #1a1a1a;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+html[data-fx='receipt'] .writing-header {
+  background: transparent;
+  font-family: 'Courier New', Courier, ui-monospace, monospace;
+}
+
+html[data-fx='receipt'] .compact-intro::before,
+html[data-fx='receipt'] .writing-page::before,
+html[data-fx='receipt'] .home-screen::before {
+  content: "LYYERIC.TECH\A — SITE COPY —\A " var(--receipt-stamp) "\A --------------------------------";
+  display: block;
+  white-space: pre;
+  text-align: center;
+  font-family: 'Courier New', Courier, ui-monospace, monospace;
+  font-size: 0.72rem;
+  line-height: 1.45;
+  color: #1a1a1a;
+  margin-bottom: 0.85rem;
+}
+
+html[data-fx='receipt'] .compact-view::after,
+html[data-fx='receipt'] .writing-page::after,
+html[data-fx='receipt'] .home-screen::after {
+  content: "--------------------------------\A SUBTOTAL            0.00\A TOTAL               0.00\A\A THANK YOU";
+  display: block;
+  white-space: pre;
+  text-align: center;
+  font-family: 'Courier New', Courier, ui-monospace, monospace;
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: #1a1a1a;
+  margin-top: 1.1rem;
+  padding-bottom: 3rem;
+  background-image: repeating-linear-gradient(
+    90deg,
+    #161616 0 1px,
+    transparent 1px 3px,
+    #161616 3px 5px,
+    transparent 5px 6px,
+    #161616 6px 7px,
+    transparent 7px 10px,
+    #161616 10px 13px,
+    transparent 13px 15px
+  );
+  background-size: 9.5rem 36px;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+}
+
+html[data-fx='receipt'] img {
+  filter: grayscale(1) contrast(1.35);
+}
+
+html[data-fx='receipt'] .webring-footer {
+  padding-top: 1.2rem;
+}
+
+@media (min-width: 1041px) {
+  html[data-fx='receipt'] .compact-view,
+  html[data-fx='receipt'] .writing-page {
+    rotate: -0.4deg;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 05 CRT
+// ---------------------------------------------------------------------------
+
+html[data-fx='crt'] {
+  --color-background: #07110f;
+  --color-text: #d7ffe8;
+  --color-text-muted: #8eae9f;
+  --color-accent-primary: #9ad7ff;
+  --color-border: #1c3330;
+  background: #020605;
+  color-scheme: dark;
+}
+
+html[data-fx='crt'] body {
+  background: #020605;
+}
+
+html[data-fx='crt'] .compact-view,
+html[data-fx='crt'] .writing-page,
+html[data-fx='crt'] .writing-header,
+html[data-fx='crt'] .home-screen {
+  background-color: #07110f;
+  text-shadow:
+    0 0 6px rgba(150, 255, 210, 0.28),
+    0.6px 0 0 rgba(255, 70, 90, 0.28),
+    -0.6px 0 0 rgba(70, 170, 255, 0.28);
+}
+
+.fx-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  pointer-events: none;
+}
+
+.fx-screen__scan,
+.fx-screen__mask,
+.fx-screen__grain,
+.fx-screen__vignette {
+  position: absolute;
+  inset: 0;
+}
+
+.fx-screen--crt .fx-screen__scan {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.28) 0 1px,
+    transparent 1px 3px
+  );
+  animation: crt-flicker 80ms steps(2, end) infinite;
+}
+
+.fx-screen--crt .fx-screen__mask {
+  background: repeating-linear-gradient(
+    to right,
+    rgba(255, 0, 40, 0.05) 0 1px,
+    rgba(0, 255, 120, 0.04) 1px 2px,
+    rgba(40, 80, 255, 0.05) 2px 3px
+  );
+  mix-blend-mode: screen;
+}
+
+.fx-screen--crt .fx-screen__grain {
+  opacity: 0.14;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  mix-blend-mode: overlay;
+}
+
+.fx-screen--crt .fx-screen__vignette {
+  background: radial-gradient(ellipse at center, transparent 46%, rgba(0, 0, 0, 0.62) 100%);
+  box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.45);
+}
+
+@keyframes crt-flicker {
+  0% { opacity: 0.55; }
+  100% { opacity: 0.85; }
+}
+
+// ---------------------------------------------------------------------------
+// 06 one bit dither
+// ---------------------------------------------------------------------------
+
+html[data-fx='onebit'] {
+  --color-background: #d4d4d4;
+  --color-text: #000;
+  --color-text-muted: #6e6e6e;
+  --color-accent-primary: #000;
+  --color-border: #000;
+  background: #d4d4d4;
+  color-scheme: light;
+}
+
+html[data-fx='onebit'] body {
+  background: #d4d4d4;
+}
+
+html[data-fx='onebit'] .compact-view,
+html[data-fx='onebit'] .writing-page,
+html[data-fx='onebit'] .home-screen {
+  position: relative;
+}
+
+html[data-fx='onebit'] .compact-view,
+html[data-fx='onebit'] .writing-page,
+html[data-fx='onebit'] .writing-header,
+html[data-fx='onebit'] .home-screen {
+  isolation: isolate;
+  background-color: #d8d8d8;
+  filter: grayscale(1) contrast(16);
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+}
+
+html[data-fx='onebit'] .compact-view::after,
+html[data-fx='onebit'] .writing-page::after,
+html[data-fx='onebit'] .writing-header::after,
+html[data-fx='onebit'] .home-screen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background-image: var(--fx-bayer);
+  background-size: 8px 8px;
+  image-rendering: pixelated;
+  mix-blend-mode: hard-light;
+}
+
+html[data-fx='onebit'] a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+// ---------------------------------------------------------------------------
+// 07 pink phosphor
+// ---------------------------------------------------------------------------
+
+html[data-fx='pink'] {
+  --color-background: #090007;
+  --color-text: #ff6eb4;
+  --color-text-muted: #d56b9c;
+  --color-accent-primary: #ffd3e8;
+  --color-border: #3a1428;
+  background: #090007;
+  color-scheme: dark;
+}
+
+html[data-fx='pink'] body {
+  background: #090007;
+}
+
+html[data-fx='pink'] .compact-view,
+html[data-fx='pink'] .writing-page,
+html[data-fx='pink'] .writing-header,
+html[data-fx='pink'] .home-screen {
+  background-color: #090007;
+  text-shadow:
+    0 0 1px #ffe4f2,
+    0 0 8px rgba(255, 60, 150, 0.55);
+}
+
+html[data-fx='pink'] img,
+html[data-fx='pink'] .project-image {
+  filter: grayscale(1) sepia(1) hue-rotate(280deg) saturate(8) brightness(0.82) contrast(1.15);
+}
+
+.fx-screen--pink .fx-screen__scan {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.22) 0 1px,
+    transparent 1px 2px
+  );
+  opacity: 0.55;
+}
+
+.fx-screen--pink .fx-screen__mask {
+  background: repeating-linear-gradient(
+    to right,
+    rgba(255, 170, 210, 0.05) 0 1px,
+    transparent 1px 3px
+  );
+  mix-blend-mode: screen;
+}
+
+.fx-screen--pink .fx-screen__grain {
+  opacity: 0.18;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  mix-blend-mode: overlay;
+}
+
+.fx-screen--pink .fx-screen__vignette {
+  background: radial-gradient(ellipse at center, transparent 52%, rgba(20, 0, 10, 0.72) 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fx-flash,
+  .fx-screen--crt .fx-screen__scan {
+    animation: none;
+  }
+
+  .fx-flash {
+    opacity: 0;
+  }
+
+  html[data-fx='receipt'] .compact-view,
+  html[data-fx='receipt'] .writing-page {
+    rotate: none;
+  }
+}
