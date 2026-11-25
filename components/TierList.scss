@@ -35,8 +35,6 @@
 
     .view-toggle {
       flex-shrink: 0;
-      animation: fadeInDown 0.5s ease-out both;
-      animation-delay: 0.25s;
     }
   }
 
@@ -116,12 +114,6 @@
       background: transparent;
       border: none;
     }
-  }
-
-  .tier-list-empty,
-  .tier-list-loading {
-    animation: fadeIn 0.48s ease-out both;
-    animation-delay: 0.12s;
   }
 
   .tier-add-modal-backdrop {
@@ -291,14 +283,6 @@
       flex-wrap: wrap;
       cursor: default;
       text-align: left;
-      animation: fadeIn var(--tier-item-dur) ease-out both;
-
-      @for $i from 1 through 120 {
-        &:nth-child(#{$i}) {
-          animation-delay: calc((#{$i - 1}) * var(--tier-stagger-step));
-        }
-      }
-
       transition: opacity 0.2s ease;
 
       &.places-list__item--anchor {

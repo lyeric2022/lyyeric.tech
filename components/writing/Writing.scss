@@ -63,22 +63,9 @@
     cursor: pointer;
     outline: none;
     -webkit-tap-highlight-color: transparent;
-    animation: fadeInDown 0.5s ease-out both;
     transition:
       color var(--transition-fast),
       opacity var(--transition-fast);
-
-    &:nth-child(1) {
-      animation-delay: 0.1s;
-    }
-
-    &:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-
-    &:nth-child(3) {
-      animation-delay: 0.3s;
-    }
 
     &::after {
       content: '';
@@ -164,7 +151,6 @@
     letter-spacing: 0.5px;
     color: var(--color-text);
     text-align: left;
-    animation: fadeIn 0.5s ease-out both;
   }
 
   h2 {
@@ -258,18 +244,9 @@
     cursor: pointer;
     outline: none;
     -webkit-tap-highlight-color: transparent;
-    animation: fadeInDown 0.5s ease-out both;
     transition:
       color var(--transition-fast),
       opacity var(--transition-fast);
-
-    &:nth-child(1) {
-      animation-delay: 0.1s;
-    }
-
-    &:nth-child(2) {
-      animation-delay: 0.2s;
-    }
 
     &::after {
       content: '';
@@ -325,20 +302,12 @@
     text-decoration: none;
     color: inherit;
     display: block;
-    animation: fadeIn 0.5s ease-out both;
 
-    @for $i from 1 through 120 {
-      &:nth-child(#{$i}) {
-        animation-delay: #{0.06 + ($i - 1) * 0.055}s;
-      }
-    }
-    
     &:hover .article-preview {
       opacity: 0.7;
     }
 
     &.article-link--pad {
-      animation: none !important;
       opacity: 1;
       visibility: hidden;
       pointer-events: none;
@@ -348,11 +317,6 @@
   .list-pagination {
     margin-top: 0.65rem;
     padding-top: 0.85rem;
-
-    &.list-pagination--intro {
-      /* Wait for list rows to paint / stagger in before fading (Writing links ~0.06+n·0.055s; tier grid similar). */
-      animation: fadeIn 0.48s ease-out 0.48s both;
-    }
   }
 
   .list-pagination__inner {
@@ -469,16 +433,6 @@
     padding-right: 0;
     max-width: 100%;
     box-sizing: border-box;
-
-    & > * {
-      animation: fadeIn 0.45s ease-out both;
-    }
-
-    @for $i from 1 through 16 {
-      & > *:nth-child(#{$i}) {
-        animation-delay: #{($i - 1) * 0.035}s;
-      }
-    }
 
     p {
       font-size: 0.95rem;
@@ -638,29 +592,5 @@
     @media (max-width: 768px) {
       margin-top: 0.4rem;
     }
-  }
-}
-
-// Fade in animation
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-// Tab labels: start above final position and ease down (Writing index only)
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
   }
 }
