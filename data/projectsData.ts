@@ -120,7 +120,7 @@ export const projects: V1Project[] = [
   },
   {
     id: 4,
-    title: 'Payday Purgatory',
+    title: 'Penny PowerPlays',
     image: 'payday_purgatory.png',
     url: '/pp',
     description:

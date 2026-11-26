@@ -969,7 +969,7 @@ export default function OnlineMultiplayer({
                     ? 'Mutual Liquidation'
                     : winners.length === 1
                       ? iWon
-                        ? 'You Survived Payday Purgatory'
+                        ? 'You Survived Penny PowerPlays'
                         : `${winners[0].name} Wins`
                       : 'Match Complete'}
                 </strong>

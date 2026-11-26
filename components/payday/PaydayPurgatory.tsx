@@ -114,7 +114,7 @@ export function PaydayPurgatory() {
     <main className="payday-page">
       <header className="payday-header">
         <div className="payday-title-group">
-          <h1>Payday Purgatory</h1>
+          <h1>Penny PowerPlays</h1>
         </div>
 
         <div className="payday-header-actions">
@@ -243,7 +243,7 @@ export function PaydayPurgatory() {
         >
           <div className="payday-modal" onClick={(e) => e.stopPropagation()}>
             <div className="payday-modal-head">
-              <h2>Payday Purgatory</h2>
+              <h2>Penny PowerPlays</h2>
               <button
                 type="button"
                 className="payday-ghost-btn"
