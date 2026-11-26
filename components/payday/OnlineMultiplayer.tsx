@@ -39,7 +39,11 @@ import {
   type OnlinePlayer,
   type OnlineRoom,
 } from '@/lib/paydayMultiplayer'
-import type { GameSettings } from '@/lib/paydayPurgatory'
+import {
+  INTEREST_RATE_OPTIONS,
+  ROUND_TIMER_OPTIONS,
+  type GameSettings,
+} from '@/lib/paydayPurgatory'
 import { BidSplitPreview, CashStack, VaultMeter } from './CashVisuals'
 
 const SERIES_COLORS = [
@@ -223,7 +227,7 @@ export default function OnlineMultiplayer({
   const [error, setError] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
 
-  const [bidDraft, setBidDraft] = useState<string>('1000')
+  const [bidDraft, setBidDraft] = useState<string>('0')
   const [nameDraft, setNameDraft] = useState<string>('')
   const [nameSaved, setNameSaved] = useState(false)
   const [rulesOpen, setRulesOpen] = useState(false)
@@ -282,14 +286,9 @@ export default function OnlineMultiplayer({
     if (!room || !me) return
     if (room.round !== lastRoundSeenRef.current) {
       lastRoundSeenRef.current = room.round
-      const step = Math.max(1, room.settings.bidStep)
-      const suggested = Math.min(
-        me.bank,
-        Math.max(0, Math.round((me.bank * 0.1) / step) * step)
-      )
-      setBidDraft(String(suggested))
+      setBidDraft('0')
     }
-  }, [room?.round, me?.bank, room?.settings.bidStep, room, me])
+  }, [room, me])
 
   // Keep custom bank draft synced with room settings
   useEffect(() => {
@@ -657,7 +656,7 @@ export default function OnlineMultiplayer({
             <span>
               {fmtMoney(settings.startingBank)} start · {settings.startingLives}{' '}
               {settings.startingLives === 1 ? 'heart' : 'hearts'}
-              {settings.stipend > 0 ? ` · +${fmtMoney(settings.stipend)}/rnd` : ''}
+              {settings.interestRate > 0 ? ` · ${settings.interestRate}% interest` : ''}
               {settings.roundTimerSec > 0 ? ` · ${fmtTimer(settings.roundTimerSec)} timer` : ''}
             </span>
           </div>
@@ -696,8 +695,7 @@ export default function OnlineMultiplayer({
               </span>
               <span className="payday-host-settings__summary">
                 {fmtMoney(settings.startingBank)} · {settings.startingLives} ♥
-                {settings.stipend > 0 ? ` · +${fmtMoney(settings.stipend)}/rnd` : ''}
-                {' · '}${settings.bidStep} step
+                {settings.interestRate > 0 ? ` · ${settings.interestRate}% interest` : ''}
                 {settings.roundTimerSec > 0 ? ` · ${fmtTimer(settings.roundTimerSec)}` : ' · No timer'}
               </span>
               <span className="payday-host-settings__chevron" aria-hidden="true">
@@ -764,7 +762,10 @@ export default function OnlineMultiplayer({
                           −
                         </button>
                         <span className="payday-setting-stepper__val">
-                          {settings.startingLives} ♥
+                          {settings.startingLives}{' '}
+                          <span className="payday-setting-stepper__heart" aria-hidden="true">
+                            ♥
+                          </span>
                         </span>
                         <button
                           type="button"
@@ -783,32 +784,16 @@ export default function OnlineMultiplayer({
                     </div>
 
                     <div className="payday-setting-group">
-                      <span className="payday-setting-label">Per-Round Stipend</span>
+                      <span className="payday-setting-label">Interest Rate</span>
                       <div className="payday-setting-chips">
-                        {[0, 500, 1000].map((inc) => (
+                        {INTEREST_RATE_OPTIONS.map((rate) => (
                           <button
-                            key={inc}
+                            key={rate}
                             type="button"
-                            className={`payday-setting-chip${settings.stipend === inc ? ' active' : ''}`}
-                            onClick={() => handleUpdateSetting({ stipend: inc })}
+                            className={`payday-setting-chip${settings.interestRate === rate ? ' active' : ''}`}
+                            onClick={() => handleUpdateSetting({ interestRate: rate })}
                           >
-                            {inc === 0 ? 'Off' : `+$${inc.toLocaleString()}`}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="payday-setting-group">
-                      <span className="payday-setting-label">Bid Step</span>
-                      <div className="payday-setting-chips">
-                        {[1, 50, 100].map((st) => (
-                          <button
-                            key={st}
-                            type="button"
-                            className={`payday-setting-chip${settings.bidStep === st ? ' active' : ''}`}
-                            onClick={() => handleUpdateSetting({ bidStep: st })}
-                          >
-                            ${st}
+                            {rate === 0 ? 'Off' : `${rate}%`}
                           </button>
                         ))}
                       </div>
@@ -817,7 +802,7 @@ export default function OnlineMultiplayer({
                     <div className="payday-setting-group">
                       <span className="payday-setting-label">Round Timer</span>
                       <div className="payday-setting-chips">
-                        {[0, 120, 300].map((sec) => (
+                        {ROUND_TIMER_OPTIONS.map((sec) => (
                           <button
                             key={sec}
                             type="button"
@@ -839,13 +824,8 @@ export default function OnlineMultiplayer({
                       Hearts: <strong>{settings.startingLives} ♥</strong>
                     </span>
                     <span>
-                      Stipend:{' '}
-                      <strong>
-                        {settings.stipend > 0 ? `+${fmtMoney(settings.stipend)}/rnd` : 'None'}
-                      </strong>
-                    </span>
-                    <span>
-                      Step: <strong>${settings.bidStep}</strong>
+                      Interest:{' '}
+                      <strong>{settings.interestRate > 0 ? `${settings.interestRate}%` : 'None'}</strong>
                     </span>
                     <span>
                       Timer: <strong>{fmtTimer(settings.roundTimerSec)}</strong>
@@ -954,17 +934,11 @@ export default function OnlineMultiplayer({
                   : `${readyHumans.length} / ${aliveHumans.length}`}
               </div>
             </div>
-            <div className="payday-metric payday-metric--pot">
-              <div>
-                <div className="payday-metric__label">Total Burned</div>
-                <div className="payday-metric__value">{fmtMoney(room.totalPot)}</div>
+            <div className="payday-metric">
+              <div className="payday-metric__label">Interest Rate</div>
+              <div className="payday-metric__value">
+                {settings.interestRate > 0 ? `${settings.interestRate}%` : 'Off'}
               </div>
-              <CashStack
-                ratio={Math.min(1, room.totalPot / Math.max(1, settings.startingBank * players.length * 0.55))}
-                maxBills={8}
-                variant="burn"
-                size="sm"
-              />
             </div>
           </section>
 
@@ -1037,17 +1011,16 @@ export default function OnlineMultiplayer({
                 <>
                   <div className="payday-bid-header">
                     <h2>Round {room.round} — Your Sealed Bid</h2>
-                    <span className="payday-bid-header__meta">
-                      {secondsLeft !== null && (
+                    {secondsLeft !== null && (
+                      <span className="payday-bid-header__meta">
                         <span
                           className={`payday-timer-pill${secondsLeft <= 15 ? ' is-urgent' : ''}`}
                         >
                           <Clock size={12} />
                           {fmtCountdown(secondsLeft)}
                         </span>
-                      )}
-                      Available: {fmtMoney(me.bank)} · After bid: {fmtMoney(me.bank - numericDraft)}
-                    </span>
+                      </span>
+                    )}
                   </div>
 
                   {me.ready && (
@@ -1066,6 +1039,7 @@ export default function OnlineMultiplayer({
                     bank={me.bank}
                     startingBank={barScale}
                     bid={numericDraft}
+                    interestRate={settings.interestRate}
                   />
 
                   <div className="payday-bid-row">

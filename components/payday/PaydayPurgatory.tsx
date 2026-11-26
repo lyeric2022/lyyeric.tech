@@ -265,8 +265,16 @@ export function PaydayPurgatory() {
                 from their remaining bank, and all bids are permanently deducted.
               </li>
               <li>
-                The <strong>lowest contributor(s)</strong> lose 1 heart. Ties at the floor punish
-                all tied players.
+                Survivors then earn the host&apos;s <strong>interest rate</strong> on the cash left
+                after their bid. The default is <strong>0%</strong>.
+              </li>
+              <li>
+                The <strong>lowest contributor(s)</strong> lose 1 heart. Everyone tied for that
+                lowest bid loses a heart, and every bid is still burned.
+              </li>
+              <li>
+                If that heart loss would eliminate the whole table, the player with the most cash
+                left after the bid is spared. A tie there eliminates everyone.
               </li>
               <li>
                 At 0 hearts, you are eliminated. <strong>Last player standing wins.</strong>

@@ -390,7 +390,8 @@
   height: 2.35rem;
   padding: 0 1.1rem;
   border-radius: 8px;
-  background: #111827;
+  border: 1px solid #334155;
+  background: #334155;
   color: #ffffff;
   font-size: 0.88rem;
   font-weight: 600;
@@ -398,11 +399,13 @@
   cursor: pointer;
   transition:
     background-color var(--transition-fast),
+    border-color var(--transition-fast),
     transform var(--transition-fast),
     opacity var(--transition-fast);
 
   &:hover:not(:disabled) {
-    background: #000000;
+    background: #1e293b;
+    border-color: #1e293b;
   }
 
   &:active:not(:disabled) {
@@ -491,7 +494,7 @@
 .payday-slider {
   flex: 1;
   min-width: 160px;
-  accent-color: #111827;
+  accent-color: #4b5563;
   cursor: pointer;
 }
 
@@ -682,7 +685,7 @@
   > div {
     height: 100%;
     border-radius: 999px;
-    background: #111827;
+    background: rgba(15, 23, 42, 0.45);
     transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   }
 }
@@ -885,9 +888,12 @@
 
 .payday-primary-btn--danger {
   background: #be123c;
+  border-color: #be123c;
+  color: #ffffff;
 
   &:hover:not(:disabled) {
     background: #9f1239;
+    border-color: #9f1239;
   }
 }
 
@@ -1327,9 +1333,10 @@
   }
 
   &.active {
-    background: #111827;
-    border-color: #111827;
+    background: #334155;
+    border-color: #334155;
     color: #ffffff;
+    font-weight: 650;
   }
 }
 
@@ -1392,6 +1399,10 @@
     font-weight: 650;
     font-variant-numeric: tabular-nums;
     color: var(--color-text);
+  }
+
+  &__heart {
+    color: #dc2626;
   }
 }
 
@@ -1456,13 +1467,14 @@
 
 .payday-split-preview {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.45rem;
   margin-bottom: 1rem;
 
-  @media (max-width: 560px) {
+  @media (max-width: 720px) {
     grid-template-columns: 1fr;
+    justify-items: center;
   }
 }
 
@@ -1486,6 +1498,11 @@
       border-color: rgba(220, 38, 38, 0.26);
       background: linear-gradient(135deg, rgba(239, 68, 68, 0.07), rgba(255, 255, 255, 0.92));
     }
+  }
+
+  &--after {
+    border-color: rgba(5, 150, 105, 0.38);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.14), rgba(255, 255, 255, 0.94));
   }
 
   &__meta {
@@ -1529,8 +1546,8 @@
   font-size: 0.85rem;
   font-weight: 600;
 
-  @media (max-width: 560px) {
-    display: none;
+  @media (max-width: 720px) {
+    transform: rotate(90deg);
   }
 }
 

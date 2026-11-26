@@ -11,6 +11,26 @@ export function HomePage() {
   const [viewMode, setViewMode] = useState<'v2' | 'v1'>('v2')
 
   useEffect(() => {
+    const root = document.documentElement
+    history.scrollRestoration = 'auto'
+    root.classList.add('snap-hold')
+    const release = window.setTimeout(() => {
+      const restored = window.scrollY
+      root.classList.remove('snap-hold')
+      window.setTimeout(() => {
+        const page = window.innerHeight
+        if (restored < page * 0.45 && window.scrollY > page * 0.55) {
+          window.scrollTo(0, restored)
+        }
+      }, 50)
+    }, 50)
+    return () => {
+      window.clearTimeout(release)
+      root.classList.remove('snap-hold')
+    }
+  }, [])
+
+  useEffect(() => {
     const onResize = () => {
       if (window.innerWidth < 768) {
         setViewMode((prev) => (prev === 'v1' ? 'v2' : prev))
@@ -64,6 +84,7 @@ export function HomePage() {
     <div className="compact-view">
       {toggleButton}
       <FluidFieldBg />
+      <section className="compact-screen">
       <div className="compact-intro">
         <h1>I&apos;m Eric Ly</h1>
         <p>
@@ -123,6 +144,13 @@ export function HomePage() {
           <ChevronRight size={18} />
         </a>
       </footer>
+      </section>
+
+      <section className="compact-screen compact-next" aria-label="Payday Purgatory">
+        <p>
+          <Link href="/pp">Payday Purgatory</Link>. The lowest bid loses a heart.
+        </p>
+      </section>
     </div>
   )
 }

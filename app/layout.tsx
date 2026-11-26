@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Noto_Sans_JP, Source_Sans_3 } from 'next/font/google'
+import Script from 'next/script'
 import { Analytics } from '@/components/Analytics'
 import { SiteNav } from '@/components/SiteNav'
 import './globals.scss'
@@ -35,6 +36,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${sourceSans.variable} ${notoSansJp.variable}`} suppressHydrationWarning>
       <body>
+        <Script id="home-snap-hold" strategy="beforeInteractive">
+          {`if(location.pathname==='/'||location.pathname===''){try{history.scrollRestoration='auto'}catch(e){}document.documentElement.classList.add('snap-hold')}`}
+        </Script>
         <Analytics />
         <div className="writing-route">
           <SiteNav />

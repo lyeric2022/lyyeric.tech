@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Suspense } from 'react'
 import { WritingIndex } from '@/components/WritingIndex'
 import { getPosts } from '@/lib/posts'
 
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 }
 
 export default function WritingPage() {
-  return <WritingIndex posts={getPosts()} />
+  return (
+    <Suspense>
+      <WritingIndex posts={getPosts()} />
+    </Suspense>
+  )
 }

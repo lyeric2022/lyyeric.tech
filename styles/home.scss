@@ -12,19 +12,23 @@
   &.is-hidden {
     opacity: 0;
   }
+
+  @media (max-width: 768px), (hover: none) and (pointer: coarse) {
+    display: none;
+  }
 }
 
 .fluid-toggle {
   all: unset;
   box-sizing: border-box;
   position: fixed;
-  top: max(1.62rem, env(safe-area-inset-top, 0px));
-  left: max(1.62rem, env(safe-area-inset-left, 0px));
+  right: max(1.62rem, env(safe-area-inset-right, 0px));
+  bottom: max(1.35rem, env(safe-area-inset-bottom, 0px));
   z-index: 1010;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.35rem 0 0.5rem;
+  padding: 0;
   cursor: pointer;
   font-family: var(--font-family-prose);
   font-size: 0.95rem;
@@ -60,6 +64,10 @@
       transform: translateX(12px);
     }
   }
+
+  @media (max-width: 768px), (hover: none) and (pointer: coarse) {
+    display: none;
+  }
 }
 
 .fluid-toggle__label {
@@ -94,23 +102,36 @@
 
 .compact-view {
   position: relative;
-  min-height: 100vh;
   width: 100%;
-  max-width: 720px;
-  margin: 0 auto;
-  padding-top: 6rem;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
   background-color: transparent;
   color: var(--color-text);
   overflow-x: hidden;
   box-sizing: border-box;
+}
+
+.compact-screen {
+  min-height: 100vh;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 6rem 1.5rem 2rem;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  
+  scroll-snap-align: start;
+
   @media (max-width: 768px) {
     padding-top: 4rem;
   }
+}
+
+html:has(.compact-view) {
+  scroll-snap-type: y proximity;
+  overflow-anchor: none;
+}
+
+html.snap-hold:has(.compact-view) {
+  scroll-snap-type: none;
 }
 
 .compact-intro {
@@ -226,6 +247,31 @@
   }
 }
 
+.compact-next {
+  justify-content: flex-start;
+
+  p {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    max-width: 38rem;
+    font-family: var(--font-family-prose);
+    font-size: 1rem;
+    line-height: 1.45;
+    letter-spacing: -0.022em;
+    color: var(--color-text);
+
+    a {
+      color: var(--color-accent-primary);
+      text-decoration: none;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+}
+
 .webring-footer {
   position: relative;
   z-index: 1;
@@ -281,49 +327,6 @@
   animation: resumeSheetIn 0.22s ease-out;
 }
 
-.resume-modal__bar {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 1rem;
-  flex-shrink: 0;
-  padding: 0.55rem 0.75rem;
-  border-bottom: 1px solid #eee;
-
-  a {
-    color: var(--color-accent-primary);
-    text-decoration: none;
-    font-family: var(--font-family-prose);
-    font-size: 0.9rem;
-    line-height: 1;
-
-    &:hover {
-      opacity: 0.7;
-    }
-  }
-}
-
-.resume-modal__close {
-  all: unset;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  color: #666;
-  cursor: pointer;
-  line-height: 0;
-
-  &:hover {
-    color: #111;
-  }
-
-  &:focus,
-  &:focus-visible {
-    outline: none;
-  }
-}
-
 .resume-modal__page {
   flex: 1;
   min-height: 0;
@@ -350,17 +353,6 @@
     max-width: none;
     border-radius: 0;
     box-shadow: none;
-  }
-
-  .resume-modal__bar {
-    padding: 0.65rem 0.9rem;
-    padding-top: max(0.65rem, env(safe-area-inset-top));
-    padding-right: max(0.9rem, env(safe-area-inset-right));
-  }
-
-  .resume-modal__close {
-    width: 2.75rem;
-    height: 2.75rem;
   }
 
   .resume-modal__page {

@@ -1,5 +1,7 @@
 'use client'
 
+import { bankAfterRound } from '@/lib/paydayPurgatory'
+
 interface CashStackProps {
   ratio: number // 0..1
   maxBills?: number
@@ -185,27 +187,31 @@ interface BidSplitPreviewProps {
   bank: number
   startingBank: number
   bid: number
+  interestRate?: number
 }
 
 /**
  * Live visual showing your cash stack splitting into Keep vs. Burn as you slide your sealed bid.
  */
-export function BidSplitPreview({ bank, startingBank, bid }: BidSplitPreviewProps) {
+export function BidSplitPreview({
+  bank,
+  startingBank,
+  bid,
+  interestRate = 0,
+}: BidSplitPreviewProps) {
   const safeStart = Math.max(startingBank, bank, 1)
-  const keep = Math.max(0, bank - bid)
-  const keepRatio = keep / safeStart
+  const after = bankAfterRound(bank, bid, interestRate, true)
+  const nowRatio = bank / safeStart
   const burnRatio = bid / safeStart
-  const keepPct = bank > 0 ? Math.round((keep / bank) * 100) : 0
-  const burnPct = bank > 0 ? Math.round((bid / bank) * 100) : 0
+  const afterRatio = after / safeStart
 
   return (
     <div className="payday-split-preview" aria-label="Live bank and bid visual">
       <div className="payday-split-card">
-        <CashStack ratio={keepRatio} maxBills={11} variant="vault" size="md" />
+        <CashStack ratio={nowRatio} maxBills={11} variant="vault" size="sm" />
         <div className="payday-split-card__meta">
-          <span className="payday-split-card__label">Remaining Vault</span>
-          <strong className="payday-split-card__val">${keep.toLocaleString()}</strong>
-          <span className="payday-split-card__sub">{keepPct}% of current bank</span>
+          <span className="payday-split-card__label">Your Vault</span>
+          <strong className="payday-split-card__val">${Math.max(0, bank).toLocaleString()}</strong>
         </div>
       </div>
 
@@ -214,13 +220,22 @@ export function BidSplitPreview({ bank, startingBank, bid }: BidSplitPreviewProp
       </div>
 
       <div className={`payday-split-card payday-split-card--burn${bid > 0 ? ' is-active' : ''}`}>
-        <CashStack ratio={burnRatio} maxBills={11} variant="burn" size="md" />
+        <CashStack ratio={burnRatio} maxBills={11} variant="burn" size="sm" />
         <div className="payday-split-card__meta">
           <span className="payday-split-card__label">Burned This Round</span>
           <strong className="payday-split-card__val">${bid.toLocaleString()}</strong>
-          <span className="payday-split-card__sub">
-            {bid === 0 ? 'Punt ($0)' : `${burnPct}% of current bank`}
-          </span>
+        </div>
+      </div>
+
+      <div className="payday-split-divider" aria-hidden="true">
+        <span>→</span>
+      </div>
+
+      <div className="payday-split-card payday-split-card--after">
+        <CashStack ratio={afterRatio} maxBills={11} variant="vault" size="sm" />
+        <div className="payday-split-card__meta">
+          <span className="payday-split-card__label">After Round</span>
+          <strong className="payday-split-card__val">${after.toLocaleString()}</strong>
         </div>
       </div>
     </div>

@@ -207,14 +207,30 @@ function buildParticleBuffers(gridSize: number) {
   return { home, state }
 }
 
+const MOBILE_SHADER_QUERY = '(max-width: 768px), (hover: none) and (pointer: coarse)'
+
 export function FluidFieldBg() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
+  const [isMobile, setIsMobile] = useState<boolean>(true)
   const [enabled, setEnabled] = useState<boolean | null>(null)
   const [activeVariant, setActiveVariant] = useState<FluidVariantConfig | null>(null)
   const enabledRef = useRef<boolean | null>(null)
   const setEnabledRef = useRef<((next: boolean) => FluidVariantConfig | null) | null>(null)
 
   useEffect(() => {
+    const mq = window.matchMedia(MOBILE_SHADER_QUERY)
+    const sync = () => setIsMobile(mq.matches || window.innerWidth <= 768)
+    sync()
+    mq.addEventListener('change', sync)
+    window.addEventListener('resize', sync)
+    return () => {
+      mq.removeEventListener('change', sync)
+      window.removeEventListener('resize', sync)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (isMobile) return
     const canvas = canvasRef.current
     if (!canvas) return
 
@@ -427,10 +443,10 @@ export function FluidFieldBg() {
       pendingMove: false,
     }
 
-    let lastScrollY = window.scrollY
-    let scrollPulse = 0
+    let ignorePointerUntil = 0
 
     const onPointerMove = (e: PointerEvent) => {
+      if (performance.now() < ignorePointerUntil) return
       const nx = e.clientX / viewW
       const ny = 1.0 - e.clientY / viewH
       if (!pointer.hasMoved) {
@@ -461,10 +477,7 @@ export function FluidFieldBg() {
     }
 
     const onScroll = () => {
-      const y = window.scrollY
-      const dy = y - lastScrollY
-      lastScrollY = y
-      scrollPulse = Math.max(-1, Math.min(1, scrollPulse + dy * 0.008))
+      ignorePointerUntil = performance.now() + 140
     }
 
     let resizeTimer = 0
@@ -736,13 +749,6 @@ export function FluidFieldBg() {
           pointer.py = pointer.y
         }
 
-        if (Math.abs(scrollPulse) > 0.01) {
-          const sy = scrollPulse * 240
-          splat(0.16, 0.5, 0.16, 0.5 - scrollPulse * 0.04, 15, sy, [0.1, 0.08, 0], 0.005)
-          splat(0.84, 0.5, 0.84, 0.5 - scrollPulse * 0.04, -15, sy, [0.1, 0.08, 0], 0.005)
-          scrollPulse *= Math.pow(0.08, dt)
-        }
-
         stepFluid(dt)
       }
 
@@ -786,7 +792,9 @@ export function FluidFieldBg() {
       document.removeEventListener('visibilitychange', onVisibility)
       cleanup()
     }
-  }, [])
+  }, [isMobile])
+
+  if (isMobile) return null
 
   const handleToggle = () => {
     if (enabledRef.current === null) return

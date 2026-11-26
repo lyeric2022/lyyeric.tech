@@ -42,11 +42,20 @@ export const ARCHETYPES: Record<ArchetypeId, ArchetypeMeta> = {
 
 export const STARTING_BANK = 10_000
 export const STARTING_LIVES = 3
+export const INTEREST_RATE_OPTIONS = [0, 5, 10, 20] as const
+export const ROUND_TIMER_OPTIONS = [0, 60, 120] as const
+
+function snapToOption(value: number, options: readonly number[]): number {
+  return options.reduce((best, option) =>
+    Math.abs(option - value) < Math.abs(best - value) ? option : best
+  )
+}
 
 export interface GameSettings {
   startingBank: number
   startingLives: number
-  stipend: number
+  /** Percent earned each round on cash left after the bid. Survivors only. */
+  interestRate: number
   bidStep: number
   roundTimerSec: number // 0 = no timer
 }
@@ -54,9 +63,9 @@ export interface GameSettings {
 export const DEFAULT_GAME_SETTINGS: GameSettings = {
   startingBank: STARTING_BANK,
   startingLives: STARTING_LIVES,
-  stipend: 0,
-  bidStep: 50,
-  roundTimerSec: 0,
+  interestRate: 0,
+  bidStep: 1,
+  roundTimerSec: 60,
 }
 
 export function sanitizeGameSettings(raw?: Partial<GameSettings> | null): GameSettings {
@@ -68,19 +77,37 @@ export function sanitizeGameSettings(raw?: Partial<GameSettings> | null): GameSe
     1,
     Math.min(7, Math.round(Number(raw?.startingLives) || STARTING_LIVES))
   )
-  const stipend = Math.max(0, Math.min(100_000, Math.round(Number(raw?.stipend) || 0)))
-  const rawStep = Math.round(Number(raw?.bidStep) || 50)
-  const bidStep = Math.max(1, Math.min(startingBank, rawStep))
-  const rawTimer = Math.round(Number(raw?.roundTimerSec) || 0)
-  const roundTimerSec = rawTimer <= 0 ? 0 : Math.max(15, Math.min(900, rawTimer))
+  const interestRate = snapToOption(
+    Math.round(Number(raw?.interestRate) || 0),
+    INTEREST_RATE_OPTIONS
+  )
+  const rawTimer = Math.round(
+    Number(raw?.roundTimerSec ?? DEFAULT_GAME_SETTINGS.roundTimerSec)
+  )
+  const roundTimerSec = snapToOption(
+    Number.isFinite(rawTimer) ? rawTimer : DEFAULT_GAME_SETTINGS.roundTimerSec,
+    ROUND_TIMER_OPTIONS
+  )
 
   return {
     startingBank,
     startingLives,
-    stipend,
-    bidStep,
+    interestRate,
+    bidStep: 1,
     roundTimerSec,
   }
+}
+
+/** Cash left after a bid, plus interest if the player survived the round. */
+export function bankAfterRound(
+  bank: number,
+  bid: number,
+  interestRate: number,
+  stillAlive: boolean
+): number {
+  const remaining = Math.max(0, bank - bid)
+  if (!stillAlive || interestRate <= 0) return remaining
+  return Math.round(remaining * (1 + interestRate / 100))
 }
 
 const NAME_PREFIXES = [
@@ -485,7 +512,7 @@ export function resolveRound(
     const lostHeart = loserIdSet.has(p.id) ? 1 : 0
     const nextLives = Math.max(0, p.lives - lostHeart)
     const stillAlive = nextLives > 0
-    const nextBank = p.bank - bid + (stillAlive ? settings.stipend : 0)
+    const nextBank = bankAfterRound(p.bank, bid, settings.interestRate, stillAlive)
 
     if (!stillAlive) {
       eliminatedIds.push(p.id)

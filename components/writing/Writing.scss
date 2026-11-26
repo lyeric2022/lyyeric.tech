@@ -109,6 +109,15 @@
   }
 }
 
+.writing-header--back {
+  justify-content: flex-start;
+
+  @media (max-width: 1148px) {
+    right: auto;
+    left: max(1.62rem, env(safe-area-inset-left, 0px));
+  }
+}
+
 .writing-page {
   font-family: var(--font-family-prose);
   letter-spacing: -0.022em;

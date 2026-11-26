@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import type { PostKind, PostMeta } from '@/lib/posts'
 
@@ -12,16 +12,12 @@ function formatDate(dateStr: string) {
 }
 
 export function WritingIndex({ posts }: { posts: PostMeta[] }) {
-  const [tab, setTab] = useState<PostKind>('essay')
+  const router = useRouter()
+  const tab: PostKind = useSearchParams().get('tab') === 'drafts' ? 'note' : 'essay'
 
-  useEffect(() => {
-    const saved = window.localStorage.getItem('writing-tab')
-    if (saved === 'note' || saved === 'essay') setTab(saved)
-  }, [])
-
-  useEffect(() => {
-    window.localStorage.setItem('writing-tab', tab)
-  }, [tab])
+  const setTab = (next: PostKind) => {
+    router.replace(next === 'note' ? '/writing?tab=drafts' : '/writing', { scroll: false })
+  }
 
   const list = posts.filter((post) => post.kind === tab)
 
