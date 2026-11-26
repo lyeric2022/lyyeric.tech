@@ -25,11 +25,17 @@ const notoSansJp = Noto_Sans_JP({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.lyyeric.tech'),
   title: {
     default: 'Eric Ly',
     template: '%s · Eric Ly',
   },
   description: 'Eric Ly. Engineer, writing, and rankings.',
+  alternates: {
+    types: {
+      'text/markdown': '/llms.txt',
+    },
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
