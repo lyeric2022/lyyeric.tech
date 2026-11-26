@@ -4,7 +4,6 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { FluidFieldBg } from './FluidFieldBg'
-import { ResumeDialog } from './ResumeDialog'
 import { HomeV1 } from './v1/HomeV1'
 
 export function HomePage() {
@@ -108,20 +107,15 @@ export function HomePage() {
         </p>
         <p>
           I studied CS and econ at CSUF, directed{' '}
-          <a href="https://fullyhacks.acmcsuf.com/" target="_blank" rel="noopener noreferrer">
-            FullyHacks
-          </a>{' '}
-          twice, and won 7 hackathons.
+          <a href="https://fullyhacks.acmcsuf.com/" target="_blank" rel="noopener noreferrer">FullyHacks</a>, and won 7 hackathons.
         </p>
         <p>
           I&apos;m into American dynamism, YIMBYism, abundance economics, and mechanism design.
         </p>
         <p>
-          See my <Link href="/writing">writing</Link>,{' '}
-          <a href="https://www.linkedin.com/in/lyyeric/" target="_blank" rel="noopener noreferrer">
-            LinkedIn
-          </a>
-          , or <ResumeDialog />.
+          Reach me via <a href="mailto:j.lyyeric@gmail.com">email</a>,{' '}
+          <a href="https://x.com/lyyeric" target="_blank" rel="noopener noreferrer">Twitter</a>, or{' '}
+          <a href="https://www.linkedin.com/in/lyyeric/" target="_blank" rel="noopener noreferrer">LinkedIn</a>.
         </p>
       </div>
 
@@ -146,9 +140,10 @@ export function HomePage() {
       </footer>
       </section>
 
-      <section className="compact-screen compact-next" aria-label="Payday Purgatory">
+      <section className="compact-screen compact-next" aria-label="More">
+        <h2>More</h2>
         <p>
-          <Link href="/pp">Payday Purgatory</Link>. The lowest bid loses a heart.
+          <Link href="/pp">Penny PowerPlays</Link>. A game of capital, risk, and prediction.
         </p>
       </section>
     </div>
