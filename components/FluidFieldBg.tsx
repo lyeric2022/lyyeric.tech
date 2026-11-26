@@ -820,16 +820,16 @@ export function FluidFieldBg() {
           type="button"
           role="switch"
           aria-checked={enabled}
-          aria-label={enabled ? 'Turn background shader off' : 'Turn background shader on'}
+          aria-label={enabled ? 'Turn background shaders off' : 'Turn background shaders on'}
           title={
             enabled && activeVariant
               ? `${activeVariant.label} — click to turn off`
-              : 'Turn background shader on'
+              : 'Turn background shaders on'
           }
           className={`fluid-toggle${enabled ? ' is-on' : ''}`}
           onClick={handleToggle}
         >
-          <span className="fluid-toggle__label">Shader</span>
+          <span className="fluid-toggle__label">Shaders</span>
           <span
             className="fluid-toggle__track"
             style={enabled && activeVariant ? { background: activeVariant.swatch } : undefined}
